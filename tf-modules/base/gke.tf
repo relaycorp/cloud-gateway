@@ -1,5 +1,5 @@
 resource "google_container_cluster" "primary" {
-  name = "gateway-${var.environment_name}"
+  name = var.environment_name
 
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
@@ -30,7 +30,7 @@ resource "google_container_cluster" "primary" {
 }
 
 resource "google_container_node_pool" "primary" {
-  name       = "relaynet-gateway-example"
+  name       = var.environment_name
   location   = google_container_cluster.primary.location
   cluster    = google_container_cluster.primary.name
   node_count = 5
@@ -49,10 +49,4 @@ resource "google_container_node_pool" "primary" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
-}
-
-resource "google_project_service" "logging" {
-  project                    = var.gcp_project_id
-  service                    = "logging.googleapis.com"
-  disable_dependent_services = true
 }

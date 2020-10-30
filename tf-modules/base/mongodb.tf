@@ -1,3 +1,7 @@
+locals {
+  mongodb_db_name = "main"
+}
+
 resource "mongodbatlas_project" "main" {
   name   = var.environment_name
   org_id = var.mongodb_atlas_org_id
@@ -37,12 +41,16 @@ resource "mongodbatlas_cluster" "main" {
 
 resource "mongodbatlas_database_user" "main" {
   username           = "gw"
-  password           = var.mongodb_user_password
+  password           = random_password.mongodb_user_password.result
   project_id         = mongodbatlas_project.main.id
   auth_database_name = "admin"
 
   roles {
     role_name     = "readWrite"
-    database_name = var.mongodb_db_name
+    database_name = local.mongodb_db_name
   }
+}
+
+resource "random_password" "mongodb_user_password" {
+  length = 32
 }

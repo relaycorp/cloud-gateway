@@ -24,11 +24,11 @@ service:
   type: NodePort
 
 gatewayKeyId: MTM1NzkK
-pohttpHost: ${var.pohttpHost}
+pohttpHost: ${var.pohttp_host}
 
-powebHost: ${var.powebHost}
+powebHost: ${var.poweb_host}
 
-cogrpcHost: ${var.cogrpcHost}
+cogrpcHost: ${var.cogrpc_host}
 cogrpc:
   serviceAnnotations:
     cloud.google.com/app-protocols: '{"cogrpc":"HTTP2"}'
@@ -37,7 +37,7 @@ cogrpc:
     beta.cloud.google.com/backend-config: '{"ports":{"cogrpc":"cogrpc"}, "default": "cogrpc"}'
 
 mongo:
-  uri: ${lookup(mongodbatlas_cluster.main.connection_strings[0], "private_srv", mongodbatlas_cluster.main.mongo_uri)}/${var.mongodb_db_name}
+  uri: ${lookup(mongodbatlas_cluster.main.connection_strings[0], "private_srv", mongodbatlas_cluster.main.mongo_uri)}/${local.mongodb_db_name}
 
 nats:
   serverUrl: nats://example-nats.default.svc.cluster.local:4222
@@ -68,9 +68,9 @@ metadata:
   name: gateway-${var.environment_name}
 spec:
   domains:
-    - ${var.pohttpHost}
-    - ${var.powebHost}
-    - ${var.cogrpcHost}
+    - ${var.pohttp_host}
+    - ${var.poweb_host}
+    - ${var.cogrpc_host}
 ---
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
