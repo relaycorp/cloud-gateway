@@ -1,4 +1,4 @@
-module "test" {
+module "gw_test" {
   source = "../tf-modules/base"
 
   environment_name = "test"
