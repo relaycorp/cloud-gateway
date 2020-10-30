@@ -1,7 +1,3 @@
-provider "mongodbatlas" {
-  version = "~> 0.6"
-}
-
 resource "mongodbatlas_project" "main" {
   name   = var.environment_name
   org_id = var.mongodb_atlas_org_id
