@@ -13,3 +13,7 @@ provider "google-beta" {
 
   version = "~> 3.27"
 }
+
+provider "mongodbatlas" {
+  version = "~> 0.6"
+}
