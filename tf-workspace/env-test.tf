@@ -9,4 +9,6 @@ module "gw_test" {
 
   gcp_project_id       = var.gcp_project_id
   mongodb_atlas_org_id = var.mongodb_atlas_org_id
+
+  depends_on = [google_project_service.compute, google_project_service.logging]
 }
