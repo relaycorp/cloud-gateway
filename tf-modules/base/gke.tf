@@ -7,11 +7,11 @@ resource "google_container_cluster" "primary" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  // Need Kubernetes 1.17.6-gke.7 to get fix for
+  // Need Kubernetes 1.17.6-gke.7 or newer to get fix for
   // https://github.com/kubernetes/ingress-gce/issues/42
-  min_master_version = "1.17.6-gke.7"
+  min_master_version = "1.17.12"
   release_channel {
-    channel = "RAPID"
+    channel = "REGULAR"
   }
 
   master_auth {
