@@ -1,2 +1,3 @@
 /.idea
 tf-workspace/.terraform
+!/tf-workspace/.terraform/plugins/codefresh.io
