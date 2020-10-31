@@ -10,13 +10,13 @@ resource "mongodbatlas_network_peering" "main" {
   container_id   = mongodbatlas_cluster.main.container_id
   provider_name  = "GCP"
   gcp_project_id = var.gcp_project_id
-  network_name   = data.google_compute_network.main.name
+  network_name   = google_compute_network.main.name
 }
 
 resource "mongodbatlas_project_ip_whitelist" "main" {
   project_id = var.mongodb_atlas_project_id
   cidr_block = "192.168.0.0/16"
-  comment    = "Peering from network ${data.google_compute_network.main.name}"
+  comment    = "Peering from network ${google_compute_network.main.name}"
 }
 
 resource "mongodbatlas_cluster" "main" {
