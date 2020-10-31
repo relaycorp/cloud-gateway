@@ -1,5 +1,5 @@
 resource "codefresh_project" "gateway" {
   name = "cloud-gateway"
 
-  tags = ["cloud"]
+  tags = ["gateway"]
 }
