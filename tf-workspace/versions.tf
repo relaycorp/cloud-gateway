@@ -10,7 +10,7 @@ terraform {
       source = "mongodb/mongodbatlas"
     }
     codefresh = {
-      versions = ["0.1.0"]
+      version = "~> 0.0.5"
       source = "codefresh.io/app/codefresh"
     }
   }
