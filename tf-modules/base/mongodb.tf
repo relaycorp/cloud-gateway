@@ -2,13 +2,9 @@ locals {
   mongodb_db_name = "main"
 }
 
-resource "mongodbatlas_project" "main" {
-  name   = var.environment_name
-  org_id = var.mongodb_atlas_org_id
-}
-
 resource "mongodbatlas_network_peering" "main" {
-  project_id       = mongodbatlas_project.main.id
+  project_id = var.mongodb_atlas_project_id
+
   atlas_cidr_block = "192.168.0.0/16"
 
   container_id   = mongodbatlas_cluster.main.container_id
@@ -18,13 +14,14 @@ resource "mongodbatlas_network_peering" "main" {
 }
 
 resource "mongodbatlas_project_ip_whitelist" "main" {
-  project_id = mongodbatlas_project.main.id
+  project_id = var.mongodb_atlas_project_id
   cidr_block = "192.168.0.0/16"
   comment    = "Peering from network ${data.google_compute_network.main.name}"
 }
 
 resource "mongodbatlas_cluster" "main" {
-  project_id = mongodbatlas_project.main.id
+  project_id = var.mongodb_atlas_project_id
+
   name       = "main"
   num_shards = 1
 
@@ -40,9 +37,10 @@ resource "mongodbatlas_cluster" "main" {
 }
 
 resource "mongodbatlas_database_user" "main" {
+  project_id = var.mongodb_atlas_project_id
+
   username           = "gw"
   password           = random_password.mongodb_user_password.result
-  project_id         = mongodbatlas_project.main.id
   auth_database_name = "admin"
 
   roles {
