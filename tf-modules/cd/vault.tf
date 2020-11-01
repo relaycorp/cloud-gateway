@@ -28,7 +28,7 @@ resource "codefresh_pipeline" "test" {
       name                = "commits"
       provider            = "github"
       repo                = "relaycorp/cloud-gateway"
-      branch_regex        = "^master$"
+      branch_regex        = "/^master$/"
       type                = "git"
     }
 
