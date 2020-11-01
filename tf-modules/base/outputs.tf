@@ -1,3 +1,7 @@
+output "environment_name" {
+  value = var.environment_name
+}
+
 output "mongodb_user_name" {
   value = mongodbatlas_database_user.main.username
 }

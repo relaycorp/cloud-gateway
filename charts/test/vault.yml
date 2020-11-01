@@ -1,0 +1,7 @@
+values:
+  server:
+    dev:
+      enabled: true
+    image:
+      extraEnvironmentVars:
+        VAULT_DEV_ROOT_TOKEN_ID: letmein

@@ -16,3 +16,10 @@ module "gw_test" {
     google_project_service.container,
   ]
 }
+
+module "gw_test_cd" {
+  source = "../tf-modules/cd"
+
+  environment_name = module.gw_test.environment_name
+  cf_project_name  = codefresh_project.gateway.name
+}
