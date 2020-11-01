@@ -8,6 +8,10 @@ terraform {
       source  = "hashicorp/google-beta"
       version = "~> 3.27"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 1.13.3"
+    }
     mongodbatlas = {
       source  = "mongodb/mongodbatlas"
       version = "~> 0.6"

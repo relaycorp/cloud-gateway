@@ -88,3 +88,11 @@ spec:
     port: 8082
 EOF
 }
+
+output "gke_cluster_endpoint" {
+  value = google_container_cluster.primary.endpoint
+}
+
+output "cd_service_account_secret" {
+  value = kubernetes_service_account.cd.secret
+}
