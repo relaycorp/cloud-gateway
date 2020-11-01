@@ -13,6 +13,10 @@ terraform {
       version = "~> 0.0.5"
       source  = "codefresh.io/app/codefresh"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.0.0"
+    }
   }
   required_version = ">= 0.13"
 }
