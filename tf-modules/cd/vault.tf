@@ -5,7 +5,7 @@ resource "codefresh_pipeline" "test" {
     ]
   }
 
-  name = "${var.cf_project_name}/vault"
+  name = "${var.cf_project_name}/vault-${var.environment_name}"
 
   tags = [
     "gateway",
@@ -33,7 +33,7 @@ resource "codefresh_pipeline" "test" {
     }
 
     variables = {
-      FOO = "var"
+      KUBERNETES_CONTEXT = var.cf_kubernetes_context
     }
   }
 }
