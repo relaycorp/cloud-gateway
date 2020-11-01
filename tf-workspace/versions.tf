@@ -1,17 +1,20 @@
 terraform {
   required_providers {
     google = {
-      source = "hashicorp/google"
+      source  = "hashicorp/google"
+      version = "~> 3.27"
     }
     google-beta = {
-      source = "hashicorp/google-beta"
+      source  = "hashicorp/google-beta"
+      version = "~> 3.27"
     }
     mongodbatlas = {
-      source = "mongodb/mongodbatlas"
+      source  = "mongodb/mongodbatlas"
+      version = "~> 0.6"
     }
     codefresh = {
-      version = "~> 0.0.5"
       source  = "codefresh.io/app/codefresh"
+      version = "~> 0.0.5"
     }
     random = {
       source  = "hashicorp/random"
