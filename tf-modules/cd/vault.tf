@@ -24,7 +24,7 @@ resource "codefresh_pipeline" "test" {
       events = [
         "push.heads"
       ]
-      modified_files_glob = "charts/**/vault.yml"
+      modified_files_glob = "**/vault.yml"
       name                = "commits"
       provider            = "github"
       repo                = "relaycorp/cloud-gateway"
@@ -34,6 +34,13 @@ resource "codefresh_pipeline" "test" {
 
     variables = {
       KUBERNETES_CONTEXT = var.cf_kubernetes_context
+    }
+
+    spec_template {
+      repo     = "relaycorp/cloud-gateway"
+      path     = "./cf-pipelines/vault.yml"
+      revision = "master"
+      context  = "git"
     }
   }
 }
