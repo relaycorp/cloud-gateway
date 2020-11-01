@@ -11,7 +11,7 @@ terraform {
     }
     codefresh = {
       version = "~> 0.0.5"
-      source = "codefresh.io/app/codefresh"
+      source  = "codefresh.io/app/codefresh"
     }
   }
   required_version = ">= 0.13"

@@ -22,7 +22,7 @@ resource "mongodbatlas_project_ip_whitelist" "main" {
 resource "mongodbatlas_cluster" "main" {
   project_id = var.mongodb_atlas_project_id
 
-  name       = var.environment_name
+  name       = local.env_full_name
   num_shards = 1
 
   replication_factor           = 3
@@ -39,7 +39,7 @@ resource "mongodbatlas_cluster" "main" {
 resource "mongodbatlas_database_user" "main" {
   project_id = var.mongodb_atlas_project_id
 
-  username           = "gateway-${var.environment_name}"
+  username           = local.env_full_name
   password           = random_password.mongodb_user_password.result
   auth_database_name = "admin"
 

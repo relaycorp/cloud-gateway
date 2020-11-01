@@ -14,7 +14,7 @@ ingress:
   apiVersion: networking.k8s.io/v1beta1
   annotations:
     kubernetes.io/ingress.global-static-ip-name: ${google_compute_global_address.managed_tls_cert.name}
-    networking.gke.io/managed-certificates: gateway-${var.environment_name}
+    networking.gke.io/managed-certificates: gateway-${local.env_full_name}
     kubernetes.io/ingress.allow-http: "false"
   enableTls: true
 
@@ -65,7 +65,7 @@ output "gcp_crds" {
 apiVersion: networking.gke.io/v1beta2
 kind: ManagedCertificate
 metadata:
-  name: gateway-${var.environment_name}
+  name: gateway-${local.env_full_name}
 spec:
   domains:
     - ${var.pohttp_host}
