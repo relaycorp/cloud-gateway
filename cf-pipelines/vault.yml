@@ -1,8 +1,17 @@
 version: "1.0"
 stages:
-  - "deploy"
+  - clone
+  - deploy
 
 steps:
+  clone:
+    title: "Cloning repository"
+    type: "git-clone"
+    repo: "${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}"
+    revision: "${{CF_REVISION}}"
+    git: "github"
+    stage: "clone"
+
   deploy:
     title: "Deploy Vault with Helm"
     type: helm
