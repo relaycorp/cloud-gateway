@@ -4,7 +4,7 @@ stages:
   - deploy
 
 steps:
-  clone:
+  main_clone:
     title: "Cloning repository"
     type: "git-clone"
     repo: "${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}"
