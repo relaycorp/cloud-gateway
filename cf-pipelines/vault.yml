@@ -4,7 +4,7 @@ stages:
 
 steps:
   deploy:
-    title: "Deploy with Helm"
+    title: "Deploy Vault with Helm"
     type: helm
     arguments:
       action: install
