@@ -21,7 +21,7 @@ resource "codefresh_pipeline" "test" {
     priority    = 5
 
     trigger {
-      context     = "git"
+      context     = "github"
       description = "Trigger for commits"
       disabled    = false
       events = [
