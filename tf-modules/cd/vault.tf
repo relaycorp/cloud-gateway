@@ -1,7 +1,10 @@
 resource "codefresh_pipeline" "test" {
   lifecycle {
     ignore_changes = [
-      revision
+      revision,
+
+      // See: https://github.com/codefresh-io/terraform-provider-codefresh/issues/21
+      project_id
     ]
   }
 
