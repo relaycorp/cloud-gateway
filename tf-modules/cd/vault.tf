@@ -43,7 +43,7 @@ resource "codefresh_pipeline" "test" {
       repo     = "relaycorp/cloud-gateway"
       path     = "./cf-pipelines/vault.yml"
       revision = "main"
-      context  = "git"
+      context  = "github"
     }
   }
 }
