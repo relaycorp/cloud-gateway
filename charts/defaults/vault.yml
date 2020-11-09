@@ -1,1 +1,6 @@
-chart_version: "0.0.8"
+server:
+  dev:
+    enabled: true
+  image:
+    extraEnvironmentVars:
+      VAULT_DEV_ROOT_TOKEN_ID: letmein
