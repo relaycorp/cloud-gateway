@@ -18,7 +18,7 @@ resource "google_kms_crypto_key" "vault_auto_unseal" {
 resource "google_project_iam_custom_role" "vault_auto_unseal" {
   project = var.gcp_project_id
 
-  role_id     = "${local.env_full_name}-vault-auto-unseal"
+  role_id     = "${replace(local.env_full_name, "-", "_")}.vault_auto_unseal"
   title       = "Vault auto-unseal"
   permissions = ["cloudkms.cryptoKeys.get"]
 
