@@ -19,7 +19,7 @@ resource "kubernetes_secret" "vault_cd" {
 
 resource "kubernetes_config_map" "vault_cd" {
   metadata {
-    name = "vault-cd"
+    name = "vault-config"
   }
 
   data = {

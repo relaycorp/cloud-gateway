@@ -2,19 +2,17 @@ global:
   enabled: true
 
 server:
-  extraArgs: -config=/vault/userconfig/config-maps/vault-cd/partial-vault.hcl
+  extraArgs: -config=/vault/userconfig/vault-config/partial-vault.hcl
 
   extraEnvironmentVars:
     GOOGLE_REGION: global
-    GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/secrets/vault-cd/service_account_key.json
+    GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/vault-cd/service_account_key.json
 
   extraVolumes:
     - type: secret
       name: vault-cd
-      path: /vault/userconfig/secrets
     - type: configMap
-      name: vault-cd
-      path: /vault/userconfig/config-maps
+      name: vault-config
 
   ha:
     enabled: true
