@@ -23,12 +23,17 @@ resource "kubernetes_config_map" "vault_cd" {
   }
 
   data = {
-    "gcpckms.hcl" = <<EOF
+    "partial-vault.hcl" = <<EOF
       seal "gcpckms" {
         project     = "${var.gcp_project_id}"
         region      = "global"
         key_ring    = "${google_kms_key_ring.main.name}"
         crypto_key  = "${google_kms_crypto_key.vault_auto_unseal.name}"
+      }
+
+      storage "gcs" {
+        bucket     = "${google_storage_bucket.vault.name}"
+        ha_enabled = "true"
       }
 EOF
   }
@@ -74,4 +79,28 @@ data "google_iam_policy" "vault_auto_unseal" {
 resource "google_kms_crypto_key_iam_policy" "crypto_key" {
   crypto_key_id = google_kms_crypto_key.vault_auto_unseal.id
   policy_data   = data.google_iam_policy.vault_auto_unseal.policy_data
+}
+
+// GCS storage backend
+
+resource "google_storage_bucket" "vault" {
+  name          = "relaycorp-${local.env_full_name}-vault"
+  storage_class = "REGIONAL"
+  location      = upper(var.gcp_region)
+
+  uniform_bucket_level_access = true
+
+  versioning {
+    enabled = true
+  }
+
+  labels = {
+    env_name = var.environment_name
+  }
+}
+
+resource "google_storage_bucket_iam_member" "vault_storage" {
+  bucket = google_storage_bucket.vault.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.vault.email}"
 }

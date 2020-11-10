@@ -2,7 +2,7 @@ global:
   enabled: true
 
 server:
-  extraArgs: -config=/vault/userconfig/config-maps/vault-cd/gcpckms.hcl
+  extraArgs: -config=/vault/userconfig/config-maps/vault-cd/partial-vault.hcl
 
   extraEnvironmentVars:
     GOOGLE_REGION: global
