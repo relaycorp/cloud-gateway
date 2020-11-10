@@ -7,7 +7,9 @@ module "gw_test" {
   poweb_host  = "poweb-test.relaycorp.tech"
   cogrpc_host = "cogrpc-test.relaycorp.tech"
 
-  gcp_project_id           = var.gcp_project_id
+  gcp_project_id = var.gcp_project_id
+  gcp_region     = "europe-west2"
+
   mongodb_atlas_project_id = var.mongodb_atlas_project_id
 }
 
