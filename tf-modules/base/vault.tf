@@ -13,7 +13,7 @@ resource "kubernetes_secret" "vault_cd" {
   }
 
   data = {
-    "service_account_key.json" = google_service_account_key.vault.private_key
+    "service_account_key.json" = base64decode(google_service_account_key.vault.private_key)
   }
 }
 
