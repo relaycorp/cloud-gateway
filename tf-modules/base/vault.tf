@@ -1,6 +1,6 @@
 resource "google_service_account" "vault" {
-  account_id = "${local.env_full_name}-vault"
   project    = var.gcp_project_id
+  account_id = "${local.env_full_name}-vault"
 }
 
 // Auto-unseal
@@ -15,10 +15,22 @@ resource "google_kms_crypto_key" "vault_auto_unseal" {
   }
 }
 
-resource "google_kms_key_ring_iam_member" "vault_auto_unseal" {
-  key_ring_id = google_kms_key_ring.main.id
-  role        = "roles/cloudkms.cryptoKeys.get"
-  member      = "serviceAccount:${google_service_account.vault.email}"
+resource "google_project_iam_custom_role" "vault_auto_unseal" {
+  project = var.gcp_project_id
+
+  role_id     = "${local.env_full_name}-vault-auto-unseal"
+  title       = "Vault auto-unseal"
+  permissions = ["cloudkms.cryptoKeys.get"]
+
+  // TODO: Add conditions to restrict it to one keyring
+}
+
+resource "google_project_iam_binding" "vault_auto_unseal" {
+  role = google_project_iam_custom_role.vault_auto_unseal.id
+
+  members = [
+    "serviceAccount:${google_service_account.vault.email}"
+  ]
 }
 
 data "google_iam_policy" "vault_auto_unseal" {
