@@ -1,4 +1,4 @@
-resource "codefresh_pipeline" "test" {
+resource "codefresh_pipeline" "vault" {
   lifecycle {
     ignore_changes = [
       revision,
@@ -8,7 +8,7 @@ resource "codefresh_pipeline" "test" {
     ]
   }
 
-  name = "${var.cf_project_name}/vault-${var.environment_name}"
+  name = "${var.cf_project_name}/${var.environment_name}: vault"
 
   tags = [
     "gateway",
@@ -58,7 +58,7 @@ resource "codefresh_pipeline" "vault_deprovision" {
     ]
   }
 
-  name = "${var.cf_project_name}/vault-deprovision-${var.environment_name}"
+  name = "${var.cf_project_name}/${var.environment_name}: vault-deprovision"
 
   tags = [
     "gateway",
