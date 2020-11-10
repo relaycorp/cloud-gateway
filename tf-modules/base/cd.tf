@@ -57,3 +57,13 @@ data "kubernetes_secret" "cd_service_access" {
     namespace = local.cd_sa_namespace
   }
 }
+
+resource "kubernetes_secret" "cd_credentials" {
+  metadata {
+    name = "cd-credentials"
+  }
+
+  data = {
+    vault_sa_key = google_service_account_key.vault.private_key
+  }
+}

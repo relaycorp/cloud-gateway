@@ -3,6 +3,10 @@ resource "google_service_account" "vault" {
   account_id = "${local.env_full_name}-vault"
 }
 
+resource "google_service_account_key" "vault" {
+  service_account_id = google_service_account.vault.name
+}
+
 // Auto-unseal
 
 resource "google_kms_crypto_key" "vault_auto_unseal" {
