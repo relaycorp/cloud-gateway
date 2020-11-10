@@ -2,7 +2,7 @@ version: "1.0"
 stages:
   - clone
   - deploy
-
+  - configure
 steps:
   clone:
     title: "Cloning repository"
@@ -27,3 +27,11 @@ steps:
         - cloud-gateway/charts/defaults/vault.yml
       custom_values:
         - server_extraEnvironmentVars_GOOGLE__PROJECT=${{GCP_PROJECT_ID}}
+
+  configure:
+    title: Configure Vault
+    type: freestyle
+    stage: configure
+    image: codefresh/kubectl:1.18.2
+    commands:
+      - kubectl config get-contexts
