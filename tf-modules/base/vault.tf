@@ -15,14 +15,15 @@ resource "google_kms_crypto_key" "vault_auto_unseal" {
   }
 }
 
+resource "google_kms_key_ring_iam_member" "vault_auto_unseal" {
+  key_ring_id = google_kms_key_ring.main.id
+  role        = "roles/cloudkms.cryptoKeys.get"
+  member      = "serviceAccount:${google_service_account.vault.email}"
+}
+
 data "google_iam_policy" "vault_auto_unseal" {
   binding {
     role    = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
-    members = ["serviceAccount:${google_service_account.vault.email}"]
-  }
-
-  binding {
-    role    = "roles/cloudkms.cryptoKeys.get"
     members = ["serviceAccount:${google_service_account.vault.email}"]
   }
 }
