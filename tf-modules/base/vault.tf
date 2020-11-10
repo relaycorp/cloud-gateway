@@ -7,6 +7,33 @@ resource "google_service_account_key" "vault" {
   service_account_id = google_service_account.vault.name
 }
 
+resource "kubernetes_secret" "vault_cd" {
+  metadata {
+    name = "vault-cd"
+  }
+
+  data = {
+    "service_account_key.json" = google_service_account_key.vault.private_key
+  }
+}
+
+resource "kubernetes_config_map" "vault_cd" {
+  metadata {
+    name = "vault-cd"
+  }
+
+  data = {
+    "gcpckms.hcl" = <<EOF
+      seal "gcpckms" {
+        project     = "${var.gcp_project_id}"
+        region      = "global"
+        key_ring    = "${google_kms_key_ring.main.name}"
+        crypto_key  = "${google_kms_crypto_key.vault_auto_unseal.name}"
+      }
+EOF
+  }
+}
+
 // Auto-unseal
 
 resource "google_kms_crypto_key" "vault_auto_unseal" {
