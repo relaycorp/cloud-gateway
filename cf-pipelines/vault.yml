@@ -25,3 +25,6 @@ steps:
       kube_context: ${{KUBERNETES_CONTEXT}}
       custom_value_files:
         - charts/defaults/vault.yml
+      commands:
+        - pwd
+        - ls -lA
