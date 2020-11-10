@@ -25,6 +25,10 @@ steps:
       kube_context: ${{KUBERNETES_CONTEXT}}
       custom_value_files:
         - charts/defaults/vault.yml
-      commands:
-        - pwd
-        - ls -lA
+      hooks:
+        on_fail:
+          exec:
+            image: alpine:3.9
+            commands:
+              - pwd
+              - ls -lA
