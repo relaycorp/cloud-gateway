@@ -12,9 +12,19 @@ steps:
     git: "github"
     stage: "clone"
 
+  temp:
+    title: "Temp step"
+    type: freestyle
+    arguments:
+      image: 'alpine:3.8'
+      commands:
+        - pwd
+        - ls -lA
+
   deploy:
     title: "Deploy Vault with Helm"
     type: helm
+    stage: deploy
     arguments:
       action: install
       chart_name: vault
