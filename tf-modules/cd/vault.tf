@@ -47,3 +47,38 @@ resource "codefresh_pipeline" "test" {
     }
   }
 }
+
+resource "codefresh_pipeline" "vault_deprovision" {
+  lifecycle {
+    ignore_changes = [
+      revision,
+
+      // See: https://github.com/codefresh-io/terraform-provider-codefresh/issues/21
+      project_id
+    ]
+  }
+
+  name = "${var.cf_project_name}/vault-deprovision-${var.environment_name}"
+
+  tags = [
+    "gateway",
+    "env-${var.environment_name}",
+    "service-vault"
+  ]
+
+  spec {
+    concurrency = 1
+    priority    = 5
+
+    variables = {
+      KUBERNETES_CONTEXT = var.cf_kubernetes_context
+    }
+
+    spec_template {
+      repo     = "relaycorp/cloud-gateway"
+      path     = "./cf-pipelines/vault-deprovision.yml"
+      revision = "main"
+      context  = "github"
+    }
+  }
+}
