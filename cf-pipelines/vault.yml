@@ -34,4 +34,5 @@ steps:
     stage: configure
     image: codefresh/kubectl:1.18.2
     commands:
-      - kubectl config get-contexts
+      - export POD_NAME="$(kubectl get pod -l app.kubernetes.io/name=vault --no-headers --output=jsonpath='{.items[0].metadata.name}')"
+      - echo $POD_NAME
