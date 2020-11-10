@@ -35,4 +35,5 @@ steps:
     image: codefresh/kubectl:1.18.2
     commands:
       - export POD_NAME="$(kubectl get pod -l app.kubernetes.io/name=vault --no-headers --output=jsonpath='{.items[0].metadata.name}')"
-      - echo $POD_NAME
+      - kubectl exec "${POD_NAME}" -- vault operator init -status
+      - kubectl exec "${POD_NAME}" -- vault secrets enable -path=gw-keys kv-v2
