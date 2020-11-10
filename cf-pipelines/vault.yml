@@ -25,3 +25,5 @@ steps:
       kube_context: ${{KUBERNETES_CONTEXT}}
       custom_value_files:
         - cloud-gateway/charts/defaults/vault.yml
+      custom_values:
+        - server_extraEnvironmentVars_GOOGLE__PROJECT=${{GCP_PROJECT_ID}}

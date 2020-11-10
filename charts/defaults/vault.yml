@@ -1,6 +1,30 @@
+global:
+  enabled: true
+
 server:
-  dev:
+  extraArgs: -config=/vault/userconfig/config-maps/vault-cd/gcpckms.hcl
+
+  extraEnvironmentVars:
+    GOOGLE_REGION: global
+    GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/secrets/vault-cd/service_account_key.json
+
+  extraVolumes:
+    - type: secret
+      name: vault-cd
+      path: /vault/userconfig/secrets
+    - type: configMap
+      name: vault-cd
+      path: /vault/userconfig/config-maps
+
+  ha:
     enabled: true
-  image:
-    extraEnvironmentVars:
-      VAULT_DEV_ROOT_TOKEN_ID: letmein
+    replicas: 3
+
+    config: |
+      ui = true
+
+      listener "tcp" {
+        tls_disable = 1
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+      }
