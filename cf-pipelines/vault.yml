@@ -35,8 +35,20 @@ steps:
     image: codefresh/kubectl:1.18.2
     commands:
       - cloud-gateway/cf-pipelines/scripts/configure-vault.sh "${{KEYBASE_USERNAME}}" "${{VAULT_KV_PREFIX}}"
-      - ls -lA sensitive
       - cf_export VAULT_INIT_PRESENT="$(find . -name vault-init.asc -maxdepth 1 -exec echo true \;)"
+
+  retrieve_service_account_credentials:
+    title: Retrieve service account credentials
+    type: freestyle
+    stage: configure
+    image: codefresh/kubectl:1.18.2
+    commands:
+      - kubectl get secret vault-cd -o "jsonpath={.data['service_account_key\.json']}" | base64 --decode > sensitive/gcp-creds.json
+      - ls -lA sensitive
+#    when:
+#      condition:
+#        all:
+#          vaultInitIsPresent: "'${{VAULT_INIT_PRESENT}}' == 'true'"
 
   upload_vault_keys:
     title: Upload Vault keys
