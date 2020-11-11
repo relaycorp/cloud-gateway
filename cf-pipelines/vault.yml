@@ -43,6 +43,7 @@ steps:
     stage: configure
     image: codefresh/kubectl:1.18.2
     commands:
+      - ls -lA sensitive
       - kubectl get secret vault-cd -o "jsonpath={.data['service_account_key\.json']}" | base64 --decode > sensitive/gcp-creds.json
       - ls -lA sensitive
 #    when:
