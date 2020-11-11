@@ -2,7 +2,6 @@
 set -o nounset
 set -o errexit
 set -o pipefail
-shopt -s expand_aliases
 
 # Constants
 
@@ -15,11 +14,11 @@ vault() {
   kubectl exec "${POD_NAME}" -- vault "${@}"
 }
 
-is_vault_initialized() {
+is_vault_initialised() {
   vault operator init -status
 }
 
-initialize_vault() {
+initialise_vault() {
   vault operator init \
     -format=json \
     -recovery-shares="${RECOVERY_SHARES}" \
@@ -38,15 +37,20 @@ enable_kv_engine() {
 KEYBASE_USERNAME="$1"
 VAULT_KV_PREFIX="$2"
 
-POD_NAME="$(kubectl get pod \
-  -l app.kubernetes.io/name=vault \
-  --no-headers \
-  --output=jsonpath='{.items[0].metadata.name}'
-  )"
+POD_NAME="$(
+  kubectl get pod \
+    -l app.kubernetes.io/name=vault \
+    --no-headers \
+    --output=jsonpath='{.items[0].metadata.name}'
+)"
 
-if ! is_vault_initialized; then
+if is_vault_initialised; then
+  echo "Vault is already initialised"
+else
+  echo "Vault is not initialised; will initialise it..."
+
   # Can't redirect to file directly due to permission issues; has to be done via `cat`
-  initialize_vault | cat > vault-init.json
+  initialise_vault | cat >vault-init.json
 
   root_token="$(jq --raw-output .root_token vault-init.json)"
   enable_kv_engine "${VAULT_KV_PREFIX}" "${root_token}"
