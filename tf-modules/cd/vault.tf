@@ -37,6 +37,7 @@ resource "codefresh_pipeline" "vault" {
 
     variables = {
       KUBERNETES_CONTEXT = var.cf_kubernetes_context
+      VAULT_KV_PREFIX    = local.vault_kv_prefix
     }
 
     spec_template {
