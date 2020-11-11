@@ -49,3 +49,10 @@ steps:
       condition:
         all:
           vaultInitIsPresent: ${{VAULT_INIT_PRESENT}} == "true"
+
+hooks:
+  on_finish:
+    exec:
+      image: alpine
+      commands:
+        - rm -f vault-init.asc
