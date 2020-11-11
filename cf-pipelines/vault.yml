@@ -31,8 +31,20 @@ steps:
   configure:
     title: Configure Vault
     type: freestyle
-    stage: configure
+    stage: deploy
     image: codefresh/kubectl:1.18.2
     commands:
       - cloud-gateway/cf-pipelines/scripts/configure-vault.sh "${{KEYBASE_USERNAME}}" "${{VAULT_KV_PREFIX}}"
-      - ls -lA
+      - cf_export VAULT_INIT_PRESENT="$(find . -name vault-init.asc -maxdepth 1 -exec echo true \;)"
+
+  upload_vault_keys:
+    title: Upload Vault keys
+    type: freestyle
+    stage: configure
+    image: google/cloud-sdk:318.0.0-alpine
+    commands:
+      - gcloud components install gsutil
+    when:
+      condition:
+        all:
+          vaultInitIsPresent: ${{VAULT_INIT_PRESENT}} == "true"
