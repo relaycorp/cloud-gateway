@@ -2,7 +2,6 @@ version: "1.0"
 stages:
   - clone
   - deploy
-  - configure
 steps:
   clone:
     title: "Cloning repository"
@@ -40,24 +39,30 @@ steps:
   retrieve_service_account_credentials:
     title: Retrieve service account credentials
     type: freestyle
-    stage: configure
+    stage: deploy
     image: codefresh/kubectl:1.18.2
     commands:
-      - ls -lA sensitive
       - kubectl get secret vault-cd -o "jsonpath={.data['service_account_key\.json']}" | base64 --decode > sensitive/gcp-creds.json
-      - ls -lA sensitive
-#    when:
-#      condition:
-#        all:
-#          vaultInitIsPresent: "'${{VAULT_INIT_PRESENT}}' == 'true'"
+    when:
+      condition:
+        all:
+          vaultInitIsPresent: "'${{VAULT_INIT_PRESENT}}' == 'true'"
 
   upload_vault_keys:
     title: Upload Vault keys
     type: freestyle
-    stage: configure
+    stage: deploy
     image: google/cloud-sdk:318.0.0-alpine
     commands:
+      - gcloud auth activate-service-account --key-file=sensitive/gcp-creds.json
       - gcloud components install gsutil
+      - gsutil cp vault-init.asc "gs://${{VAULT_BUCKET}}/relaycorp/vault-init.asc"
+    hooks:
+      on_elected:
+        exec:
+          image: codefresh/kubectl:1.18.2
+          commands:
+            - cf_export VAULT_BUCKET="$(kubectl get cm vault-config -o 'jsonpath={.data.bucket}')"
     when:
       condition:
         all:
