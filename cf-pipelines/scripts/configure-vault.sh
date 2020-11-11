@@ -57,7 +57,7 @@ else
   initialise_vault | cat >vault-init.json
 
   wait_for_vault_unseal
-  sleep 3s
+  sleep 15s
 
   root_token="$(jq --raw-output .root_token vault-init.json)"
   enable_kv_engine "${VAULT_KV_PREFIX}" "${root_token}"
