@@ -48,7 +48,7 @@ steps:
     when:
       condition:
         all:
-          vaultInitIsPresent: ${{VAULT_INIT_PRESENT}} == true
+          vaultInitIsPresent: "'${{VAULT_INIT_PRESENT}}' == 'true'"
 
 hooks:
   on_finish:
