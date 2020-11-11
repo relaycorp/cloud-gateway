@@ -35,3 +35,4 @@ steps:
     image: codefresh/kubectl:1.18.2
     commands:
       - cloud-gateway/cf-pipelines/scripts/configure-vault.sh "${{KEYBASE_USERNAME}}" "${{VAULT_KV_PREFIX}}"
+      - ls -lA
