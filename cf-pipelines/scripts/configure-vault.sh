@@ -51,14 +51,13 @@ POD_NAME="$(
 if is_vault_initialised; then
   echo "Vault is already initialised"
 else
-  echo "Vault is not initialised; will initialise it..."
-
+  echo -n "Vault is not initialised; will initialise it... "
   # Can't redirect to file directly due to permission issues; has to be done via `cat`
   initialise_vault | cat >vault-init.json
-
   wait_for_vault_unseal
-  sleep 15s
+  echo "Done."
 
+  sleep 5s  # Wait a bit longer for the KV endpoint to become operational
   root_token="$(jq --raw-output .root_token vault-init.json)"
   enable_kv_engine "${VAULT_KV_PREFIX}" "${root_token}"
 fi
