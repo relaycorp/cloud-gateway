@@ -42,7 +42,7 @@ enable_kv_engine() {
 keybase_encrypt() {
   local keybase_username="$1"
 
-  apk add --update gnupg
+  apk add --update --quiet gnupg
 
   local public_key_url="https://keybase.io/${keybase_username}/pgp_keys.asc"
   gpg --recipient-file <(curl --silent "${public_key_url}") --encrypt --armor
