@@ -48,6 +48,18 @@ steps:
         all:
           vaultInitIsPresent: "'${{VAULT_INIT_PRESENT}}' == 'true'"
 
+  retrieve_bucket_name:
+    title: Retrieve Vault bucket name
+    type: freestyle
+    stage: deploy
+    image: codefresh/kubectl:1.18.2
+    commands:
+      - cf_export VAULT_BUCKET="$(kubectl get cm vault-config -o 'jsonpath={.data.bucket}')"
+    when:
+      condition:
+        all:
+          vaultInitIsPresent: "'${{VAULT_INIT_PRESENT}}' == 'true'"
+
   upload_vault_keys:
     title: Upload Vault keys
     type: freestyle
@@ -57,12 +69,6 @@ steps:
       - gcloud auth activate-service-account --key-file=sensitive/gcp-creds.json
       - gcloud components install gsutil
       - gsutil cp vault-init.asc "gs://${{VAULT_BUCKET}}/relaycorp/vault-init.asc"
-    hooks:
-      on_elected:
-        exec:
-          image: codefresh/kubectl:1.18.2
-          commands:
-            - cf_export VAULT_BUCKET="$(kubectl get cm vault-config -o 'jsonpath={.data.bucket}')"
     when:
       condition:
         all:
