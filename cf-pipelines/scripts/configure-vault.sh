@@ -26,6 +26,10 @@ initialise_vault() {
     -recovery-pgp-keys="keybase:${KEYBASE_USERNAME},keybase:${KEYBASE_USERNAME},keybase:${KEYBASE_USERNAME}"
 }
 
+wait_for_vault_unseal() {
+  timeout 15 kubectl exec "${POD_NAME}" -- sh -c "while ! vault status >>dev/null; do sleep 1; done"
+}
+
 enable_kv_engine() {
   local kv_prefix="$1"
   local vault_token="$2"
@@ -51,6 +55,8 @@ else
 
   # Can't redirect to file directly due to permission issues; has to be done via `cat`
   initialise_vault | cat >vault-init.json
+
+  wait_for_vault_unseal
 
   root_token="$(jq --raw-output .root_token vault-init.json)"
   enable_kv_engine "${VAULT_KV_PREFIX}" "${root_token}"
