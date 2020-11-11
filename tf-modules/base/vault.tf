@@ -36,6 +36,8 @@ resource "kubernetes_config_map" "vault_cd" {
         ha_enabled = "true"
       }
 EOF
+
+    bucket = google_storage_bucket.vault.name
   }
 }
 
