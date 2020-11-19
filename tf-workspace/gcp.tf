@@ -21,3 +21,9 @@ resource "google_project_service" "cloudkms" {
   service                    = "cloudkms.googleapis.com"
   disable_dependent_services = true
 }
+
+resource "google_project_service" "servicenetworking" {
+  project                    = var.gcp_project_id
+  service                    = "servicenetworking.googleapis.com"
+  disable_dependent_services = true
+}
