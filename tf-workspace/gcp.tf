@@ -27,3 +27,9 @@ resource "google_project_service" "servicenetworking" {
   service                    = "servicenetworking.googleapis.com"
   disable_dependent_services = true
 }
+
+resource "google_project_service" "sqladmin" {
+  project                    = var.gcp_project_id
+  service                    = "sqladmin.googleapis.com"
+  disable_dependent_services = true
+}
