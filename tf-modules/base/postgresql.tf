@@ -1,4 +1,4 @@
-# PostgreSQL instance used by NATS Streaming
+# PostgreSQL instance used by NATS Streaming (aka Stan)
 
 resource "google_compute_global_address" "postgresql" {
   provider = google-beta
