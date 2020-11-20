@@ -1,4 +1,4 @@
-resource "google_container_cluster" "main" {
+resource "google_container_cluster" "primary" {
   name = local.env_full_name
 
   # We can't create a cluster with no node pool defined, but we want to only use
@@ -26,18 +26,16 @@ resource "google_container_cluster" "main" {
   # Make cluster VPC-native (alias IP) so we can connect to GCP services
   ip_allocation_policy {}
 
-  network = google_compute_network.main.self_link
-
   provider = google-beta
 }
 
-resource "google_container_node_pool" "main" {
+resource "google_container_node_pool" "primary" {
   name       = local.env_full_name
-  location   = google_container_cluster.main.location
-  cluster    = google_container_cluster.main.name
+  location   = google_container_cluster.primary.location
+  cluster    = google_container_cluster.primary.name
   node_count = 5
 
-  version = google_container_cluster.main.master_version
+  version = google_container_cluster.primary.master_version
 
   node_config {
     machine_type = "n1-standard-1"
