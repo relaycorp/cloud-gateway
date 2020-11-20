@@ -104,6 +104,10 @@ resource "codefresh_pipeline" "stan" {
 
     variables = {
       KUBERNETES_CONTEXT = var.cf_kubernetes_context
+
+      DB_HOST = google_sql_database_instance.postgresql.private_ip_address
+      DB_NAME = google_sql_database.postgresql_stan.name
+      DB_USER = google_sql_user.postgresql_stan.name
     }
 
     spec_template {
