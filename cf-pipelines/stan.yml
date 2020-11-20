@@ -11,6 +11,14 @@ steps:
     git: "github"
     stage: "clone"
 
+  retrieve_db_password:
+    title: Retrieve DB user password
+    type: freestyle
+    stage: deploy
+    image: codefresh/kubectl:1.18.2
+    commands:
+      - cf_export DB_PASSWORD="$(kubectl get secret stan-cd -o "jsonpath={.data.postgresql_user_password}")"
+
   deploy:
     title: "Deploy NATS Streaming with Helm"
     type: helm
@@ -25,3 +33,9 @@ steps:
       kube_context: ${{KUBERNETES_CONTEXT}}
       custom_value_files:
         - cloud-gateway/charts/defaults/stan.yml
+      custom_values:
+        - "store.sql.dbHost=${{ DB_HOST }}"
+        - "store.sql.dbName=${{ DB_NAME }}"
+        - "store.sql.dbUser=${{ DB_USER }}"
+        - "store.sql.dbPassword=${{ DB_PASSWORD }}"
+        - "store.sql.source=host=${{ DB_HOST }} dbname=${{ DB_NAME }} user=${{ DB_USER }} password=${{ DB_PASSWORD }} sslmode=require"

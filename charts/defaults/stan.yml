@@ -6,3 +6,9 @@ securityContext:
   fsGroup: 1000
   runAsUser: 1000
   runAsNonRoot: true
+store:
+  sql:
+    driver: postgres
+    initdb:
+      enabled: true
+      image: postgres:12
