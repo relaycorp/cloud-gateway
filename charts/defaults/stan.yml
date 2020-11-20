@@ -1,0 +1,8 @@
+nameOverride: stan
+stan:
+  nats:
+    url: nats://nats:4222
+securityContext:
+  fsGroup: 1000
+  runAsUser: 1000
+  runAsNonRoot: true

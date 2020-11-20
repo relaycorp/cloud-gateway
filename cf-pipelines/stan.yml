@@ -1,0 +1,27 @@
+version: "1.0"
+stages:
+  - clone
+  - deploy
+steps:
+  clone:
+    title: "Cloning repository"
+    type: "git-clone"
+    repo: "${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}"
+    revision: "${{CF_REVISION}}"
+    git: "github"
+    stage: "clone"
+
+  deploy:
+    title: "Deploy NATS Streaming with Helm"
+    type: helm
+    stage: deploy
+    arguments:
+      action: install
+      chart_name: stan
+      chart_version: 0.7.2
+      chart_repo_url: https://nats-io.github.io/k8s/helm/charts
+      release_name: nats-main
+      helm_version: 3.3.1
+      kube_context: ${{KUBERNETES_CONTEXT}}
+      custom_value_files:
+        - cloud-gateway/charts/defaults/stan.yml
