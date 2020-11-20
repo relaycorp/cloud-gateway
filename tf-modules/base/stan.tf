@@ -119,12 +119,12 @@ resource "codefresh_pipeline" "stan" {
   }
 }
 
-resource "kubernetes_secret" "stan_cd" {
-  metadata {
-    name = "stan-cd"
-  }
-
-  data = {
-    postgresql_user_password = google_sql_user.postgresql_stan.password
-  }
-}
+//resource "kubernetes_secret" "stan_cd" {
+//  metadata {
+//    name = "stan-cd"
+//  }
+//
+//  data = {
+//    postgresql_user_password = google_sql_user.postgresql_stan.password
+//  }
+//}
