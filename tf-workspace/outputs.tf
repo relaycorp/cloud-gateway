@@ -4,7 +4,7 @@ output "gw_test_cd_connection" {
   value = <<EOF
 cluster_endpoint: ${module.gw_test.gke_cluster_endpoint}
 cluster_ca_certificate: ${module.gw_test.gke_cluster_ca_certificate}
-sa_token: ${base64encode(module.gw_test_gke_access.cd_service_account_secret)}
+sa_token: ${base64encode(module.gw_test.cd_service_account_secret)}
 EOF
 
   sensitive = true
