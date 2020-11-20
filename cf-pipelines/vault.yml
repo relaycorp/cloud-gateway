@@ -18,6 +18,7 @@ steps:
     arguments:
       action: install
       chart_name: vault
+      chart_version: 0.8.0
       chart_repo_url: https://helm.releases.hashicorp.com
       release_name: main
       helm_version: 3.3.1
