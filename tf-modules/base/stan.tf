@@ -13,16 +13,6 @@ resource "random_password" "postgresql_stan" {
   length = 32
 }
 
-resource "kubernetes_secret" "stan_cd" {
-  metadata {
-    name = "stan-cd"
-  }
-
-  data = {
-    postgresql_user_password = google_sql_user.postgresql_stan.password
-  }
-}
-
 // Continuous Deployment
 
 resource "codefresh_pipeline" "nats" {
@@ -122,5 +112,15 @@ resource "codefresh_pipeline" "stan" {
       revision = "main"
       context  = "github"
     }
+  }
+}
+
+resource "kubernetes_secret" "stan_cd" {
+  metadata {
+    name = "stan-cd"
+  }
+
+  data = {
+    postgresql_user_password = google_sql_user.postgresql_stan.password
   }
 }
