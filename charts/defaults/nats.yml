@@ -4,4 +4,4 @@ securityContext:
   runAsUser: 1000
   runAsNonRoot: true
 natsbox:
-  credentials: null
+  enabled: false
