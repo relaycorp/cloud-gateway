@@ -14,8 +14,6 @@ module "gw_test" {
 
   cf_kubernetes_context = "gateway-test"
   cf_project_name       = codefresh_project.gateway.name
-
-  depends_on = [module.gw_test_cd]
 }
 
 module "gw_test_cd" {
