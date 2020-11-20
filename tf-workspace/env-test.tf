@@ -15,7 +15,3 @@ module "gw_test" {
   cf_kubernetes_context = "gateway-test"
   cf_project_name       = codefresh_project.gateway.name
 }
-
-module "gw_test_cd" {
-  source = "../tf-modules/cd"
-}
