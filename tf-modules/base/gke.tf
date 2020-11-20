@@ -23,8 +23,6 @@ resource "google_container_cluster" "main" {
     }
   }
 
-  location = var.gcp_region
-
   # Make cluster VPC-native (alias IP) so we can connect to GCP services
   ip_allocation_policy {}
 
