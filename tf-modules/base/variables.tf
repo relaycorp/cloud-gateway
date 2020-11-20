@@ -8,3 +8,6 @@ variable "mongodb_atlas_project_id" {}
 
 variable gcp_project_id {}
 variable gcp_region {}
+
+variable "cf_project_name" {}
+variable "cf_kubernetes_context" {}

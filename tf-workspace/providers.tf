@@ -12,3 +12,6 @@ provider "google-beta" {
 
 provider "mongodbatlas" {
 }
+
+provider "codefresh" {
+}
