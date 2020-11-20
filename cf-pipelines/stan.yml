@@ -34,8 +34,8 @@ steps:
       custom_value_files:
         - cloud-gateway/charts/defaults/stan.yml
       custom_values:
-        - "store.sql.dbHost=${{ DB_HOST }}"
-        - "store.sql.dbName=${{ DB_NAME }}"
-        - "store.sql.dbUser=${{ DB_USER }}"
-        - "store.sql.dbPassword=${{ DB_PASSWORD }}"
-        - "store.sql.source=host=${{ DB_HOST }} dbname=${{ DB_NAME }} user=${{ DB_USER }} password=${{ DB_PASSWORD }} sslmode=require"
+        - "store.sql.dbHost=${{DB_HOST}}"
+        - "store.sql.dbName=${{DB_NAME}}"
+        - "store.sql.dbUser=${{DB_USER}}"
+        - "store.sql.dbPassword=${{DB_PASSWORD}}"
+        - "store.sql.source=host=${{DB_HOST}} dbname=${{DB_NAME}} user=${{DB_USER}} password=${{DB_PASSWORD}} sslmode=require"
