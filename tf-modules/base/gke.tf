@@ -26,6 +26,8 @@ resource "google_container_cluster" "primary" {
   # Make cluster VPC-native (alias IP) so we can connect to GCP services
   ip_allocation_policy {}
 
+  location = var.gcp_region
+
   provider = google-beta
 }
 
