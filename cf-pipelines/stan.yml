@@ -15,11 +15,9 @@ steps:
     title: Configure gcloud
     type: freestyle
     stage: setup
-    image: codefresh/kubectl:1.18.2
     commands:
       - echo "${{GCP_SA_PRIVATE_KEY}}" > sensitive/gcp-credentials.json
       - cf_export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/sensitive/gcp-credentials.json"
-      - ls -lh sensitive/gcp-credentials.json
 
   retrieve_db_password:
     title: Retrieve DB user password
