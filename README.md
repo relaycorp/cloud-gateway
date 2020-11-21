@@ -17,3 +17,11 @@ For example, to obtain the connection arguments for the test environment, run:
 ```
 terraform output gw_test_cd_connection
 ```
+
+## Authenticate CodeFresh with GCP
+
+We have to manually copy a key for the service account used by CodeFresh, and paste it as a project-level secret by the name of `GCP_SA_PRIVATE_KEY`.
+
+The key can be retrieved from the Terraform console, using the expression `google_service_account_key.codefresh.private_key`.
+
+Unfortunately, this means we have to manually rotate the key periodically.

@@ -120,6 +120,15 @@ resource "codefresh_pipeline" "stan" {
   }
 }
 
+module "stan_db_password" {
+  source = "../codefresh_secret"
+
+  secret_id                       = "${local.env_full_name}-stan-db-password"
+  secret_value                    = google_sql_user.postgresql_stan.password
+  codefresh_service_account_email = var.codefresh.service_account_email
+  gcp_labels                      = local.gcp_resource_labels
+}
+
 resource "kubernetes_secret" "stan_cd" {
   metadata {
     name = "stan-cd"
