@@ -40,7 +40,4 @@ steps:
         - "store.sql.dbName=${{DB_NAME}}"
         - "store.sql.dbUser=${{DB_USER}}"
         - "store.sql.dbPassword=${{DB_PASSWORD}}"
-
-        # TODO: Require TLS
-#        - "store.sql.source=host=${{DB_HOST}} dbname=${{DB_NAME}} user=${{DB_USER}} password=${{DB_PASSWORD}} sslmode=require"
-        - "store.sql.source=host=${{DB_HOST}} dbname=${{DB_NAME}} user=${{DB_USER}} password=${{DB_PASSWORD}} sslmode=prefer"
+        - "store.sql.source=host=${{DB_HOST}} dbname=${{DB_NAME}} user=${{DB_USER}} password=${{DB_PASSWORD}} sslmode=require"
