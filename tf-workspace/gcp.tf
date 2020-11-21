@@ -33,3 +33,9 @@ resource "google_project_service" "sqladmin" {
   service                    = "sqladmin.googleapis.com"
   disable_dependent_services = true
 }
+
+resource "google_project_service" "secretmanager" {
+  project                    = var.gcp_project_id
+  service                    = "secretmanager.googleapis.com"
+  disable_dependent_services = true
+}
