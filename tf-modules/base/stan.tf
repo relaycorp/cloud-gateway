@@ -131,13 +131,3 @@ module "stan_db_password" {
   codefresh_service_account_email = var.codefresh.service_account_email
   gcp_labels                      = local.gcp_resource_labels
 }
-
-resource "kubernetes_secret" "stan_cd" {
-  metadata {
-    name = "stan-cd"
-  }
-
-  data = {
-    postgresql_user_password = google_sql_user.postgresql_stan.password
-  }
-}

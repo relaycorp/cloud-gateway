@@ -14,20 +14,19 @@ steps:
   gcp_sa:
     title: Configure gcloud
     type: freestyle
+    image: google/cloud-sdk:318.0.0-alpine
     stage: setup
     commands:
       - echo "${{GCP_SA_PRIVATE_KEY}}" > sensitive/gcp-credentials.json
-      - cf_export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/sensitive/gcp-credentials.json"
+      - gcloud auth activate-service-account --key-file=sensitive/gcp-credentials.json
 
-  retrieve_db_password:
-    title: Retrieve DB user password
+  retrieve_secrets:
+    title: Retrieve secrets
     type: freestyle
     stage: deploy
-    image: codefresh/kubectl:1.18.2
+    image: google/cloud-sdk:318.0.0-alpine
     commands:
-      - kubectl config use-context "${{KUBERNETES_CONTEXT}}"
-      - export DB_PASSWORD="$(kubectl get secret stan-cd -o "jsonpath={.data.postgresql_user_password}" | base64 -d)"
-      - cf_export DB_PASSWORD
+      - cf_export DB_PASSWORD="$(gcloud secrets versions access "${{DB_PASSWORD_SECRET_VERSION}}" --secret="${{DB_PASSWORD_SECRET_ID}}")"
 
   deploy:
     title: "Deploy NATS Streaming with Helm"
