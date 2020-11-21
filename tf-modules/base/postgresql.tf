@@ -47,7 +47,7 @@ resource "google_sql_database_instance" "postgresql" {
     ip_configuration {
       ipv4_enabled    = false
       private_network = google_compute_network.main.self_link
-      require_ssl     = true
+      require_ssl     = false # Don't require client-side certificates
     }
   }
 }
