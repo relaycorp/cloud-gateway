@@ -17,6 +17,7 @@ steps:
     stage: deploy
     image: codefresh/kubectl:1.18.2
     commands:
+      - kubectl config get-contexts
       - cf_export DB_PASSWORD="$(kubectl get secret stan-cd -o "jsonpath={.data.postgresql_user_password}" | base64 -d)"
       # TODO: REMOVE
       - echo "${{DB_PASSWORD}}" | wc -c
