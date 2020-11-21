@@ -43,7 +43,7 @@ steps:
     stage: deploy
     image: codefresh/kubectl:1.18.2
     commands:
-      - kubectl get secret vault-cd -o "jsonpath={.data['service_account_key\.json']}" | base64 --decode > sensitive/gcp-creds.json
+      - kubectl get secret vault-cd -o "jsonpath={.data['service_account_key\.json']}" | base64 --decode > sensitive/vault-gcp-creds.json
     when:
       condition:
         all:
@@ -67,7 +67,7 @@ steps:
     stage: deploy
     image: google/cloud-sdk:318.0.0-alpine
     commands:
-      - gcloud auth activate-service-account --key-file=sensitive/gcp-creds.json
+      - gcloud auth activate-service-account --key-file=sensitive/vault-gcp-creds.json
       - gcloud components install gsutil
       - gsutil cp vault-init.asc "gs://${{VAULT_BUCKET}}/relaycorp/vault-init.asc"
     when:
