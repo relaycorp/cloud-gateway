@@ -109,6 +109,9 @@ resource "codefresh_pipeline" "stan" {
       DB_HOST = google_sql_database_instance.postgresql.private_ip_address
       DB_NAME = google_sql_database.postgresql_stan.name
       DB_USER = google_sql_user.postgresql_stan.name
+
+      DB_PASSWORD_SECRET_ID      = module.stan_db_password.secret_id
+      DB_PASSWORD_SECRET_VERSION = module.stan_db_password.secret_version
     }
 
     spec_template {
