@@ -10,7 +10,8 @@ resource "google_sql_user" "postgresql_stan" {
 }
 // TODO: Use service accounts instead (https://github.com/relaycorp/cloud-gateway/issues/6)
 resource "random_password" "postgresql_stan" {
-  length = 32
+  length  = 32
+  special = false
 }
 
 // Continuous Deployment
