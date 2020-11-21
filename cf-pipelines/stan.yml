@@ -1,6 +1,6 @@
 version: "1.0"
 stages:
-  - clone
+  - setup
   - deploy
 steps:
   clone:
@@ -9,7 +9,17 @@ steps:
     repo: "${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}"
     revision: "${{CF_REVISION}}"
     git: "github"
-    stage: "clone"
+    stage: setup
+
+  gcp_sa:
+    title: Configure gcloud
+    type: freestyle
+    stage: setup
+    image: codefresh/kubectl:1.18.2
+    commands:
+      - echo "${{GCP_SA_PRIVATE_KEY}}" > sensitive/gcp-credentials.json
+      - cf_export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/sensitive/gcp-credentials.json"
+      - ls -lh "${{GOOGLE_APPLICATION_CREDENTIALS}}"
 
   retrieve_db_password:
     title: Retrieve DB user password
