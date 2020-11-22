@@ -15,7 +15,7 @@ resource "google_cloudbuild_trigger" "main" {
   }
 
   included_files = [
-    "charts/helmfile.yml",
+    "charts/helmfile.yaml",
     "charts/defaults/**",
     "charts/environments/${var.environment_name}/**",
   ]
@@ -34,7 +34,7 @@ resource "google_cloudbuild_trigger" "main" {
     step {
       wait_for = ["stan-db-password-retrieval"]
       name     = "gcr.io/$PROJECT_ID/helmfile"
-      args     = ["--file", "helmfile.yml", "sync"]
+      args     = ["sync"]
       dir      = "charts"
       env = [
         "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
