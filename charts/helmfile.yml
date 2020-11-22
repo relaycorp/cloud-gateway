@@ -19,6 +19,6 @@ releases:
       - name: store.sql.dbUser
         value: {{ requiredEnv "STAN_DB_USER" | quote }}
       - name: store.sql.dbPassword
-        value: {{ readFile "/tmp/stan-db-secret" | quote }}
+        value: {{ readFile "stan-db-secret.secret" | quote }}
       - name: store.sql.source
-        value: host={{ requiredEnv "STAN_DB_HOST" }} dbname={{ requiredEnv "STAN_DB_NAME" }} user={{ requiredEnv "STAN_DB_USER" }} password={{ readFile "/tmp/stan-db-secret" }} sslmode=require
+        value: host={{ requiredEnv "STAN_DB_HOST" }} dbname={{ requiredEnv "STAN_DB_NAME" }} user={{ requiredEnv "STAN_DB_USER" }} password={{ readFile "stan-db-secret.secret" }} sslmode=require
