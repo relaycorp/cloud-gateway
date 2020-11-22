@@ -25,22 +25,28 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
 
   build {
     step {
+      id = "clone"
+
       name = "gcr.io/cloud-builders/git"
-      id   = "clone"
       args = ["clone", local.gcb_community_builders_repo]
     }
 
     step {
-      name = "gcr.io/cloud-builders/git"
-      id   = "checkout"
-      args = ["reset", "--hard", "$${_GIT_REVISION}"]
-
+      id       = "checkout"
       wait_for = ["clone"]
+
+      name       = "gcr.io/cloud-builders/git"
+      entrypoint = "bash"
+      args = [
+        "-c",
+        "cd cloud-builders-community/helmfile && git reset --hard $${_GIT_REVISION}",
+      ]
     }
 
     step {
+      wait_for = ["checkout"]
+
       name       = "gcr.io/google.com/cloudsdktool/cloud-sdk"
-      wait_for   = ["checkout"]
       entrypoint = "bash"
       args = [
         "-o",
