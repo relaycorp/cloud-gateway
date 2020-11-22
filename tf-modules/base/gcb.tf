@@ -39,11 +39,11 @@ resource "google_cloudbuild_trigger" "main" {
         "container",
         "clusters",
         "get-credentials",
+        google_container_cluster.main.name
       ]
       env = [
         "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
         "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
-        "CLOUDSDK_CONTAINER_CLUSTER=${google_container_cluster.main.name}",
       ]
     }
 
