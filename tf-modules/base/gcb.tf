@@ -50,7 +50,7 @@ resource "google_cloudbuild_trigger" "main" {
     step {
       wait_for = ["stan-db-password-retrieval", "cluster-credentials-retrieval"]
       name     = "quay.io/roboll/helmfile:helm3-v0.135.0"
-      args     = ["helmfile", "--file", "helmfile.yml", "apply"]
+      args     = ["helmfile", "--file", "helmfile.yml", "sync"]
       dir      = "charts"
       env = [
         "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
