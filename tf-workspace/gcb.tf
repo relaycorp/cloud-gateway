@@ -39,7 +39,7 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
       entrypoint = "bash"
       args = [
         "-c",
-        "cd cloud-builders-community/helmfile && git reset --hard $${_GIT_REVISION}",
+        "cd cloud-builders-community && git reset --hard $${_GIT_REVISION}",
       ]
     }
 
