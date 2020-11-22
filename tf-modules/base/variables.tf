@@ -16,3 +16,15 @@ variable "codefresh" {
 }
 variable "cf_project_name" {}
 variable "cf_kubernetes_context" {}
+
+variable "github_repo" {
+  type = object({
+    organisation = string
+    name         = string
+  })
+
+  default = {
+    organisation = "relaycorp"
+    name         = "cloud-gateway"
+  }
+}
