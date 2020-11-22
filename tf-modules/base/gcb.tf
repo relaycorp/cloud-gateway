@@ -34,7 +34,6 @@ resource "google_cloudbuild_trigger" "main" {
     step {
       id         = "cluster-credentials-retrieval"
       name       = "gcr.io/google.com/cloudsdktool/cloud-sdk:319.0.0-alpine"
-      entrypoint = "gcloud"
       args = [
         "gcloud",
         "container",
