@@ -53,7 +53,7 @@ keybase_encrypt() {
 KEYBASE_USERNAME="$1"
 VAULT_KV_PREFIX="$2"
 
-gcloud components install gsutil kubernetes
+gcloud components install gsutil kubectl
 
 gcloud container clusters get-credentials "${CLOUDSDK_CONTAINER_CLUSTER}"
 
