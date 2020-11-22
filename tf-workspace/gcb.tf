@@ -13,7 +13,6 @@ resource "google_project_iam_member" "gcb_gke_developer" {
 resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
   name = "gcb-builder-helmfile"
 
-  # This is just a hack to be able to trigger the build manually
   github {
     owner = "relaycorp"
     name  = "cloud-gateway"
@@ -21,6 +20,7 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
       branch = "^main$"
     }
   }
+  // Only run this manually
   ignored_files = ["**"]
 
   build {
@@ -50,10 +50,6 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
       name       = "gcr.io/cloud-builders/git"
       entrypoint = "bash"
       args       = ["pipeline-scripts/gcb-helmfile-set-versions.sh"]
-      env = [
-        "HELM_VERSION=3.4.1",
-        "HELMFILE_VERSION=0.135.0",
-      ]
     }
 
     step {
