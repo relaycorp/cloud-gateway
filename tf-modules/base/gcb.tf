@@ -32,14 +32,28 @@ resource "google_cloudbuild_trigger" "main" {
     }
 
     step {
-      wait_for = ["stan-db-password-retrieval"]
-      name     = "gcr.io/$PROJECT_ID/helmfile"
+      id         = "cluster-credentials-retrieval"
+      name       = "gcr.io/google.com/cloudsdktool/cloud-sdk:319.0.0-alpine"
+      entrypoint = "gcloud"
+      args = [
+        "gcloud",
+        "container",
+        "clusters",
+        "get-credentials",
+      ]
+      env = [
+        "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
+        "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
+        "CLOUDSDK_CONTAINER_CLUSTER=${google_container_cluster.main.name}",
+      ]
+    }
+
+    step {
+      wait_for = ["stan-db-password-retrieval", "cluster-credentials-retrieval"]
+      name     = "quay.io/roboll/helmfile:helm3-v0.135.0"
       args     = ["--file", "helmfile.yml", "apply"]
       dir      = "charts"
       env = [
-        "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
-        "CLOUDSDK_CONTAINER_CLUSTER=${google_container_cluster.main.name}",
-
         "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
         "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
         "STAN_DB_USER=${google_sql_user.postgresql_stan.name}",
