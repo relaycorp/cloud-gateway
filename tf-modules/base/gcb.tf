@@ -26,6 +26,15 @@ resource "google_cloudbuild_trigger" "main" {
       args = ["log", "HEAD^.."]
     }
 
+    step {
+      name       = "gcr.io/cloud-builders/gcloud"
+      entrypoint = "bash"
+      args = [
+        "-c",
+        "gcloud secrets versions access '${module.cf_stan_db_password.secret_version}' --secret=${module.cf_stan_db_password.secret_id} > /tmp/stan-db-secret"
+      ]
+    }
+
     logs_bucket = "gs://${google_storage_bucket.gcb_build_logs.name}/main"
   }
 

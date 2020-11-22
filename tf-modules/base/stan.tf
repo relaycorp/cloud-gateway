@@ -110,8 +110,8 @@ resource "codefresh_pipeline" "stan" {
       DB_NAME = google_sql_database.postgresql_stan.name
       DB_USER = google_sql_user.postgresql_stan.name
 
-      DB_PASSWORD_SECRET_ID      = module.stan_db_password.secret_id
-      DB_PASSWORD_SECRET_VERSION = module.stan_db_password.secret_version
+      DB_PASSWORD_SECRET_ID      = module.cf_stan_db_password.secret_id
+      DB_PASSWORD_SECRET_VERSION = module.cf_stan_db_password.secret_version
     }
 
     spec_template {
@@ -124,10 +124,19 @@ resource "codefresh_pipeline" "stan" {
 }
 
 module "stan_db_password" {
-  source = "../codefresh_secret"
+  source = "../cd_secret"
 
-  secret_id                       = "${local.env_full_name}-stan-db-password"
-  secret_value                    = google_sql_user.postgresql_stan.password
-  codefresh_service_account_email = var.codefresh.service_account_email
-  gcp_labels                      = local.gcp_resource_labels
+  secret_id                      = "${local.env_full_name}-stan-db-password"
+  secret_value                   = google_sql_user.postgresql_stan.password
+  accessor_service_account_email = local.gcb_service_account_email
+  gcp_labels                     = local.gcp_resource_labels
+}
+
+module "cf_stan_db_password" {
+  source = "../cd_secret"
+
+  secret_id                      = "cf-${local.env_full_name}-stan-db-password"
+  secret_value                   = google_sql_user.postgresql_stan.password
+  accessor_service_account_email = var.codefresh.service_account_email
+  gcp_labels                     = local.gcp_resource_labels
 }

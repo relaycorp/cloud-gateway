@@ -16,5 +16,5 @@ resource "google_secret_manager_secret_version" "main" {
 resource "google_secret_manager_secret_iam_binding" "main" {
   secret_id = google_secret_manager_secret.main.secret_id
   role      = "roles/secretmanager.secretAccessor"
-  members   = ["serviceAccount:${var.codefresh_service_account_email}"]
+  members   = ["serviceAccount:${var.accessor_service_account_email}"]
 }
