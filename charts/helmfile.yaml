@@ -1,6 +1,8 @@
 repositories:
   - name: nats
     url: https://nats-io.github.io/k8s/helm/charts
+  - name: hashicorp
+    url: https://helm.releases.hashicorp.com
 
 helmDefaults:
   wait: true
@@ -27,3 +29,11 @@ releases:
     version: 0.7.2
     values:
       - defaults/nats.yml
+  - name: main  # TODO: Rename to "vault"
+    chart: hashicorp/vault
+    version: 0.8.0
+    values:
+      - defaults/vault.yml
+    set:
+      - name: server.extraEnvironmentVars.GOOGLE_PROJECT
+        value: {{ requiredEnv "CLOUDSDK_CORE_PROJECT" | quote }}

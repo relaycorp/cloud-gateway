@@ -1,3 +1,10 @@
+locals {
+  vault = {
+    kv_prefix        = "gw-keys"
+    keybase_username = "gnarea"
+  }
+}
+
 resource "google_service_account" "vault" {
   project    = var.gcp_project_id
   account_id = "${local.env_full_name}-vault"
@@ -146,7 +153,7 @@ resource "codefresh_pipeline" "vault" {
 
     variables = {
       KUBERNETES_CONTEXT = var.cf_kubernetes_context
-      VAULT_KV_PREFIX    = local.vault_kv_prefix
+      VAULT_KV_PREFIX    = local.vault.kv_prefix
     }
 
     spec_template {
