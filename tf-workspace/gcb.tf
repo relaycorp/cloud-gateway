@@ -5,9 +5,10 @@ locals {
   gcb_community_builders_revision = "82588e81d18a0f2bd6fd1177257875d0601a542e"
 }
 
-resource "google_project_iam_member" "gcb_gke_developer" {
-  role   = "roles/container.developer"
-  member = "serviceAccount:${local.gcb_service_account_email}"
+resource "google_project_iam_member" "gcb_editor" {
+  // Grants SREs permission to start and cancel builds
+  role   = "roles/cloudbuild.builds.editor"
+  member = var.sre_iam_uri
 }
 
 resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
