@@ -10,7 +10,7 @@ releases:
     chart: nats/stan
     version: 0.7.2
     values:
-      - charts/defaults/stan.yml
+      - defaults/stan.yml
     set:
       - name: store.sql.dbHost
         value: {{ requiredEnv "STAN_DB_HOST" | quote }}
@@ -19,6 +19,6 @@ releases:
       - name: store.sql.dbUser
         value: {{ requiredEnv "STAN_DB_USER" | quote }}
       - name: store.sql.dbPassword
-        value: {{ readFile "/workspace/stan-db.secret" | quote }}
+        value: {{ readFile "stan-db.secret" | quote }}
       - name: store.sql.source
-        value: host={{ requiredEnv "STAN_DB_HOST" }} dbname={{ requiredEnv "STAN_DB_NAME" }} user={{ requiredEnv "STAN_DB_USER" }} password={{ readFile "/workspace/stan-db.secret" }} sslmode=require
+        value: host={{ requiredEnv "STAN_DB_HOST" }} dbname={{ requiredEnv "STAN_DB_NAME" }} user={{ requiredEnv "STAN_DB_USER" }} password={{ readFile "stan-db.secret" }} sslmode=require

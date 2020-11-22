@@ -27,14 +27,15 @@ resource "google_cloudbuild_trigger" "main" {
       entrypoint = "bash"
       args = [
         "-c",
-        "gcloud secrets versions access '${module.stan_db_password.secret_version}' --secret=${module.stan_db_password.secret_id} > /workspace/stan-db.secret"
+        "gcloud secrets versions access '${module.stan_db_password.secret_version}' --secret=${module.stan_db_password.secret_id} > stan-db.secret"
       ]
     }
 
     step {
       wait_for = ["stan-db-password-retrieval"]
       name     = "gcr.io/$PROJECT_ID/helmfile"
-      args     = ["--file", "charts/helmfile.yml", "apply"]
+      args     = ["--file", "helmfile.yml", "apply"]
+      dir      = "charts"
       env = [
         "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
         "CLOUDSDK_CONTAINER_CLUSTER=${google_container_cluster.main.name}",
