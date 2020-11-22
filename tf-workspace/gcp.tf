@@ -39,3 +39,9 @@ resource "google_project_service" "secretmanager" {
   service                    = "secretmanager.googleapis.com"
   disable_dependent_services = true
 }
+
+resource "google_project_service" "cloudbuild" {
+  project                    = var.gcp_project_id
+  service                    = "cloudbuild.googleapis.com"
+  disable_dependent_services = true
+}
