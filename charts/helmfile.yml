@@ -22,3 +22,8 @@ releases:
         value: {{ readFile "../stan-db.secret" | quote }}
       - name: store.sql.source
         value: host={{ requiredEnv "STAN_DB_HOST" }} dbname={{ requiredEnv "STAN_DB_NAME" }} user={{ requiredEnv "STAN_DB_USER" }} password={{ readFile "../stan-db.secret" }} sslmode=require
+  - name: nats
+    chart: nats/nats
+    version: 0.7.2
+    values:
+      - defaults/nats.yml

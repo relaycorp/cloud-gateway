@@ -14,58 +14,6 @@ resource "random_password" "postgresql_stan" {
   special = false
 }
 
-// Continuous Deployment
-
-resource "codefresh_pipeline" "nats" {
-  lifecycle {
-    ignore_changes = [
-      revision,
-
-      // See: https://github.com/codefresh-io/terraform-provider-codefresh/issues/21
-      project_id
-    ]
-  }
-
-  name = "${var.cf_project_name}/${var.environment_name}: NATS"
-
-  tags = [
-    "gateway",
-    "env-${var.environment_name}",
-    "service-nats"
-  ]
-
-  spec {
-    concurrency = 1
-    priority    = 5
-
-    trigger {
-      context     = "github"
-      description = "Trigger for commits"
-      disabled    = false
-      events = [
-        "push.heads"
-      ]
-      modified_files_glob = "**/nats.yml"
-      name                = "commits"
-      provider            = "github"
-      repo                = "relaycorp/cloud-gateway"
-      branch_regex        = "/^main$/"
-      type                = "git"
-    }
-
-    variables = {
-      KUBERNETES_CONTEXT = var.cf_kubernetes_context
-    }
-
-    spec_template {
-      repo     = "relaycorp/cloud-gateway"
-      path     = "./cf-pipelines/nats.yml"
-      revision = "main"
-      context  = "github"
-    }
-  }
-}
-
 module "stan_db_password" {
   source = "../cd_secret"
 
