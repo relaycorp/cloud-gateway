@@ -30,7 +30,7 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
     step {
       name       = "gcr.io/google.com/cloudsdktool/cloud-sdk"
       entrypoint = "gcloud"
-      args       = ["gcloud", "builds", "submit", "cloud-builders-community/helmfile"]
+      args       = ["builds", "submit", "cloud-builders-community/helmfile"]
     }
 
     logs_bucket = "gs://${google_storage_bucket.gcb_builder_logs.name}/helmfile"
