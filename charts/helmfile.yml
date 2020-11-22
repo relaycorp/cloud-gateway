@@ -13,12 +13,12 @@ releases:
       - cloud-gateway/charts/defaults/stan.yml
     set:
       - name: store.sql.dbHost
-        value: {{ requireEnv "DB_HOST" | quote }}
+        value: {{ requireEnv "STAN_DB_HOST" | quote }}
       - name: store.sql.dbName
-        value: {{ requireEnv "DB_NAME" | quote }}
+        value: {{ requireEnv "STAN_DB_NAME" | quote }}
       - name: store.sql.dbUser
-        value: {{ requireEnv "DB_USER" | quote }}
+        value: {{ requireEnv "STAN_DB_USER" | quote }}
       - name: store.sql.dbPassword
         value: {{ readfile "/tmp/stan-db-secret" | quote }}
       - name: store.sql.source
-        value: host={{ requireEnv "DB_HOST" }} dbname={{ requireEnv "DB_NAME" }} user={{ requireEnv "DB_USER" }} password={{ readfile "/tmp/stan-db-secret" }} sslmode=require
+        value: host={{ requireEnv "STAN_DB_HOST" }} dbname={{ requireEnv "STAN_DB_NAME" }} user={{ requireEnv "STAN_DB_USER" }} password={{ readfile "/tmp/stan-db-secret" }} sslmode=require
