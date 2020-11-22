@@ -96,9 +96,7 @@ resource "google_storage_bucket" "vault" {
     enabled = true
   }
 
-  labels = {
-    env_name = var.environment_name
-  }
+  labels = local.gcp_resource_labels
 }
 
 resource "google_storage_bucket_iam_member" "vault_storage" {
