@@ -33,7 +33,7 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
     step {
       name = "gcr.io/cloud-builders/git"
       id   = "checkout"
-      args = ["$${GIT_REVISION}"]
+      args = ["checkout", "$${GIT_REVISION}"]
 
       wait_for = ["clone"]
     }
