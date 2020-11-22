@@ -35,7 +35,7 @@ resource "google_cloudbuild_trigger" "main" {
       wait_for = ["stan-db-password-retrieval"]
       name     = "gcr.io/$PROJECT_ID/helmfile"
       args     = ["--file", "charts/helmfile.yml"]
-      env      = [
+      env = [
         "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
         "CLOUDSDK_CONTAINER_CLUSTER=${google_container_cluster.main.name}"
       ]
