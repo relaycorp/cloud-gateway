@@ -20,6 +20,7 @@ resource "google_cloudbuild_trigger" "main" {
     "charts/helmfile.yaml",
     "charts/defaults/**",
     "charts/environments/${var.environment_name}/**",
+    "pipeline-scripts/configure-vault.sh",
   ]
 
   build {
