@@ -10,9 +10,18 @@ resource "google_cloudbuild_trigger" "main" {
     }
   }
 
-  included_files = ["k8s-deployment/helmfile.yml", "charts/**"]
+  included_files = [
+    "charts/helmfile.yml",
+    "charts/defaults/**",
+    "charts/environments/${var.environment_name}/**",
+  ]
 
-  filename = "../../k8s-deployment/cloudbuild.yml"
+  build {
+    step {
+      name = "gcr.io/cloud-builders/git"
+      args = ["log", "HEAD^.."]
+    }
+  }
 
   tags = [var.environment_name]
 

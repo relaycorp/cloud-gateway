@@ -1,5 +1,0 @@
-steps:
-  - name: 'gcr.io/cloud-builders/git'
-    args:
-      - log
-      - HEAD^..
