@@ -37,17 +37,15 @@ resource "google_cloudbuild_trigger" "main" {
       args     = ["--file", "charts/helmfile.yml"]
       env = [
         "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
-        "CLOUDSDK_CONTAINER_CLUSTER=${google_container_cluster.main.name}"
+        "CLOUDSDK_CONTAINER_CLUSTER=${google_container_cluster.main.name}",
+
+        "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
+        "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
+        "STAN_DB_USER=${google_sql_user.postgresql_stan.name}",
       ]
     }
 
     logs_bucket = "gs://${google_storage_bucket.gcb_build_logs.name}/main"
-  }
-
-  substitutions = {
-    _STAN_DB_HOST = google_sql_database_instance.postgresql.private_ip_address
-    _STAN_DB_NAME = google_sql_database.postgresql_stan.name
-    _STAN_DB_USER = google_sql_user.postgresql_stan.name
   }
 
   tags = [var.environment_name]
