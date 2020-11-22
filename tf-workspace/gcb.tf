@@ -24,6 +24,7 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
   build {
     step {
       name = "gcr.io/cloud-builders/git"
+      id   = "clone"
       args = ["clone", local.gcb_community_builders_repo]
     }
 
@@ -31,6 +32,7 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
       name       = "gcr.io/google.com/cloudsdktool/cloud-sdk"
       entrypoint = "gcloud"
       args       = ["builds", "submit", "cloud-builders-community/helmfile"]
+      wait_for   = ["clone"]
     }
 
     logs_bucket = "gs://${google_storage_bucket.gcb_builder_logs.name}/helmfile"
