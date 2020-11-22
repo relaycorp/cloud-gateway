@@ -1,6 +1,5 @@
 nameOverride: stan
 stan:
-  replicas: 3
   nats:
     url: nats://nats:4222
 securityContext:
@@ -9,8 +8,6 @@ securityContext:
   runAsNonRoot: true
 store:
   type: sql
-  cluster:
-    enabled: true
   sql:
     driver: postgres
     initdb:
