@@ -49,7 +49,10 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
 
       name       = "gcr.io/cloud-builders/git"
       entrypoint = "bash"
-      args       = ["pipeline-scripts/gcb-helmfile-set-versions.sh"]
+      args       = [
+        "pipeline-scripts/gcb-helmfile-set-versions.sh",
+        "cloud-builders-community/helmfile/cloudbuild.yaml",
+      ]
     }
 
     step {
