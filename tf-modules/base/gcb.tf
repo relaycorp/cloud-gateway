@@ -23,7 +23,7 @@ resource "google_cloudbuild_trigger" "main" {
   build {
     step {
       id         = "stan-db-password-retrieval"
-      name       = "gcr.io/google.com/cloudsdktool/cloud-sdk"
+      name       = "gcr.io/google.com/cloudsdktool/cloud-sdk:319.0.0-alpine"
       entrypoint = "bash"
       args = [
         "-c",

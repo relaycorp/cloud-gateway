@@ -58,7 +58,7 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
     step {
       wait_for = ["upgrades"]
 
-      name       = "gcr.io/google.com/cloudsdktool/cloud-sdk"
+      name       = "gcr.io/google.com/cloudsdktool/cloud-sdk:319.0.0-alpine"
       entrypoint = "bash"
       args = [
         "-o",
