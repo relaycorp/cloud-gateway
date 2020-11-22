@@ -92,3 +92,20 @@ resource "google_storage_bucket_iam_member" "gcb_build_logs" {
   role   = "roles/storage.objectAdmin"
   member = "serviceAccount:${local.gcb_service_account_email}"
 }
+
+resource "google_project_iam_custom_role" "gke_mutatingWebhookConfigurations" {
+  // Needed for Vault
+  project = var.gcp_project_id
+
+  role_id     = "${replace(local.env_full_name, "-", "_")}.gke_mwc"
+  title       = "Manage GKE mutatingWebhookConfigurations"
+  permissions = ["container.mutatingWebhookConfigurations.update"]
+}
+
+resource "google_project_iam_binding" "gcb_gke_mutatingWebhookConfigurations" {
+  role = google_project_iam_custom_role.gke_mutatingWebhookConfigurations.id
+
+  members = [
+    "serviceAccount:${local.gcb_service_account_email}"
+  ]
+}
