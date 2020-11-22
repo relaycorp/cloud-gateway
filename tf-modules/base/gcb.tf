@@ -27,7 +27,7 @@ resource "google_cloudbuild_trigger" "main" {
       entrypoint = "bash"
       args = [
         "-c",
-        "gcloud secrets versions access '${module.cf_stan_db_password.secret_version}' --secret=${module.cf_stan_db_password.secret_id} > /tmp/stan-db-secret"
+        "gcloud secrets versions access '${module.stan_db_password.secret_version}' --secret=${module.stan_db_password.secret_id} > /tmp/stan-db-secret"
       ]
     }
 
