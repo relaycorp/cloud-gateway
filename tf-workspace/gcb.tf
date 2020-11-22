@@ -33,6 +33,12 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
       wait_for   = ["clone"]
       entrypoint = "bash"
       args = [
+        "-o",
+        "nounset",
+        "-o",
+        "errexit",
+        "-o",
+        "pipefail",
         "-c",
         "cd cloud-builders-community/helmfile && gcloud builds submit .",
       ]
