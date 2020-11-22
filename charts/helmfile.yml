@@ -10,7 +10,7 @@ releases:
     chart: nats/stan
     version: 0.7.2
     values:
-      - cloud-gateway/charts/defaults/stan.yml
+      - charts/defaults/stan.yml
     set:
       - name: store.sql.dbHost
         value: {{ requiredEnv "STAN_DB_HOST" | quote }}
