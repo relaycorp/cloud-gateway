@@ -11,10 +11,15 @@ resource "google_project_iam_member" "gcb_gke_developer" {
 resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
   name = "gcb-builder-helmfile"
 
-  trigger_template {
-    # This is just a hack to be able to trigger the build manually
-    branch_name = "main"
+  # This is just a hack to be able to trigger the build manually
+  github {
+    owner = "relaycorp"
+    name  = "cloud-gateway"
+    push {
+      branch = "^main$"
+    }
   }
+  ignored_files = ["**"]
 
   build {
     step {
