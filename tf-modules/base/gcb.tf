@@ -58,7 +58,9 @@ resource "google_cloudbuild_trigger" "main" {
       wait_for = ["stan-db-password-retrieval"]
 
       name = "gcr.io/$PROJECT_ID/helmfile"
-      args = ["sync"]
+      entrypoint = "bash"
+      # Make `gcloud` available where the kube config expects to find it
+      args = ["-c", "ln -s /builder/google-cloud-sdk/bin/gcloud /usr/lib/google-cloud-sdk/bin/gcloud && helmfile sync"]
       dir  = "charts"
       env = [
         "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
