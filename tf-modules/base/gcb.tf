@@ -60,7 +60,10 @@ resource "google_cloudbuild_trigger" "main" {
       name = "gcr.io/$PROJECT_ID/helmfile"
       entrypoint = "bash"
       # Make `gcloud` available where the kube config expects to find it
-      args = ["-c", "ln -s /builder/google-cloud-sdk/bin/gcloud /usr/lib/google-cloud-sdk/bin/gcloud && helmfile sync"]
+      args = [
+        "-c",
+        "mkdir -p /usr/lib/google-cloud-sdk/bin && ln -s /builder/google-cloud-sdk/bin/gcloud /usr/lib/google-cloud-sdk/bin/gcloud && helmfile sync"
+      ]
       dir  = "charts"
       env = [
         "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
