@@ -12,6 +12,8 @@ module "gw_test" {
 
   mongodb_atlas_project_id = var.mongodb_atlas_project_id
 
+  sre_iam_uri = var.sre_iam_uri
+
   codefresh = {
     service_account_email = google_service_account.codefresh.email
   }

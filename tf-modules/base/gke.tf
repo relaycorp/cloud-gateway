@@ -54,3 +54,21 @@ resource "google_container_node_pool" "main" {
     ]
   }
 }
+
+resource "google_project_iam_custom_role" "gke_mutatingWebhookConfigurations" {
+  // Needed for Vault
+  project = var.gcp_project_id
+
+  role_id     = "${replace(local.env_full_name, "-", "_")}.gke_mwc"
+  title       = "Manage GKE mutatingWebhookConfigurations"
+  permissions = ["container.mutatingWebhookConfigurations.update"]
+}
+
+resource "google_project_iam_binding" "gke_mutatingWebhookConfigurations" {
+  role = google_project_iam_custom_role.gke_mutatingWebhookConfigurations.id
+
+  members = [
+    var.sre_iam_uri,
+    "serviceAccount:${local.gcb_service_account_email}"
+  ]
+}

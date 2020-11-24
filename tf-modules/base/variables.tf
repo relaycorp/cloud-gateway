@@ -28,3 +28,5 @@ variable "github_repo" {
     name         = "cloud-gateway"
   }
 }
+
+variable "sre_iam_uri" {}
