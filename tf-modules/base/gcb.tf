@@ -1,7 +1,7 @@
 locals {
   gcb_service_account_email = "${data.google_project.main.number}@cloudbuild.gserviceaccount.com"
 
-  gcb_gcloud_image = "gcr.io/google.com/cloudsdktool/cloud-sdk:319.0.0-alpine"
+  gcb_gcloud_image = "gcr.io/google.com/cloudsdktool/cloud-sdk:319.0.0-slim"
 }
 
 resource "google_cloudbuild_trigger" "main" {
@@ -25,7 +25,26 @@ resource "google_cloudbuild_trigger" "main" {
 
   build {
     step {
-      id         = "stan-db-password-retrieval"
+      id = "cluster-credentials-retrieval"
+
+      name = local.gcb_gcloud_image
+      args = [
+        "gcloud",
+        "container",
+        "clusters",
+        "get-credentials",
+        google_container_cluster.main.name,
+      ]
+      env = [
+        "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
+        "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
+      ]
+    }
+
+    step {
+      id       = "stan-db-password-retrieval"
+      wait_for = ["cluster-credentials-retrieval"]
+
       name       = local.gcb_gcloud_image
       entrypoint = "bash"
       args = [
@@ -53,7 +72,9 @@ resource "google_cloudbuild_trigger" "main" {
     }
 
     step {
-      id         = "vault-config"
+      id       = "vault-config"
+      wait_for = ["helmfile-apply"]
+
       name       = local.gcb_gcloud_image
       entrypoint = "pipeline-scripts/configure-vault.sh"
       args       = [local.vault.keybase_username, local.vault.kv_prefix]
@@ -62,8 +83,6 @@ resource "google_cloudbuild_trigger" "main" {
         "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
         "CLOUDSDK_CONTAINER_CLUSTER=${google_container_cluster.main.name}",
       ]
-
-      wait_for = ["helmfile-apply"]
     }
 
     logs_bucket = "gs://${google_storage_bucket.gcb_build_logs.name}/main"
