@@ -16,12 +16,7 @@ resource "google_cloudbuild_trigger" "main" {
     }
   }
 
-  included_files = [
-    "charts/helmfile.yaml",
-    "charts/defaults/**",
-    "charts/environments/${var.environment_name}/**",
-    "pipeline-scripts/configure-vault.sh",
-  ]
+  included_files = ["charts/**"]
 
   build {
     step {
@@ -42,33 +37,36 @@ resource "google_cloudbuild_trigger" "main" {
     }
 
     step {
-      id       = "stan-db-password-retrieval"
+      id       = "secrets-retrieval"
       wait_for = ["cluster-credentials-retrieval"]
 
       name       = local.gcb_gcloud_image
       entrypoint = "bash"
-      args = [
-        "-c",
-        "gcloud secrets versions access '${module.stan_db_password.secret_version}' --secret=${module.stan_db_password.secret_id} > stan-db.secret"
+      args       = ["charts/scripts/retrieve-secrets.sh"]
+      env = [
+        "VAULT_SA_CREDENTIALS_SECRET_VERSION=${module.vault_sa_private_key.secret_version}",
+        "STAN_DB_PASSWORD_SECRET_VERSION=${module.stan_db_password.secret_version}",
       ]
     }
 
     step {
       id       = "helmfile-apply"
-      wait_for = ["stan-db-password-retrieval"]
+      wait_for = ["secrets-retrieval"]
 
-      name = "gcr.io/$PROJECT_ID/helmfile"
+      name       = "gcr.io/$PROJECT_ID/helmfile"
       entrypoint = "bash"
       # Make `gcloud` available where the kube config expects to find it
       args = [
         "-c",
         "mkdir -p /usr/lib/google-cloud-sdk/bin && ln -s /builder/google-cloud-sdk/bin/gcloud /usr/lib/google-cloud-sdk/bin/gcloud && helmfile sync"
       ]
-      dir  = "charts"
+      dir = "charts"
       env = [
         "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
-        "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
-        "CLOUDSDK_CONTAINER_CLUSTER=${google_container_cluster.main.name}",
+
+        "VAULT_KMS_KEY_RING=${google_kms_key_ring.main.name}",
+        "VAULT_KMS_AUTOUNSEAL_KEY=${google_kms_crypto_key.vault_auto_unseal.name}",
+        "VAULT_GCS_BUCKET=${google_storage_bucket.vault.name}",
 
         "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
         "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
@@ -81,7 +79,7 @@ resource "google_cloudbuild_trigger" "main" {
       wait_for = ["helmfile-apply"]
 
       name       = local.gcb_gcloud_image
-      entrypoint = "pipeline-scripts/configure-vault.sh"
+      entrypoint = "charts/vault/post-install.sh"
       args       = [local.vault.keybase_username, local.vault.kv_prefix]
       env = [
         "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",

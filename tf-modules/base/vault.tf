@@ -199,3 +199,12 @@ resource "codefresh_pipeline" "vault_deprovision" {
     }
   }
 }
+
+module "vault_sa_private_key" {
+  source = "../cd_secret"
+
+  secret_id                      = "${local.env_full_name}-vault-sa-private-key"
+  secret_value                   = google_service_account_key.vault.private_key
+  accessor_service_account_email = local.gcb_service_account_email
+  gcp_labels                     = local.gcp_resource_labels
+}

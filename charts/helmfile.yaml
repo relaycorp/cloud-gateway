@@ -21,9 +21,9 @@ releases:
       - name: store.sql.dbUser
         value: {{ requiredEnv "STAN_DB_USER" | quote }}
       - name: store.sql.dbPassword
-        value: {{ readFile "../stan-db.secret" | quote }}
+        value: {{ readFile "../secrets/stan-db-password" | quote }}
       - name: store.sql.source
-        value: host={{ requiredEnv "STAN_DB_HOST" }} dbname={{ requiredEnv "STAN_DB_NAME" }} user={{ requiredEnv "STAN_DB_USER" }} password={{ readFile "../stan-db.secret" }} sslmode=require
+        value: host={{ requiredEnv "STAN_DB_HOST" }} dbname={{ requiredEnv "STAN_DB_NAME" }} user={{ requiredEnv "STAN_DB_USER" }} password={{ readFile "../secrets/stan-db-password" }} sslmode=require
   - name: nats
     chart: nats/nats
     version: 0.7.2
@@ -37,3 +37,7 @@ releases:
     set:
       - name: server.extraEnvironmentVars.GOOGLE_PROJECT
         value: {{ requiredEnv "CLOUDSDK_CORE_PROJECT" | quote }}
+    hooks:
+      - events: [presync]
+        showlogs: true
+        command: vault/pre-install.sh

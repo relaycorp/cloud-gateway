@@ -34,7 +34,7 @@ steps:
     stage: deploy
     image: codefresh/kubectl:1.18.2
     commands:
-      - cloud-gateway/cf-pipelines/scripts/configure-vault.sh "${{KEYBASE_USERNAME}}" "${{VAULT_KV_PREFIX}}"
+      - cloud-gateway/cf-pipelines/scripts/post-install.sh "${{KEYBASE_USERNAME}}" "${{VAULT_KV_PREFIX}}"
       - cf_export VAULT_INIT_PRESENT="$(find . -name vault-init.asc -maxdepth 1 -exec echo true \;)"
 
   retrieve_service_account_credentials:
