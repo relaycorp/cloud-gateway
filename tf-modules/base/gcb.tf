@@ -47,6 +47,7 @@ resource "google_cloudbuild_trigger" "main" {
         "VAULT_SA_CREDENTIALS_SECRET_VERSION=${module.vault_sa_private_key.secret_version}",
         "STAN_DB_PASSWORD_SECRET_VERSION=${module.stan_db_password.secret_version}",
         "MINIO_SECRET_KEY_SECRET_VERSION=${module.minio_secret_key.secret_version}",
+        "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
       ]
     }
 
@@ -70,6 +71,9 @@ resource "google_cloudbuild_trigger" "main" {
         "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
         "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
         "STAN_DB_USER=${google_sql_user.postgresql_stan.name}",
+
+        "GW_MONGODB_CONNECTION_URI=${lookup(mongodbatlas_cluster.main.connection_strings[0], "private_srv")}/${local.mongodb_db_name}",
+        "GW_MONGODB_USER_NAME=${mongodbatlas_database_user.main.username}",
       ]
     }
 

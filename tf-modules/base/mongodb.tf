@@ -52,3 +52,12 @@ resource "mongodbatlas_database_user" "main" {
 resource "random_password" "mongodb_user_password" {
   length = 32
 }
+
+module "mongodb_password" {
+  source = "../cd_secret"
+
+  secret_id                      = "${local.env_full_name}-mongodb-connection-uri"
+  secret_value                   = random_password.mongodb_user_password.result
+  accessor_service_account_email = local.gcb_service_account_email
+  gcp_labels                     = local.gcp_resource_labels
+}
