@@ -1,0 +1,12 @@
+fullnameOverride: minio
+accessKey: gateway
+buckets:
+  - name: public-gateway
+    policy: none
+makeBucketJob:
+  annotations:
+    "helm.sh/hook-delete-policy": hook-succeeded
+resources:
+  requests:
+    # TODO: Try to get Minio to use less RAM
+    memory: 1.5Gi

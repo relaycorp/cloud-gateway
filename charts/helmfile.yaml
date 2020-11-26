@@ -3,6 +3,8 @@ repositories:
     url: https://nats-io.github.io/k8s/helm/charts
   - name: hashicorp
     url: https://helm.releases.hashicorp.com
+  - name: minio
+    url: https://helm.min.io
 
 helmDefaults:
   wait: true
@@ -29,6 +31,16 @@ releases:
     version: 0.7.2
     values:
       - defaults/nats.yml
+
+  - name: minio
+    chart: minio/minio
+    version: 8.0.3
+    values:
+      - minio/values.yml
+    set:
+      - name: secretKey
+        value: {{ readFile "../secrets/minio-secret-key" | quote }}
+
   - name: vault
     chart: hashicorp/vault
     version: 0.8.0
