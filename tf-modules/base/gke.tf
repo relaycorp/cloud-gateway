@@ -70,7 +70,7 @@ resource "google_project_iam_binding" "gke_limited_admin" {
   role = google_project_iam_custom_role.gke_limited_admin.id
 
   members = [
-    var.sre_iam_uri,
+    var.sre_iam_uri, # TODO: REMOVE
     "serviceAccount:${local.gcb_service_account_email}"
   ]
 }
