@@ -57,10 +57,11 @@ keybase_encrypt() {
 KEYBASE_USERNAME="$1"
 VAULT_KV_PREFIX="$2"
 VAULT_GCS_BUCKET="$3"
+HELM_RELEASE_NAME="$4"
 
 POD_NAME="$(
   kubectl get pod \
-    -l app.kubernetes.io/name=vault \
+    -l "app.kubernetes.io/name=vault,app.kubernetes.io/instance=${HELM_RELEASE_NAME}" \
     --no-headers \
     --output=jsonpath='{.items[0].metadata.name}'
 )"
@@ -79,7 +80,7 @@ else
   root_token="$(jq --raw-output .root_token vault-init.json)"
   enable_kv_engine "${VAULT_KV_PREFIX}" "${root_token}"
 
-  keybase_encrypt "${KEYBASE_USERNAME}" < vault-init.json > vault-init.asc
+  keybase_encrypt "${KEYBASE_USERNAME}" <vault-init.json >vault-init.asc
 
   gsutil cp vault-init.asc "gs://${VAULT_GCS_BUCKET}/relaycorp/vault-init.asc"
 fi

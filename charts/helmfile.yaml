@@ -52,3 +52,4 @@ releases:
           - {{ requiredEnv "VAULT_KEYBASE_USERNAME" | quote }}
           - {{ requiredEnv "VAULT_KV_PREFIX" | quote }}
           - {{ requiredEnv "VAULT_GCS_BUCKET" | quote }}
+          - "{{`{{.Release.Name}}`}}"
