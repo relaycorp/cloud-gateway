@@ -38,7 +38,7 @@ cp "${SOURCE_RESOURCES_FILE}" "${DESTINATION_RESOURCES_FILE}"
 trap "shred -u '${DESTINATION_RESOURCES_FILE}'" INT TERM EXIT
 
 echo -n "Resolving environment variables... "
-export VAULT_SA_KEY_BASE64="$(base64 --wrap=0 "${VAULT_SA_KEY_PATH}")"
+export VAULT_SA_KEY_BASE64="$(cat "${VAULT_SA_KEY_PATH}")"
 for env_var in "${REPLACEABLE_ENV_VARS[@]}"; do
   replace_env_var "${env_var}" "${DESTINATION_RESOURCES_FILE}"
 done
