@@ -55,17 +55,19 @@ resource "google_container_node_pool" "main" {
   }
 }
 
-resource "google_project_iam_custom_role" "gke_mutatingWebhookConfigurations" {
-  // Needed for Vault
+resource "google_project_iam_custom_role" "gke_limited_admin" {
   project = var.gcp_project_id
 
-  role_id     = "${replace(local.env_full_name, "-", "_")}.gke_mwc"
-  title       = "Manage GKE mutatingWebhookConfigurations"
-  permissions = ["container.mutatingWebhookConfigurations.update"]
+  role_id = "${replace(local.env_full_name, "-", "_")}.gke_limited_admin"
+  title   = "Limited permissions to manage the GKE cluster"
+  permissions = [
+    "container.mutatingWebhookConfigurations.update",
+    "container.clusterRoles.create",
+  ]
 }
 
-resource "google_project_iam_binding" "gke_mutatingWebhookConfigurations" {
-  role = google_project_iam_custom_role.gke_mutatingWebhookConfigurations.id
+resource "google_project_iam_binding" "gke_limited_admin" {
+  role = google_project_iam_custom_role.gke_limited_admin.id
 
   members = [
     var.sre_iam_uri,
