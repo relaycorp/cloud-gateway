@@ -62,7 +62,12 @@ resource "google_project_iam_custom_role" "gke_limited_admin" {
   title   = "Limited permissions to manage the GKE cluster"
   permissions = [
     "container.mutatingWebhookConfigurations.update",
-    "container.clusterRoles.*",
+    "container.mutatingWebhookConfigurations.delete",
+    "container.clusterRoles.create",
+    "container.clusterRoles.delete",
+    "container.clusterRoleBindings.delete",
+    "container.roleBindings.delete",
+    "container.roles.delete",
   ]
 }
 
@@ -73,4 +78,6 @@ resource "google_project_iam_binding" "gke_limited_admin" {
     var.sre_iam_uri, # TODO: REMOVE
     "serviceAccount:${local.gcb_service_account_email}"
   ]
+
+  # TODO: Limit to a single GKE cluster
 }
