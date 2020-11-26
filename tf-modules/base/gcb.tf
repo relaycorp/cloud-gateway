@@ -46,6 +46,7 @@ resource "google_cloudbuild_trigger" "main" {
       env = [
         "VAULT_SA_CREDENTIALS_SECRET_VERSION=${module.vault_sa_private_key.secret_version}",
         "STAN_DB_PASSWORD_SECRET_VERSION=${module.stan_db_password.secret_version}",
+        "MINIO_SECRET_KEY_SECRET_VERSION=${module.minio_secret_key.secret_version}",
       ]
     }
 
