@@ -43,5 +43,4 @@ releases:
         command: vault/pre-install.sh
         args:
           - "{{`{{.Release.Name}}`}}"
-          # TODO: Compute namespace dynamically if possible
-          - "default"
+          - "{{`{{.Release.Namespace}}`}}"
