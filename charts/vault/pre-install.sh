@@ -20,7 +20,7 @@ replace_env_var() {
   local env_var_name="$1"
   local file_path="$2"
 
-  local env_var_value="${!env_var_name}"
+  local env_var_value="${!env_var_name?${env_var_name} is undefined}"
 
   sed "s/\${${env_var_name}}/${env_var_value}/g" -i "${file_path}"
 }
