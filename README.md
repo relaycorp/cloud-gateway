@@ -2,7 +2,7 @@
 
 This repository contains the code and configuration for the cloud and Kubernetes resources powering the [Relaynet-Internet Gateway](https://docs.relaycorp.tech/relaynet-internet-gateway/) instances operated by Relaycorp.
 
-The cloud resources are defined in a Terraform module ([`tf-workspace`](./tf-workspace)) managed on Terraform Cloud. The Kubernetes resources are defined in Helmfile charts ([`charts`](./charts)), which are automatically deployed by Google Cloud Build.
+The cloud resources are defined in a Terraform module ([`tf-workspace`](./tf-workspace)) managed on Terraform Cloud. The Kubernetes resources are defined in Helm charts ([`charts`](./charts)), which are automatically deployed by Google Cloud Build.
 
 # Why the infrastructure code is public
 
