@@ -62,7 +62,7 @@ resource "google_project_iam_custom_role" "gke_limited_admin" {
   title   = "Limited permissions to manage the GKE cluster"
   permissions = [
     "container.mutatingWebhookConfigurations.update",
-    "container.clusterRoles.create",
+    "container.clusterRoles.*",
   ]
 }
 
