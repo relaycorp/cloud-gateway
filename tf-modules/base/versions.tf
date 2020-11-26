@@ -12,10 +12,6 @@ terraform {
     random = {
       source = "hashicorp/random"
     }
-    codefresh = {
-      source  = "codefresh.io/app/codefresh"
-      version = ">= 0.0.5"
-    }
   }
   required_version = ">= 0.13"
 }

@@ -14,10 +14,3 @@ module "gw_test" {
 
   sre_iam_uri = var.sre_iam_uri
 }
-
-module "gw_test_gke_access" {
-  source = "../tf-modules/gke-admin-access"
-
-  gke_cluster_endpoint       = module.gw_test.gke_cluster_endpoint
-  gke_cluster_ca_certificate = module.gw_test.gke_cluster_ca_certificate
-}
