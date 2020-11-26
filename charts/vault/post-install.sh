@@ -76,7 +76,9 @@ else
   wait_for_vault_unseal
   echo "Done."
 
-  sleep 5s # Wait a bit longer for the KV endpoint to become operational
+  apt-get install -y jq
+
+  sleep 3s # Wait a bit longer for the KV endpoint to become operational
   root_token="$(jq --raw-output .root_token vault-init.json)"
   enable_kv_engine "${VAULT_KV_PREFIX}" "${root_token}"
 
