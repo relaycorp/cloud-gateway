@@ -54,7 +54,8 @@ resource "google_cloudbuild_trigger" "main" {
       wait_for = ["secrets-retrieval"]
 
       name       = "gcr.io/$PROJECT_ID/helmfile"
-      entrypoint = "bash"
+      # Propagate errors when running `helmfile`
+      entrypoint = "bash -o errexit"
       # Make `gcloud` available where the kube config expects to find it
       args = [
         "-c",
