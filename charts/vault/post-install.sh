@@ -47,7 +47,12 @@ keybase_encrypt() {
   local keybase_username="$1"
 
   local public_key_url="https://keybase.io/${keybase_username}/pgp_keys.asc"
-  gpg --recipient-file <(curl --silent "${public_key_url}") --encrypt --armor
+  gpg --import <(curl --silent "${public_key_url}")
+  # shellcheck disable=SC2155
+  local recipient_email_address="$(
+    gpg --list-keys | grep --only-matching --extended-regexp '([^@<]+@[^>]+)'
+  )"
+  gpg --recipient "${recipient_email_address}" --encrypt --armor
 }
 
 # Main
