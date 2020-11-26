@@ -5,6 +5,6 @@ resource "google_project_iam_binding" "gke_developers" {
 
 resource "google_project_iam_binding" "gke_admins" {
   # TODO: Use developer role instead. See: https://github.com/relaycorp/cloud-gateway/issues/7
-  role    = "roles/container.clusterAdmin"
+  role    = "roles/container.admin"
   members = ["serviceAccount:${local.gcb_service_account_email}"]
 }
