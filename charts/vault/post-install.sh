@@ -5,7 +5,8 @@
 set -o nounset
 set -o errexit
 set -o pipefail
-. "../scripts/_helmfile_hook_error.sh"
+# shellcheck disable=SC1090
+. "${BASH_SOURCE[0]}/scripts/_helmfile_hook_error.sh"
 
 # Constants
 
@@ -37,7 +38,9 @@ wait_for_vault_unseal() {
 enable_kv_engine() {
   local kv_prefix="$1"
   local vault_token="$2"
-  kubectl exec "${POD_NAME}" -- sh -c "VAULT_TOKEN="${vault_token}" vault secrets enable -path="${kv_prefix}" kv-v2"
+
+  kubectl exec "${POD_NAME}" -- \
+    sh -c "VAULT_TOKEN=\"${vault_token}\" vault secrets enable -path=\"${kv_prefix}\" kv-v2"
 }
 
 keybase_encrypt() {
