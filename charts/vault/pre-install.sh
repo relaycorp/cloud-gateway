@@ -8,12 +8,13 @@ set -o pipefail
 SOURCE_RESOURCES_FILE="$(dirname "${BASH_SOURCE[0]}")/resources.yml"
 DESTINATION_RESOURCES_FILE='/tmp/vault.yml'
 
+VAULT_SA_KEY_PATH="secrets/vault-sa-credentials"
+
 REPLACEABLE_ENV_VARS=(
   'CLOUDSDK_CORE_PROJECT'
   'VAULT_KMS_KEY_RING'
   'VAULT_KMS_AUTOUNSEAL_KEY'
   'VAULT_GCS_BUCKET'
-  'VAULT_SA_KEY'
 )
 
 replace_env_var() {
@@ -34,6 +35,9 @@ echo -n "Resolving environment variables... "
 for env_var in "${REPLACEABLE_ENV_VARS[@]}"; do
   replace_env_var "${env_var}" "${DESTINATION_RESOURCES_FILE}"
 done
+VAULT_SA_KEY_BASE64="$(base64 --wrap=0 "${VAULT_SA_KEY_PATH}")" replace_env_var \
+  "VAULT_SA_KEY_BASE64" \
+  "${DESTINATION_RESOURCES_FILE}"
 echo "Done"
 
 echo "Applying resources..."
