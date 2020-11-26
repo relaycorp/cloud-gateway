@@ -43,4 +43,4 @@ releases:
         command: vault/pre-install.sh
         args:
           - "{{`{{.Release.Name}}`}}"
-          - "{{`{{.Release.Namespace}}`}}"
+          - "{{`{{.Namespace}}`}}"
