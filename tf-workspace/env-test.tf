@@ -13,12 +13,6 @@ module "gw_test" {
   mongodb_atlas_project_id = var.mongodb_atlas_project_id
 
   sre_iam_uri = var.sre_iam_uri
-
-  codefresh = {
-    service_account_email = google_service_account.codefresh.email
-  }
-  cf_kubernetes_context = "gateway-test"
-  cf_project_name       = codefresh_project.gateway.name
 }
 
 module "gw_test_gke_access" {
