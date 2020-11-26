@@ -14,7 +14,7 @@ releases:
     chart: nats/stan
     version: 0.7.2
     values:
-      - defaults/stan.yml
+      - stan/values.yml
     set:
       - name: store.sql.dbHost
         value: {{ requiredEnv "STAN_DB_HOST" | quote }}
@@ -30,7 +30,7 @@ releases:
     chart: nats/nats
     version: 0.7.2
     values:
-      - defaults/nats.yml
+      - nats/values.yml
 
   - name: minio
     chart: minio/minio
@@ -45,7 +45,7 @@ releases:
     chart: hashicorp/vault
     version: 0.8.0
     values:
-      - defaults/vault.yml
+      - vault/values.yml
     set:
       - name: server.extraEnvironmentVars.GOOGLE_PROJECT
         value: {{ requiredEnv "CLOUDSDK_CORE_PROJECT" | quote }}
@@ -55,7 +55,6 @@ releases:
         command: vault/pre-install.sh
         args:
           - "{{`{{.Release.Name}}`}}"
-          # TODO: Compute namespace dynamically if possible
           - "default"
       - events: [postsync]
         showlogs: true
