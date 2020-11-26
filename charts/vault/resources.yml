@@ -8,7 +8,6 @@ metadata:
   labels:
     "app.kubernetes.io/managed-by": Helm
 data:
-  bucket: relaycorp-gateway-test-vault
   partial-vault.hcl: |2
     seal "gcpckms" {
       project    = "${CLOUDSDK_CORE_PROJECT}"
