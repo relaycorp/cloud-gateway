@@ -3,4 +3,4 @@ if [[ -f /tmp/failed-helmfile-hooks ]]; then
   exit 1
 fi
 
-trap '(( $? != 0 )) && (echo "${BASH_SOURCE[0]}" >> /tmp/failed-helmfile-hooks)' EXIT
+trap '(( $? != 0 )) && (echo "${BASH_SOURCE[0]}" >> /tmp/failed-helmfile-hooks)' INT TERM EXIT
