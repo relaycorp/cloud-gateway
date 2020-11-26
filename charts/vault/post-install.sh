@@ -52,8 +52,7 @@ keybase_encrypt() {
   local recipient_email_address="$(
     gpg --list-keys | grep --only-matching --extended-regexp '([^@<]+@[^>]+)'
   )"
-  # Pipe to `cat` to work around TTY permission issue
-  gpg --recipient "${recipient_email_address}" --encrypt --armor | cat
+  gpg --recipient "${recipient_email_address}" --encrypt --armor --batch
 }
 
 # Main
