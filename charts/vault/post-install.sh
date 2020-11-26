@@ -6,7 +6,7 @@ set -o nounset
 set -o errexit
 set -o pipefail
 # shellcheck disable=SC1090
-. "${BASH_SOURCE[0]}/scripts/_helmfile_hook_error.sh"
+. "$(dirname "${BASH_SOURCE[0]}")/scripts/_helmfile_hook_error.sh"
 
 # Constants
 
