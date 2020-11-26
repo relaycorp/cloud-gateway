@@ -67,24 +67,12 @@ resource "google_cloudbuild_trigger" "main" {
         "VAULT_KMS_KEY_RING=${google_kms_key_ring.main.name}",
         "VAULT_KMS_AUTOUNSEAL_KEY=${google_kms_crypto_key.vault_auto_unseal.name}",
         "VAULT_GCS_BUCKET=${google_storage_bucket.vault.name}",
+        "VAULT_KEYBASE_USERNAME=${local.vault.keybase_username}",
+        "VAULT_KV_PREFIX=${local.vault.kv_prefix}",
 
         "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
         "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
         "STAN_DB_USER=${google_sql_user.postgresql_stan.name}",
-      ]
-    }
-
-    step {
-      id       = "vault-config"
-      wait_for = ["helmfile-apply"]
-
-      name       = local.gcb_gcloud_image
-      entrypoint = "charts/vault/post-install.sh"
-      args       = [local.vault.keybase_username, local.vault.kv_prefix]
-      env = [
-        "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
-        "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
-        "CLOUDSDK_CONTAINER_CLUSTER=${google_container_cluster.main.name}",
       ]
     }
 

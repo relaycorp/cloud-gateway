@@ -52,8 +52,7 @@ keybase_encrypt() {
 
 KEYBASE_USERNAME="$1"
 VAULT_KV_PREFIX="$2"
-
-gcloud components install gsutil
+VAULT_GCS_BUCKET="$3"
 
 POD_NAME="$(
   kubectl get pod \
@@ -77,4 +76,6 @@ else
   enable_kv_engine "${VAULT_KV_PREFIX}" "${root_token}"
 
   keybase_encrypt "${KEYBASE_USERNAME}" < vault-init.json > vault-init.asc
+
+  gsutil cp vault-init.asc "gs://${VAULT_GCS_BUCKET}/relaycorp/vault-init.asc"
 fi
