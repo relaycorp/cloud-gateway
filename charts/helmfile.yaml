@@ -41,3 +41,5 @@ releases:
       - events: [presync]
         showlogs: true
         command: vault/pre-install.sh
+        args:
+          - "{{.Release.Name}}"

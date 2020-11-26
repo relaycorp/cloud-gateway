@@ -15,6 +15,8 @@ REPLACEABLE_ENV_VARS=(
   'VAULT_KMS_KEY_RING'
   'VAULT_KMS_AUTOUNSEAL_KEY'
   'VAULT_GCS_BUCKET'
+  'VAULT_SA_KEY_BASE64'
+  'HELM_RELEASE_NAME'
 )
 
 replace_env_var() {
@@ -28,16 +30,16 @@ replace_env_var() {
 
 # Main
 
+export HELM_RELEASE_NAME="$1"
+
 cp "${SOURCE_RESOURCES_FILE}" "${DESTINATION_RESOURCES_FILE}"
 trap "shred -u '${DESTINATION_RESOURCES_FILE}'" INT TERM EXIT
 
 echo -n "Resolving environment variables... "
+export VAULT_SA_KEY_BASE64="$(base64 --wrap=0 "${VAULT_SA_KEY_PATH}")"
 for env_var in "${REPLACEABLE_ENV_VARS[@]}"; do
   replace_env_var "${env_var}" "${DESTINATION_RESOURCES_FILE}"
 done
-VAULT_SA_KEY_BASE64="$(base64 --wrap=0 "${VAULT_SA_KEY_PATH}")" replace_env_var \
-  "VAULT_SA_KEY_BASE64" \
-  "${DESTINATION_RESOURCES_FILE}"
 echo "Done"
 
 echo "Applying resources..."
