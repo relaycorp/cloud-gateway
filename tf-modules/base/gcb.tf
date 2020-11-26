@@ -54,14 +54,9 @@ resource "google_cloudbuild_trigger" "main" {
       wait_for = ["secrets-retrieval"]
 
       name       = "gcr.io/$PROJECT_ID/helmfile"
-      # Propagate errors when running `helmfile`
-      entrypoint = "bash -o errexit"
-      # Make `gcloud` available where the kube config expects to find it
-      args = [
-        "-c",
-        "mkdir -p /usr/lib/google-cloud-sdk/bin && ln -s /builder/google-cloud-sdk/bin/gcloud /usr/lib/google-cloud-sdk/bin/gcloud && helmfile sync"
-      ]
-      dir = "charts"
+      dir        = "charts"
+      entrypoint = "scripts/helmfile.sh"
+      args       = ["sync"]
       env = [
         "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
 
