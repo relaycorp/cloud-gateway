@@ -5,6 +5,7 @@
 set -o nounset
 set -o errexit
 set -o pipefail
+. "../scripts/_helmfile_hook_error.sh"
 
 # Constants
 
