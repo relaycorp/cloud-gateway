@@ -8,7 +8,7 @@ set -o pipefail
 SOURCE_RESOURCES_FILE="$(dirname "${BASH_SOURCE[0]}")/resources.yml"
 DESTINATION_RESOURCES_FILE='/tmp/vault.yml'
 
-VAULT_SA_KEY_PATH="secrets/vault-sa-credentials"
+VAULT_SA_KEY_PATH="../secrets/vault-sa-credentials"
 
 REPLACEABLE_ENV_VARS=(
   'CLOUDSDK_CORE_PROJECT'
