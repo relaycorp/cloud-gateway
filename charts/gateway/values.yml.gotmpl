@@ -43,11 +43,11 @@ mongo:
   uri: '{{ requiredEnv "GW_MONGODB_CONNECTION_URI" }}/?retryWrites=true&w=majority'
   db: {{ requiredEnv "GW_MONGODB_DB_NAME" | quote }}
   user: {{ requiredEnv "GW_MONGODB_USER_NAME" | quote }}
-  password: {{ readFile "../secrets/gw-mongodb-password" | quote }}
+  password: {{ readFile "/workspace/secrets/gw-mongodb-password" | quote }}
 
 vault:
   serverUrl: http://vault:8200
-  token: {{ readFile "../secrets/vault-root-token" | quote }}
+  token: {{ readFile "/workspace/secrets/vault-root-token" | quote }}
 
 nats:
   serverUrl: nats://nats:4222
