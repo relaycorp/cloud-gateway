@@ -76,6 +76,7 @@ resource "google_cloudbuild_trigger" "main" {
         "GW_MONGODB_CONNECTION_URI=${lookup(mongodbatlas_cluster.main.connection_strings[0], "private_srv")}",
         "GW_MONGODB_DB_NAME=${local.mongodb_db_name}",
         "GW_MONGODB_USER_NAME=${mongodbatlas_database_user.main.username}",
+        "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
       ]
     }
 
