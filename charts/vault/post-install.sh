@@ -12,6 +12,7 @@ set -o pipefail
 
 RECOVERY_SHARES=3
 RECOVERY_THRESHOLD=2
+VAULT_ROOT_TOKEN_PATH='/workspace/secrets/vault-root-token'
 
 # Functions
 
@@ -50,7 +51,7 @@ save_root_token() {
     gcloud secrets versions add "${VAULT_ROOT_TOKEN_SECRET_ID}" --data-file=-
 
   # Leave a copy behind so that it can be used later in the pipeline
-  echo -n "${root_token}" > secrets/vault-root-token
+  echo -n "${root_token}" >"${VAULT_ROOT_TOKEN_PATH}"
 }
 
 keybase_encrypt() {
@@ -90,7 +91,7 @@ else
   wait_for_vault_unseal
   echo "Done."
 
-  apt-get update && apt-get install -y jq
+  apt-get update --quiet && apt-get install -y jq
   sleep 3s # Wait a bit longer for the KV endpoint to become operational
   root_token="$(jq --raw-output .root_token vault-init.json)"
   enable_kv_engine "${VAULT_KV_PREFIX}" "${root_token}"
