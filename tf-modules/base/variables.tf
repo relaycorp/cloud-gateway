@@ -7,10 +7,11 @@ variable "dns_managed_zone" {
   default = "relaycorp-cloud"
 }
 
-variable "mongodb_atlas_project_id" {}
-
 variable gcp_project_id {}
 variable gcp_region {}
+
+variable "mongodb_atlas_project_id" {}
+variable "mongodb_atlas_region" {}
 
 variable "github_repo" {
   type = object({

@@ -27,7 +27,7 @@ resource "mongodbatlas_cluster" "main" {
   provider_name               = "GCP"
   disk_size_gb                = 10
   provider_instance_size_name = "M10"
-  provider_region_name        = "EUROPE_WEST_2"
+  provider_region_name        = var.mongodb_atlas_region
 }
 
 resource "mongodbatlas_database_user" "main" {

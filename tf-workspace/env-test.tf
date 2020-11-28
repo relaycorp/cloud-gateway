@@ -11,6 +11,7 @@ module "gw_test" {
   gcp_region     = "europe-west2"
 
   mongodb_atlas_project_id = var.mongodb_atlas_project_id
+  mongodb_atlas_region     = "EUROPE_WEST_2"
 
   sre_iam_uri = var.sre_iam_uri
 }
