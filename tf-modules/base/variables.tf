@@ -3,6 +3,9 @@ variable "environment_name" {}
 variable "pohttp_host" {}
 variable "poweb_host" {}
 variable "cogrpc_host" {}
+variable "dns_managed_zone" {
+  default = "relaycorp-cloud"
+}
 
 variable "mongodb_atlas_project_id" {}
 

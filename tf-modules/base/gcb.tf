@@ -81,6 +81,9 @@ resource "google_cloudbuild_trigger" "main" {
         "GW_MONGODB_DB_NAME=${local.mongodb_db_name}",
         "GW_MONGODB_USER_NAME=${mongodbatlas_database_user.main.username}",
         "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
+        "GW_POWEB_DOMAIN=${trimsuffix(google_dns_record_set.poweb.name, ".")}",
+        "GW_POHTTP_DOMAIN=${trimsuffix(google_dns_record_set.pohttp.name, ".")}",
+        "GW_COGRPC_DOMAIN=${trimsuffix(google_dns_record_set.cogrpc.name, ".")}",
       ]
     }
 
