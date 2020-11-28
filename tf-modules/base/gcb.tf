@@ -45,8 +45,12 @@ resource "google_cloudbuild_trigger" "main" {
       args       = ["charts/scripts/retrieve-secrets.sh"]
       env = [
         "VAULT_SA_CREDENTIALS_SECRET_VERSION=${module.vault_sa_private_key.secret_version}",
+        "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
+
         "STAN_DB_PASSWORD_SECRET_VERSION=${module.stan_db_password.secret_version}",
+
         "MINIO_SECRET_KEY_SECRET_VERSION=${module.minio_secret_key.secret_version}",
+
         "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
       ]
     }
