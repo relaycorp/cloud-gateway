@@ -43,6 +43,16 @@ enable_kv_engine() {
     sh -c "VAULT_TOKEN=\"${vault_token}\" vault secrets enable -path=\"${kv_prefix}\" kv-v2"
 }
 
+save_root_token() {
+  local root_token="$1"
+
+  echo -n "${root_token}" | \
+    gcloud secrets versions add "${VAULT_ROOT_TOKEN_SECRET_ID}" --data-file=-
+
+  # Leave a copy behind so that it can be used later in the pipeline
+  echo -n "${root_token}" > secrets/vault-root-token
+}
+
 keybase_encrypt() {
   local keybase_username="$1"
 
@@ -61,6 +71,7 @@ KEYBASE_USERNAME="$1"
 VAULT_KV_PREFIX="$2"
 VAULT_GCS_BUCKET="$3"
 HELM_RELEASE_NAME="$4"
+VAULT_ROOT_TOKEN_SECRET_ID="$5"
 
 POD_NAME="$(
   kubectl get pod \
@@ -85,6 +96,8 @@ else
   enable_kv_engine "${VAULT_KV_PREFIX}" "${root_token}"
 
   keybase_encrypt "${KEYBASE_USERNAME}" <vault-init.json >vault-init.asc
+
+  save_root_token "${root_token}"
 
   gsutil cp vault-init.asc "gs://${VAULT_GCS_BUCKET}/relaycorp/vault-init.asc"
 fi
