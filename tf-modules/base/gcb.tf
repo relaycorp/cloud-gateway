@@ -84,6 +84,7 @@ resource "google_cloudbuild_trigger" "main" {
         "GW_POWEB_DOMAIN=${trimsuffix(google_dns_record_set.poweb.name, ".")}",
         "GW_POHTTP_DOMAIN=${trimsuffix(google_dns_record_set.pohttp.name, ".")}",
         "GW_COGRPC_DOMAIN=${trimsuffix(google_dns_record_set.cogrpc.name, ".")}",
+        "GW_GLOBAL_IP_NAME=${google_compute_global_address.managed_tls_cert.name}",
       ]
     }
 
