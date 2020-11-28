@@ -86,3 +86,19 @@ module "vault_sa_private_key" {
   accessor_service_account_email = local.gcb_service_account_email
   gcp_labels                     = local.gcp_resource_labels
 }
+
+resource "google_secret_manager_secret" "vault_root_token" {
+  secret_id = "${local.env_full_name}-vault-root-token"
+
+  replication {
+    automatic = true
+  }
+
+  labels = local.gcp_resource_labels
+}
+
+resource "google_secret_manager_secret_iam_binding" "gcb_vault_root_token" {
+  secret_id = google_secret_manager_secret.vault_root_token.secret_id
+  role      = "roles/secretmanager.admin"
+  members   = ["serviceAccount:${local.gcb_service_account_email}"]
+}

@@ -67,6 +67,7 @@ resource "google_cloudbuild_trigger" "main" {
         "VAULT_GCS_BUCKET=${google_storage_bucket.vault.name}",
         "VAULT_KEYBASE_USERNAME=${local.vault.keybase_username}",
         "VAULT_KV_PREFIX=${local.vault.kv_prefix}",
+        "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
 
         "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
         "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
