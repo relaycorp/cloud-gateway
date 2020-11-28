@@ -38,10 +38,7 @@ releases:
     chart: minio/minio
     version: 8.0.3
     values:
-      - minio/values.yml
-    set:
-      - name: secretKey
-        value: {{ readFile "../secrets/minio-secret-key" | quote }}
+      - minio/values.yml.gotmpl
 
   - name: vault
     chart: hashicorp/vault
