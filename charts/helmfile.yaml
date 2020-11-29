@@ -33,10 +33,7 @@ releases:
     chart: hashicorp/vault
     version: 0.8.0
     values:
-      - vault/values.yml
-    set:
-      - name: server.extraEnvironmentVars.GOOGLE_PROJECT
-        value: {{ requiredEnv "CLOUDSDK_CORE_PROJECT" | quote }}
+      - vault/values.yml.gotmpl
     hooks:
       - events: [presync]
         showlogs: true

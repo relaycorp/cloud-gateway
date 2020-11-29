@@ -6,6 +6,7 @@ server:
 
   extraEnvironmentVars:
     GOOGLE_REGION: global
+    GOOGLE_PROJECT: {{ requiredEnv "CLOUDSDK_CORE_PROJECT" | quote }}
     GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/vault-cd/service_account_key.json
 
   extraVolumes:
