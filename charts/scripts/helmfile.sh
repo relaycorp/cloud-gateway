@@ -19,7 +19,8 @@ mkdir -p /usr/lib/google-cloud-sdk/bin
 ln -s /builder/google-cloud-sdk/bin/gcloud /usr/lib/google-cloud-sdk/bin/gcloud
 
 echo "Installing Helm Diff..."
-helm plugin install https://github.com/databus23/helm-diff --version "${HELM_DIFF_VERSION}"
+helm plugin install https://github.com/databus23/helm-diff --version "${HELM_DIFF_VERSION}" \
+  >>/dev/null
 
 helmfile "$@"
 
