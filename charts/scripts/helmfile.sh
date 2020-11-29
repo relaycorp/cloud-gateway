@@ -8,9 +8,18 @@ set -o nounset
 set -o errexit
 set -o pipefail
 
+# Constants and functions
+
+HELM_DIFF_VERSION="3.1.3"
+
+# Main
+
 # Make `gcloud` available where the kube config expects to find it
 mkdir -p /usr/lib/google-cloud-sdk/bin
 ln -s /builder/google-cloud-sdk/bin/gcloud /usr/lib/google-cloud-sdk/bin/gcloud
+
+echo "Installing Helm Diff..."
+helm plugin install https://github.com/databus23/helm-diff --version "${HELM_DIFF_VERSION}"
 
 helmfile "$@"
 
