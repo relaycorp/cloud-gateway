@@ -40,8 +40,8 @@ objectStore:
   endpoint: minio:9000
   bucket: public-gateway
   tlsEnabled: false
-  accessKeyId: test-key
-  secretKey: test-secret
+  accessKeyId: gateway
+  secretKey: {{ readFile "/workspace/secrets/minio-secret-key" | quote }}
 
 mongo:
   uri: '{{ requiredEnv "GW_MONGODB_CONNECTION_URI" }}/?retryWrites=true&w=majority'
