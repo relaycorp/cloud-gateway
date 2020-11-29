@@ -62,7 +62,7 @@ resource "google_cloudbuild_trigger" "main" {
       name       = "gcr.io/$PROJECT_ID/helmfile"
       dir        = "charts"
       entrypoint = "scripts/helmfile.sh"
-      args       = ["sync"]
+      args       = ["apply"]
       env = [
         "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
 
