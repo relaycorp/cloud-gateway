@@ -16,18 +16,7 @@ releases:
     chart: nats/stan
     version: 0.7.2
     values:
-      - stan/values.yml
-    set:
-      - name: store.sql.dbHost
-        value: {{ requiredEnv "STAN_DB_HOST" | quote }}
-      - name: store.sql.dbName
-        value: {{ requiredEnv "STAN_DB_NAME" | quote }}
-      - name: store.sql.dbUser
-        value: {{ requiredEnv "STAN_DB_USER" | quote }}
-      - name: store.sql.dbPassword
-        value: {{ readFile "../secrets/stan-db-password" | quote }}
-      - name: store.sql.source
-        value: host={{ requiredEnv "STAN_DB_HOST" }} dbname={{ requiredEnv "STAN_DB_NAME" }} user={{ requiredEnv "STAN_DB_USER" }} password={{ readFile "../secrets/stan-db-password" }} sslmode=require
+      - stan/values.yml.gotmpl
   - name: nats
     chart: nats/nats
     version: 0.7.2
