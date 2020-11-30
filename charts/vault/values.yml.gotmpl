@@ -17,7 +17,7 @@ server:
 
   ha:
     enabled: true
-    replicas: 3
+    replicas: 9
 
     config: |
       ui = true
@@ -27,3 +27,11 @@ server:
         address = "[::]:8200"
         cluster_address = "[::]:8201"
       }
+
+  resources:
+    requests:
+      cpu: 150m
+      memory: 100Mi
+    limits:
+      cpu: 200m
+      memory: 200Mi
