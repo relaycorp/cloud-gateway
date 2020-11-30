@@ -16,10 +16,10 @@ resource "google_container_cluster" "main" {
 
   maintenance_policy {
     recurring_window {
-      # Only do maintenance on Tuesday and Thursday mornings (UK time).
+      # Only do maintenance in the mornings (UK time).
       start_time = "2020-12-01T08:00:00Z"
       end_time   = "2020-12-01T12:00:00Z"
-      recurrence = "FREQ=WEEKLY;BYDAY=TU,TH"
+      recurrence = "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR"
     }
     maintenance_exclusion {
       start_time     = "2020-12-24T00:00:00Z"
