@@ -8,3 +8,5 @@ provider "google-beta" {
 
 provider "mongodbatlas" {
 }
+
+provider "tfe" {}
