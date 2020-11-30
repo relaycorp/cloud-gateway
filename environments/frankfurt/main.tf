@@ -11,7 +11,7 @@ terraform {
 module "gateway" {
   source = "../_modules/gateway"
 
-  name = "frankfurt"
+  name = "frankfurt-test"
 
   gcp_project_id = var.gcp_project_id
   gcp_region     = "europe-west3"
