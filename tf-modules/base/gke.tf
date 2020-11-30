@@ -42,7 +42,7 @@ resource "google_container_node_pool" "main" {
   version = google_container_cluster.main.master_version
 
   node_config {
-    machine_type = "n1-standard-1"
+    machine_type = var.gke_instance_type
 
     metadata = {
       disable-legacy-endpoints = "true"

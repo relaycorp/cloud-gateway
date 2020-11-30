@@ -7,6 +7,10 @@ variable "dns_managed_zone" {
 variable gcp_project_id {}
 variable gcp_region {}
 
+variable "gke_instance_type" {
+  default = "n1-standard-1"
+}
+
 variable "mongodb_atlas_project_id" {}
 variable "mongodb_atlas_region" {}
 
