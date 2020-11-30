@@ -27,6 +27,7 @@ service:
 
 powebHost: {{ requiredEnv "GW_POWEB_DOMAIN" | quote }}
 poweb:
+  replicas: 9
   resources:
     requests:
       cpu: 250m
@@ -37,6 +38,7 @@ poweb:
 
 pohttpHost: {{ requiredEnv "GW_POHTTP_DOMAIN" | quote }}
 pohttp:
+  replicas: 9
   resources:
     requests:
       cpu: 250m
