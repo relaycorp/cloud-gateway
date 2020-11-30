@@ -14,6 +14,20 @@ resource "google_container_cluster" "main" {
     channel = "REGULAR"
   }
 
+  maintenance_policy {
+    recurring_window {
+      # Only do maintenance on Tuesday and Thursday mornings (UK time).
+      start_time = "2020-12-01T09:00:00Z"
+      end_time   = "2020-12-01T12:00:00Z"
+      recurrence = "FREQ=WEEKLY;BYDAY=TU,TH"
+    }
+    maintenance_exclusion {
+      start_time     = "2020-12-24T00:00:00Z"
+      end_time       = "2021-01-04T00:00:00Z"
+      exclusion_name = "No-drama Christmas and New Year"
+    }
+  }
+
   master_auth {
     username = ""
     password = ""
