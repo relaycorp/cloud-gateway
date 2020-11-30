@@ -17,7 +17,7 @@ resource "google_container_cluster" "main" {
   maintenance_policy {
     recurring_window {
       # Only do maintenance on Tuesday and Thursday mornings (UK time).
-      start_time = "2020-12-01T09:00:00Z"
+      start_time = "2020-12-01T08:00:00Z"
       end_time   = "2020-12-01T12:00:00Z"
       recurrence = "FREQ=WEEKLY;BYDAY=TU,TH"
     }
@@ -43,6 +43,8 @@ resource "google_container_cluster" "main" {
   network = google_compute_network.main.self_link
 
   location = var.gcp_region
+
+  resource_labels = local.gcp_resource_labels
 
   provider = google-beta
 }
