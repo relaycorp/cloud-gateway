@@ -4,8 +4,8 @@ locals {
   gcb_gcloud_image = "gcr.io/google.com/cloudsdktool/cloud-sdk:319.0.0-slim"
 }
 
-resource "google_cloudbuild_trigger" "main" {
-  name        = "${var.environment_name}-k8s-deployment"
+resource "google_cloudbuild_trigger" "gke_deployment" {
+  name        = "${local.env_full_name}-gke-deployment"
   description = "Deploy and configure Kubernetes resources in environment ${var.environment_name}"
 
   github {
