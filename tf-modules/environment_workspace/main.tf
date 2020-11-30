@@ -7,7 +7,7 @@ resource "tfe_workspace" "main" {
   organization = var.tfe_organization
 
   working_directory = "environments/${var.name}"
-  trigger_prefixes  = ["tf-modules/"]
+  trigger_prefixes  = ["environments/_modules"]
 
   lifecycle {
     ignore_changes = [vcs_repo]

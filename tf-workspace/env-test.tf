@@ -1,5 +1,5 @@
 module "gw_test" {
-  source = "../tf-modules/base"
+  source = "../environments/_modules/gateway"
 
   name = "test"
 
