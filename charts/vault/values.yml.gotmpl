@@ -1,3 +1,5 @@
+# See: https://www.vaultproject.io/docs/platform/k8s/helm/configuration
+
 global:
   enabled: true
 
@@ -17,7 +19,9 @@ server:
 
   ha:
     enabled: true
-    replicas: 9
+
+    # Replicas MUST NOT be greater than the number of nodes per the default affinity configuration.
+    replicas: 6
 
     config: |
       ui = true
@@ -35,3 +39,14 @@ server:
     limits:
       cpu: 200m
       memory: 200Mi
+
+injector:
+  image:
+    tag: 0.6.0
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+    limits:
+      cpu: 20m
+      memory: 20Mi
