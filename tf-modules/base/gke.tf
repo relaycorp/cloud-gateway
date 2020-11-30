@@ -53,6 +53,16 @@ resource "google_container_node_pool" "main" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
+
+  management {
+    auto_repair  = true
+    auto_upgrade = false
+  }
+
+  upgrade_settings {
+    max_surge       = 3
+    max_unavailable = 3
+  }
 }
 
 resource "google_project_iam_custom_role" "gke_limited_admin" {
