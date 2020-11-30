@@ -54,6 +54,7 @@ cogrpc:
     service.alpha.kubernetes.io/app-protocols: '{"cogrpc":"HTTP2"}'
     cloud.google.com/neg: '{"ingress": true}'
     beta.cloud.google.com/backend-config: '{"ports":{"cogrpc":"cogrpc"}, "default": "cogrpc"}'
+  replicas: 6
   resources:
     requests:
       cpu: 250m
@@ -61,7 +62,18 @@ cogrpc:
     limits:
       cpu: 500m
       memory: 512Mi
-  replicas: 6
+
+pdpQueue:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 20m
+      memory: 50Mi
+    limits:
+      cpu: 50m
+      memory: 64Mi
+
+# Backing services
 
 objectStore:
   endpoint: minio:9000
