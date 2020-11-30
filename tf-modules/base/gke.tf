@@ -59,6 +59,7 @@ resource "google_container_node_pool" "main" {
 
   node_config {
     machine_type = var.gke_instance_type
+    disk_size_gb = 10
 
     metadata = {
       disable-legacy-endpoints = "true"
@@ -68,6 +69,8 @@ resource "google_container_node_pool" "main" {
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
+
+    labels = local.gcp_resource_labels
   }
 
   management {
