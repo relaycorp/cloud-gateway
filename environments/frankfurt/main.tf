@@ -1,3 +1,13 @@
+terraform {
+  backend "remote" {
+    organization = "Relaycorp"
+
+    workspaces {
+      name = "gateway-frankfurt"
+    }
+  }
+}
+
 module "gateway" {
   source = "../_modules/gateway"
 
