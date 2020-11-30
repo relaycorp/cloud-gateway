@@ -61,7 +61,7 @@ cogrpc:
       memory: 512Mi
 
 pdcQueue:
-  replicas: 1
+  replicas: 12
   resources:
     requests:
       cpu: 15m
@@ -71,6 +71,7 @@ pdcQueue:
       memory: 64Mi
 
 crcQueue:
+  replicas: 12
   resources:
     requests:
       cpu: 20m
