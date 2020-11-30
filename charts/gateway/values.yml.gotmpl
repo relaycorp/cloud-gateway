@@ -67,8 +67,17 @@ pdcQueue:
       cpu: 15m
       memory: 50Mi
     limits:
-      cpu: 30m
+      cpu: 25m
       memory: 64Mi
+
+crcQueue:
+  resources:
+    requests:
+      cpu: 20m
+      memory: 64Mi
+    limits:
+      cpu: 30m
+      memory: 80Mi
 
 # Backing services
 
