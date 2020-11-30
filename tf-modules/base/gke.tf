@@ -56,6 +56,7 @@ resource "google_container_node_pool" "main" {
 
   management {
     auto_repair  = true
+    auto_upgrade = true # Required when using the REGULAR channel
   }
 
   upgrade_settings {
