@@ -6,7 +6,7 @@ locals {
 
 resource "google_cloudbuild_trigger" "gke_deployment" {
   name        = "${local.env_full_name}-gke-deployment"
-  description = "Deploy and configure Kubernetes resources in environment ${var.environment_name}"
+  description = "Deploy and configure Kubernetes resources in environment ${var.name}"
 
   github {
     owner = var.github_repo.organisation
@@ -92,7 +92,7 @@ resource "google_cloudbuild_trigger" "gke_deployment" {
     logs_bucket = "gs://${google_storage_bucket.gcb_build_logs.name}/main"
   }
 
-  tags = [var.environment_name]
+  tags = [var.name]
 
   provider = google-beta
 }

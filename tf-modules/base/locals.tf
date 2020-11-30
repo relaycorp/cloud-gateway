@@ -1,7 +1,7 @@
 locals {
-  env_full_name = "gateway-${var.environment_name}"
+  env_full_name = "gateway-${var.name}"
 
   gcp_resource_labels = {
-    environment = var.environment_name
+    environment = var.name
   }
 }

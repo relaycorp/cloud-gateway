@@ -1,7 +1,7 @@
 module "gw_test" {
   source = "../tf-modules/base"
 
-  environment_name = "test"
+  name = "test"
 
   gcp_project_id    = var.gcp_project_id
   gcp_region        = "europe-west2"

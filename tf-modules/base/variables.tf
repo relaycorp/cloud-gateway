@@ -1,4 +1,4 @@
-variable "environment_name" {}
+variable "name" {}
 
 variable "dns_managed_zone" {
   default = "relaycorp-cloud"

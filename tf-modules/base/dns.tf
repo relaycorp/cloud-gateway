@@ -3,7 +3,7 @@ data "google_dns_managed_zone" "main" {
 }
 
 resource "google_dns_record_set" "poweb" {
-  name         = "poweb-${var.environment_name}.${data.google_dns_managed_zone.main.dns_name}"
+  name         = "poweb-${var.name}.${data.google_dns_managed_zone.main.dns_name}"
   managed_zone = data.google_dns_managed_zone.main.name
   type         = "A"
   ttl          = 300
@@ -12,7 +12,7 @@ resource "google_dns_record_set" "poweb" {
 }
 
 resource "google_dns_record_set" "pohttp" {
-  name         = "pohttp-${var.environment_name}.${data.google_dns_managed_zone.main.dns_name}"
+  name         = "pohttp-${var.name}.${data.google_dns_managed_zone.main.dns_name}"
   managed_zone = data.google_dns_managed_zone.main.name
   type         = "A"
   ttl          = 300
@@ -21,7 +21,7 @@ resource "google_dns_record_set" "pohttp" {
 }
 
 resource "google_dns_record_set" "cogrpc" {
-  name         = "cogrpc-${var.environment_name}.${data.google_dns_managed_zone.main.dns_name}"
+  name         = "cogrpc-${var.name}.${data.google_dns_managed_zone.main.dns_name}"
   managed_zone = data.google_dns_managed_zone.main.name
   type         = "A"
   ttl          = 300
