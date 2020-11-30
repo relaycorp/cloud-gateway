@@ -28,7 +28,7 @@ resource "google_sql_database_instance" "postgresql" {
 
   name             = "${local.env_full_name}-${random_id.postgresql_instance_suffix.hex}"
   database_version = "POSTGRES_12"
-  region           = "europe-west2"
+  region           = var.gcp_region
 
   depends_on = [google_service_networking_connection.postgresql]
 
