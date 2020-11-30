@@ -26,9 +26,26 @@ service:
   type: NodePort
 
 powebHost: {{ requiredEnv "GW_POWEB_DOMAIN" | quote }}
-pohttpHost: {{ requiredEnv "GW_POHTTP_DOMAIN" | quote }}
-cogrpcHost: {{ requiredEnv "GW_COGRPC_DOMAIN" | quote }}
+poweb:
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
 
+pohttpHost: {{ requiredEnv "GW_POHTTP_DOMAIN" | quote }}
+pohttp:
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+cogrpcHost: {{ requiredEnv "GW_COGRPC_DOMAIN" | quote }}
 cogrpc:
   serviceAnnotations:
     cloud.google.com/app-protocols: '{"cogrpc":"HTTP2"}'
@@ -37,11 +54,11 @@ cogrpc:
     beta.cloud.google.com/backend-config: '{"ports":{"cogrpc":"cogrpc"}, "default": "cogrpc"}'
   resources:
     requests:
-      cpu: 100m
-      memory: 100Mi
+      cpu: 250m
+      memory: 256Mi
     limits:
-      cpu: 200m
-      memory: 300Mi
+      cpu: 500m
+      memory: 512Mi
   replicas: 6
 
 objectStore:
