@@ -1,6 +1,6 @@
 resource "mongodbatlas_network_container" "main" {
   project_id       = var.mongodb_atlas_project_id
-  atlas_cidr_block = "10.8.0.0/21"
+  atlas_cidr_block = "192.168.0.0/16"
   provider_name    = "GCP"
 }
 
