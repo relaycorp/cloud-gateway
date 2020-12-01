@@ -7,8 +7,11 @@ resource "google_compute_global_address" "postgresql" {
   name          = "${local.env_full_name}-postgresql"
   purpose       = "VPC_PEERING"
   address_type  = "INTERNAL"
-  prefix_length = 16 # TODO: Reduce to 24
   network       = google_compute_network.main.id
+
+  # Set the address explicitly to avoid non-deterministic behaviour.
+  address       = "10.101.0.0"
+  prefix_length = 16 # TODO: Reduce to 24
 }
 
 resource "google_service_networking_connection" "postgresql" {
