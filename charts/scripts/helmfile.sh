@@ -18,7 +18,7 @@ HELM_DIFF_VERSION="3.1.3"
 mkdir -p /usr/lib/google-cloud-sdk/bin
 ln -s /builder/google-cloud-sdk/bin/gcloud /usr/lib/google-cloud-sdk/bin/gcloud
 
-if helm plugin list | grep -E '^diff ' --quiet; then
+if helm plugin list | grep -E '^diff\s' --quiet; then
   echo "Helm Diff is already installed (presumably because ${BASH_SOURCE[0]} was run earlier)"
 else
   echo "Installing Helm Diff..."
