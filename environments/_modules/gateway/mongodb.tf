@@ -7,7 +7,7 @@ locals {
 # clusters in the same Atlas project share the same GCP VPC, so trying to connect a second
 # GCP VPC will fail because routes will clash).
 resource "mongodbatlas_project" "main" {
-  name   = "cloud-gateway"
+  name   = local.env_full_name
   org_id = var.mongodb_atlas_org_id
 }
 
