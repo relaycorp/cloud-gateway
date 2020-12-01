@@ -33,12 +33,12 @@ resource "tfe_variable" "gcp_credentials" {
   )
 }
 
-resource "tfe_variable" "mongodb_atlas_project_id" {
+resource "tfe_variable" "mongodb_atlas_org_id" {
   workspace_id = tfe_workspace.main.id
 
   category = "terraform"
-  key      = "mongodb_atlas_project_id"
-  value    = var.mongodb_atlas_project_id
+  key      = "mongodb_atlas_org_id"
+  value    = var.mongodb_atlas_org_id
 }
 resource "tfe_variable" "mongodb_atlas_public_key" {
   workspace_id = tfe_workspace.main.id

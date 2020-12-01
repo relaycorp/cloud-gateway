@@ -3,7 +3,7 @@ variable "gcp_project_id" {
 }
 variable "gcp_service_account_id" {}
 
-variable "mongodb_atlas_project_id" {}
+variable "mongodb_atlas_org_id" {}
 variable "env_mongodb_atlas_public_key" {}
 variable "env_mongodb_atlas_private_key" {}
 

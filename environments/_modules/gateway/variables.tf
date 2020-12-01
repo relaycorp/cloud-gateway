@@ -14,7 +14,7 @@ variable "gke_instance_type" {
   default = "c2-standard-4"
 }
 
-variable "mongodb_atlas_project_id" {}
+variable "mongodb_atlas_org_id" {}
 variable "mongodb_atlas_region" {}
 
 variable "github_repo" {

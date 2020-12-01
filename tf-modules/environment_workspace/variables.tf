@@ -5,7 +5,7 @@ variable "name" {
 variable "gcp_service_account_id" {}
 variable "sre_iam_uri" {}
 
-variable "mongodb_atlas_project_id" {}
+variable "mongodb_atlas_org_id" {}
 variable "mongodb_atlas_public_key" {}
 variable "mongodb_atlas_private_key" {}
 

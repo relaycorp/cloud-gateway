@@ -18,8 +18,8 @@ module "gateway" {
 
   gke_version = "1.17.13"
 
-  mongodb_atlas_project_id = var.mongodb_atlas_project_id
-  mongodb_atlas_region     = "EUROPE_WEST_3"
+  mongodb_atlas_org_id = var.mongodb_atlas_org_id
+  mongodb_atlas_region = "EUROPE_WEST_3"
 
   sre_iam_uri = var.sre_iam_uri
 }

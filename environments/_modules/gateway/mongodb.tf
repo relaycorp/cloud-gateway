@@ -2,17 +2,20 @@ locals {
   mongodb_db_name = "main"
 }
 
-data "mongodbatlas_network_containers" "main" {
-  project_id    = var.mongodb_atlas_project_id
-  provider_name = "GCP"
+# Create one Atlas project per environment due to a limitation in GCP/Atlas peering connections
+# which would prevent us from creating a second connection to the same Atlas project (all the
+# clusters in the same Atlas project share the same GCP VPC, so trying to connect a second
+# GCP VPC will fail because routes will clash).
+resource "mongodbatlas_project" "main" {
+  name   = "cloud-gateway"
+  org_id = var.mongodb_atlas_org_id
 }
 
 resource "mongodbatlas_network_peering" "main" {
-  project_id = var.mongodb_atlas_project_id
+  project_id = mongodbatlas_project.main.id
 
-  # GCP allows a maximum of 1 container per project
-  container_id     = data.mongodbatlas_network_containers.main.results[0].id
-  atlas_cidr_block = data.mongodbatlas_network_containers.main.results[0].atlas_cidr_block
+  container_id     = mongodbatlas_cluster.main.container_id
+  atlas_cidr_block = "192.168.0.0/16"
 
   provider_name  = "GCP"
   gcp_project_id = var.gcp_project_id
@@ -25,8 +28,14 @@ resource "google_compute_network_peering" "mongodb_atlas" {
   peer_network = "https://www.googleapis.com/compute/v1/projects/${mongodbatlas_network_peering.main.atlas_gcp_project_id}/global/networks/${mongodbatlas_network_peering.main.atlas_vpc_name}"
 }
 
+resource "mongodbatlas_project_ip_whitelist" "gcp_vpc" {
+  project_id = mongodbatlas_project.main.id
+  cidr_block = "10.0.0.0/8"
+  comment    = "Allow connections from GCP VPCs"
+}
+
 resource "mongodbatlas_cluster" "main" {
-  project_id = var.mongodb_atlas_project_id
+  project_id = mongodbatlas_project.main.id
 
   name       = local.env_full_name
   num_shards = 1
@@ -43,7 +52,7 @@ resource "mongodbatlas_cluster" "main" {
 }
 
 resource "mongodbatlas_database_user" "main" {
-  project_id = var.mongodb_atlas_project_id
+  project_id = mongodbatlas_project.main.id
 
   username           = local.env_full_name
   password           = random_password.mongodb_user_password.result
