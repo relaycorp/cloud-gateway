@@ -16,6 +16,8 @@ module "gateway" {
   gcp_project_id = var.gcp_project_id
   gcp_region     = "europe-west3"
 
+  gke_version = "1.17.13"
+
   mongodb_atlas_project_id = var.mongodb_atlas_project_id
   mongodb_atlas_region     = "EUROPE_WEST_3"
 
