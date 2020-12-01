@@ -27,13 +27,11 @@ resource "random_id" "postgresql_instance_suffix" {
 }
 
 resource "google_sql_database_instance" "postgresql" {
-  provider = google-beta
+  deletion_protection = false
 
   name             = "${local.env_full_name}-${random_id.postgresql_instance_suffix.hex}"
   database_version = "POSTGRES_12"
   region           = var.gcp_region
-
-  depends_on = [google_service_networking_connection.postgresql]
 
   settings {
     tier              = "db-f1-micro"
@@ -55,4 +53,8 @@ resource "google_sql_database_instance" "postgresql" {
 
     user_labels = local.gcp_resource_labels
   }
+
+  depends_on = [google_service_networking_connection.postgresql]
+
+  provider = google-beta
 }
