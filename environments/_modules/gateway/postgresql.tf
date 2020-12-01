@@ -52,5 +52,7 @@ resource "google_sql_database_instance" "postgresql" {
       private_network = google_compute_network.main.self_link
       require_ssl     = false # Don't require client-side certificates
     }
+
+    user_labels = local.gcp_resource_labels
   }
 }
