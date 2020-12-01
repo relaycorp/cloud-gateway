@@ -81,6 +81,8 @@ POD_NAME="$(
     --output=jsonpath='{.items[0].metadata.name}'
 )"
 
+kubectl wait --for=condition=ready --timeout=10s "pod/${POD_NAME}"
+
 if is_vault_initialised; then
   echo "Vault is already initialised"
 else
