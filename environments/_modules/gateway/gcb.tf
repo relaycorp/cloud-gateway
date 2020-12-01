@@ -56,8 +56,27 @@ resource "google_cloudbuild_trigger" "gke_deployment" {
     }
 
     step {
-      id       = "helmfile-apply"
+      id       = "helmfile-vault-apply"
       wait_for = ["secrets-retrieval"]
+
+      name       = "gcr.io/$PROJECT_ID/helmfile"
+      dir        = "charts"
+      entrypoint = "scripts/helmfile.sh"
+      args       = ["-f", "helmfile-vault.yaml", "apply"]
+      env = [
+        "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
+        "VAULT_KMS_KEY_RING=${google_kms_key_ring.main.name}",
+        "VAULT_KMS_AUTOUNSEAL_KEY=${google_kms_crypto_key.vault_auto_unseal.name}",
+        "VAULT_GCS_BUCKET=${google_storage_bucket.vault.name}",
+        "VAULT_KEYBASE_USERNAME=${local.vault.keybase_username}",
+        "VAULT_KV_PREFIX=${local.vault.kv_prefix}",
+        "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
+      ]
+    }
+
+    step {
+      id       = "helmfile-apply"
+      wait_for = ["helmfile-vault-apply"]
 
       name       = "gcr.io/$PROJECT_ID/helmfile"
       dir        = "charts"
@@ -65,13 +84,6 @@ resource "google_cloudbuild_trigger" "gke_deployment" {
       args       = ["apply"]
       env = [
         "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
-
-        "VAULT_KMS_KEY_RING=${google_kms_key_ring.main.name}",
-        "VAULT_KMS_AUTOUNSEAL_KEY=${google_kms_crypto_key.vault_auto_unseal.name}",
-        "VAULT_GCS_BUCKET=${google_storage_bucket.vault.name}",
-        "VAULT_KEYBASE_USERNAME=${local.vault.keybase_username}",
-        "VAULT_KV_PREFIX=${local.vault.kv_prefix}",
-        "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
 
         "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
         "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
