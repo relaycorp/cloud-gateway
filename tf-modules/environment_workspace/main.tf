@@ -45,7 +45,7 @@ resource "tfe_variable" "mongodb_atlas_public_key" {
 
   category = "env"
   key      = "MONGODB_ATLAS_PUBLIC_KEY"
-  value    = var.env_mongodb_atlas_public_key
+  value    = var.mongodb_atlas_public_key
 }
 resource "tfe_variable" "mongodb_atlas_private_key" {
   workspace_id = tfe_workspace.main.id
@@ -53,7 +53,7 @@ resource "tfe_variable" "mongodb_atlas_private_key" {
   category  = "env"
   sensitive = true
   key       = "MONGODB_ATLAS_PRIVATE_KEY"
-  value     = var.env_mongodb_atlas_private_key
+  value     = var.mongodb_atlas_private_key
 }
 
 resource "tfe_variable" "sre_email" {

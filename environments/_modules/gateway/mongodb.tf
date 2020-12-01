@@ -2,12 +2,18 @@ locals {
   mongodb_db_name = "main"
 }
 
+data "mongodbatlas_network_containers" "main" {
+  project_id    = var.mongodb_atlas_project_id
+  provider_name = "GCP"
+}
+
 resource "mongodbatlas_network_peering" "main" {
   project_id = var.mongodb_atlas_project_id
 
-  atlas_cidr_block = "192.168.0.0/16"
+  # GCP allows a maximum of 1 container per project
+  container_id     = data.mongodbatlas_network_containers.main.results[0].id
+  atlas_cidr_block = data.mongodbatlas_network_containers.main.results[0].atlas_cidr_block
 
-  container_id   = var.mongodb_atlas_network_container
   provider_name  = "GCP"
   gcp_project_id = var.gcp_project_id
   network_name   = google_compute_network.main.name
