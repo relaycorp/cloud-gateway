@@ -7,7 +7,7 @@ resource "mongodbatlas_network_peering" "main" {
 
   atlas_cidr_block = "192.168.0.0/16"
 
-  container_id   = mongodbatlas_cluster.main.container_id
+  container_id   = var.mongodb_atlas_network_container
   provider_name  = "GCP"
   gcp_project_id = var.gcp_project_id
   network_name   = google_compute_network.main.name

@@ -16,6 +16,7 @@ variable "gke_instance_type" {
 
 variable "mongodb_atlas_project_id" {}
 variable "mongodb_atlas_region" {}
+variable "mongodb_atlas_network_container" {}
 
 variable "github_repo" {
   type = object({
