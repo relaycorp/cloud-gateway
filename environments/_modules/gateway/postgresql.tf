@@ -32,9 +32,6 @@ resource "google_sql_database_instance" "postgresql" {
 
   depends_on = [google_service_networking_connection.postgresql]
 
-  // TODO: Undo
-  deletion_protection = false
-
   settings {
     tier              = "db-f1-micro"
     availability_type = "REGIONAL"
