@@ -28,7 +28,7 @@ releases:
       - minio/values.yml.gotmpl
 
   - name: gateway-crds
-    chart: ./gateway/crds
+    chart: ./gateway-crds
     values:
       - gateway-crds/values.yml.gotmpl
 
