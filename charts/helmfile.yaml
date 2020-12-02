@@ -28,6 +28,7 @@ releases:
       - minio/values.yml.gotmpl
 
   - name: gateway-crds
+    chart: ./gateway/crds
     strategicMergePatches:
       - kind: ManagedCertificate
         source: gateway/crds/managed-certificate.yml.gotmpl
