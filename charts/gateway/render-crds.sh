@@ -3,6 +3,8 @@ set -o nounset
 set -o errexit
 set -o pipefail
 
+echo "BADGER"
+
 # Constants and functions
 
 replace_env_var() {
