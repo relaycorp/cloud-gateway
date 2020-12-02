@@ -31,12 +31,13 @@ else
     >>/dev/null
 fi
 
-if which kustomize ; then
-  echo "kustomize is already installed"
+if which kustomize >>/dev/null ; then
+  echo "Kustomize is already installed"
 else
-  set -x # TODO: REMOVE
-  curl --location --silent "${KUSTOMIZE_URL}" | tar --extract -z --strip-components=1
-  ls -lA . # TODO: REMOVE
+  echo "Installing Kustomize..."
+  set -x
+  curl --location --silent --output=/tmp/kustomize.tar.gz "${KUSTOMIZE_URL}"
+  tar --extract -z --strip-components=1 /tmp/kustomize.tar.gz
   mv ./kustomize /builder/helmfile/
 fi
 
