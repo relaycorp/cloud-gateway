@@ -32,6 +32,6 @@ releases:
     version: 1.16.0
     values:
       - gateway/values.yml.gotmpl
-    dependencies:
-      - alias: gateway-crds
-        chart: gateway/crds/
+#    dependencies:
+#      - alias: gateway-crds
+#        chart: gateway/crds/
