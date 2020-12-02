@@ -27,11 +27,13 @@ releases:
     values:
       - minio/values.yml.gotmpl
 
+  - name: gateway-crds
+    strategicMergePatches:
+      - kind: ManagedCertificate
+        source: gateway/crds/managed-certificate.yml.gotmpl
+
   - name: gateway
     chart: relaycorp/relaynet-internet-gateway
     version: 1.16.0
     values:
       - gateway/values.yml.gotmpl
-    strategicMergePatches:
-      - kind: ManagedCertificate
-        source: gateway/crds/managed-certificate.yml.gotmpl
