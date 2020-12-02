@@ -120,8 +120,7 @@ resource "google_cloudbuild_trigger" "gke_deployment_preview" {
     owner = var.github_repo.organisation
     name  = var.github_repo.name
     pull_request {
-      branch       = "^main$"
-      invert_regex = true
+      branch = "^main$"
 
       # NEVER, EVER change this. It prevents PRs from external contributors from being triggered
       # automatically.
