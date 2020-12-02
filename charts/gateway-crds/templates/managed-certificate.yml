@@ -6,6 +6,6 @@ metadata:
   {{- include "gateway-crds.labels" . | nindent 4 }}
 spec:
   domains:
-    {{- range .Values.managedCertificate.domains }}
+    {{- range (sortAlpha .Values.managedCertificate.domains) }}
     - {{ . }}
     {{- end }}
