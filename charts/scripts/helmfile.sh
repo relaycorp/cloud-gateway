@@ -35,11 +35,8 @@ if which kustomize >>/dev/null ; then
   echo "Kustomize is already installed"
 else
   echo "Installing Kustomize..."
-  set -x
-  curl --location --silent --output /tmp/kustomize.tar.gz "${KUSTOMIZE_URL}"
-  tar --extract --gzip --file=/tmp/kustomize.tar.gz
-  ls -lA
-  mv ./kustomize /builder/helmfile/
+  curl --location --silent "${KUSTOMIZE_URL}" | tar --extract --gzip --directory=/builder/helmfile/
+  ls -lA /builder/helmfile/
 fi
 
 helmfile "$@"
