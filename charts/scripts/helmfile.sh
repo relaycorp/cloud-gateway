@@ -36,7 +36,6 @@ if which kustomize >>/dev/null ; then
 else
   echo "Installing Kustomize..."
   curl --location --silent "${KUSTOMIZE_URL}" | tar --extract --gzip --directory=/builder/helmfile/
-  ls -lA /builder/helmfile/
 fi
 
 helmfile "$@"
