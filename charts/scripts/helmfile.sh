@@ -8,9 +8,14 @@ set -o nounset
 set -o errexit
 set -o pipefail
 
-# Constants and functions
+# Configuration
 
 HELM_DIFF_VERSION="3.1.3"
+KUSTOMIZE_VERSION="3.8.7"
+
+# Constants and functions
+
+KUSTOMIZE_URL="https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz"
 
 # Main
 
@@ -24,6 +29,14 @@ else
   echo "Installing Helm Diff..."
   helm plugin install https://github.com/databus23/helm-diff --version "${HELM_DIFF_VERSION}" \
     >>/dev/null
+fi
+
+if which kustomize ; then
+  echo "kustomize is already installed"
+else
+  curl --location --silent "${KUSTOMIZE_URL}" | \
+    tar --extract -z --strip-components=1 --directory=/tmp
+  install /tmp/kustomize
 fi
 
 helmfile "$@"
