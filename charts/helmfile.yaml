@@ -33,4 +33,5 @@ releases:
     values:
       - gateway/values.yml.gotmpl
     strategicMergePatches:
-      - source: gateway/crds/managed-certificate.yml.gotmpl
+      - kind: ManagedCertificate
+        source: gateway/crds/managed-certificate.yml.gotmpl
