@@ -34,7 +34,7 @@ fi
 if which kustomize ; then
   echo "kustomize is already installed"
 else
-  set +x # TODO: REMOVE
+  set -x # TODO: REMOVE
   curl --location --silent "${KUSTOMIZE_URL}" | \
     tar --extract -z --strip-components=1 --directory=/tmp
   ls -lA /tmp # TODO: REMOVE
