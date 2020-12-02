@@ -8,7 +8,7 @@ set -o nounset
 set -o errexit
 set -o pipefail
 
-# Constants and functions
+# Configuration
 
 HELM_DIFF_VERSION="3.1.3"
 

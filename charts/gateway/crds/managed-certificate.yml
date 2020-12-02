@@ -1,9 +1,0 @@
-apiVersion: networking.gke.io/v1beta2
-kind: ManagedCertificate
-metadata:
-  name: gateway-test
-spec:
-  domains:
-    - poweb-test.relaycorp.cloud
-    - pohttp-test.relaycorp.cloud
-    - cogrpc-test.relaycorp.cloud
