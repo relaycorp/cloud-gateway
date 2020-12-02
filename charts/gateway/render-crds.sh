@@ -3,8 +3,6 @@ set -o nounset
 set -o errexit
 set -o pipefail
 
-set -x
-
 # Constants and functions
 
 replace_env_var() {
@@ -26,12 +24,8 @@ REPLACEABLE_ENV_VARS=(
 # Main
 
 CRDS_DIR="$(dirname "${BASH_SOURCE[0]}")/crds"
-ls -lA "${CRDS_DIR}"
 for manifest in "${CRDS_DIR}"/*.yml; do
-  echo "manifest=${manifest}"
   for env_var in "${REPLACEABLE_ENV_VARS[@]}"; do
     replace_env_var "${env_var}" "${manifest}"
   done
 done
-
-cat "${CRDS_DIR}"/*.yml
