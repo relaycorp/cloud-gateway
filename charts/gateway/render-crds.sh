@@ -33,3 +33,5 @@ for manifest in "${CRDS_DIR}"/*.yml; do
     replace_env_var "${env_var}" "${manifest}"
   done
 done
+
+cat "${CRDS_DIR}"/*.yml
