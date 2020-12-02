@@ -3,7 +3,7 @@ set -o nounset
 set -o errexit
 set -o pipefail
 
-echo "BADGER"
+set -x
 
 # Constants and functions
 
@@ -26,8 +26,6 @@ REPLACEABLE_ENV_VARS=(
 # Main
 
 CRDS_DIR="$(dirname "${BASH_SOURCE[0]}")/crds"
-
-set -x
 
 for manifest in "${CRDS_DIR}"/*.yml; do
   for env_var in "${REPLACEABLE_ENV_VARS[@]}"; do
