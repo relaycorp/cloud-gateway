@@ -1,9 +1,0 @@
-apiVersion: networking.gke.io/v1beta2
-kind: ManagedCertificate
-metadata:
-  name: {{ requiredEnv "GW_MANAGED_CERT_NAME" | quote }}
-spec:
-  domains:
-    - {{ requiredEnv "GW_POWEB_DOMAIN" | quote }}
-    - {{ requiredEnv "GW_POHTTP_DOMAIN" | quote }}
-    - {{ requiredEnv "GW_COGRPC_DOMAIN" | quote }}
