@@ -28,11 +28,9 @@ releases:
       - minio/values.yml.gotmpl
 
   - name: gateway-crds
-    chart: ./gateway/crds/
-    hooks:
-      - events: [ prepare ]
-        showlogs: true
-        command: gateway/render-crds.sh
+    chart: ./gateway/crds
+    values:
+      - gateway-crds/values.yml.gotmpl
 
   - name: gateway
     chart: relaycorp/relaynet-internet-gateway

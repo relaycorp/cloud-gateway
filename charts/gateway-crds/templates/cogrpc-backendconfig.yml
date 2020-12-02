@@ -3,7 +3,8 @@ kind: BackendConfig
 metadata:
   name: cogrpc
   labels:
-    project: relaycorp-cloud-gateway
+    project: {{ .Values.gcpProjectId | quote }}
+    {{- include "gateway-crds.labels" . | nindent 4 }}
 spec:
   healthCheck:
     type: HTTP
