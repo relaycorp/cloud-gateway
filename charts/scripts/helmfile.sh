@@ -36,7 +36,7 @@ if which kustomize ; then
 else
   curl --location --silent "${KUSTOMIZE_URL}" | \
     tar --extract -z --strip-components=1 --directory=/tmp
-  install /tmp/kustomize
+  mv /tmp/kustomize /builder/helmfile/
 fi
 
 helmfile "$@"
