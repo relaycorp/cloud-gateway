@@ -37,7 +37,7 @@ else
   echo "Installing Kustomize..."
   set -x
   curl --location --silent --output /tmp/kustomize.tar.gz "${KUSTOMIZE_URL}"
-  tar --extract --gzip --strip-components=1 --file=/tmp/kustomize.tar.gz
+  tar --extract --gzip --file=/tmp/kustomize.tar.gz
   ls -lA
   mv ./kustomize /builder/helmfile/
 fi
