@@ -1,4 +1,13 @@
 nameOverride: nats
+nats:
+  terminationGracePeriodSeconds: 30
+  resources:
+    requests:
+      cpu: 200m
+      memory: 64Mi
+    limits:
+      cpu: 300m
+      memory: 100Mi
 securityContext:
   fsGroup: 1000
   runAsUser: 1000
