@@ -12,6 +12,9 @@ resource "google_container_cluster" "main" {
     channel = "REGULAR"
   }
 
+  # Enable alpha features so that we can use service topology
+  enable_kubernetes_alpha = true
+
   maintenance_policy {
     recurring_window {
       # Only do maintenance in the mornings (UK time).
