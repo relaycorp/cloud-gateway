@@ -14,7 +14,7 @@ helmDefaults:
 releases:
   - name: stan
     chart: nats/stan
-    version: 0.7.4
+    version: {{ .Values.natsChartVersion }}
     values:
       - stan/values.yml.gotmpl
     labels:
