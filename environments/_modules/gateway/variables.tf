@@ -4,7 +4,7 @@ variable "type" {
   default = "production"
   validation {
     condition     = contains(["production", "testing"], var.type)
-    error_message = "Environment type must be either 'production' or 'testing'"
+    error_message = "Environment type must be either 'production' or 'testing'."
   }
 }
 
