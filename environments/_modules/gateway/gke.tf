@@ -2,7 +2,7 @@ resource "random_id" "gke_cluster_suffix" {
   byte_length = 3
 
   keepers = {
-    cluster_id = google_container_cluster.main.label_fingerprint
+    gke_version = var.gke_version
   }
 }
 
