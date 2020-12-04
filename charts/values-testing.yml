@@ -1,3 +1,2 @@
 stanReplicas: 3
-ft:
-  group: gateway
+stanFtGroup: gateway
