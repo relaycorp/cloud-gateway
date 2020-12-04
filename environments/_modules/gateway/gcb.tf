@@ -89,7 +89,7 @@ resource "google_cloudbuild_trigger" "gke_deployment" {
       name       = "gcr.io/$PROJECT_ID/helmfile"
       dir        = "charts"
       entrypoint = "scripts/helmfile.sh"
-      args       = ["--selector", "tier=backingService", "apply"]
+      args       = ["--selector", "tier=backingService", "--environment", var.type, "apply"]
       env        = local.gcb.helmfile_env
     }
 
@@ -100,7 +100,7 @@ resource "google_cloudbuild_trigger" "gke_deployment" {
       name       = "gcr.io/$PROJECT_ID/helmfile"
       dir        = "charts"
       entrypoint = "scripts/helmfile.sh"
-      args       = ["--selector", "tier!=backingService", "apply"]
+      args       = ["--selector", "tier!=backingService", "--environment", var.type, "apply"]
       env        = local.gcb.helmfile_env
     }
 
@@ -177,7 +177,7 @@ resource "google_cloudbuild_trigger" "gke_deployment_preview" {
       name       = "gcr.io/$PROJECT_ID/helmfile"
       dir        = "charts"
       entrypoint = "scripts/helmfile.sh"
-      args       = ["diff"]
+      args       = ["--environment", var.type, "diff"]
       env        = local.gcb.helmfile_env
     }
 
