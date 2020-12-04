@@ -17,6 +17,9 @@ releases:
     version: 0.7.4
     values:
       - stan/values.yml.gotmpl
+    set:
+      - name: stan.replicas
+        value: {{ .Values.stanReplicas }}
     labels:
       tier: backingService
   - name: nats
