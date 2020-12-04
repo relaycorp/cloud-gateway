@@ -1,5 +1,13 @@
+resource "random_id" "gke_cluster_suffix" {
+  byte_length = 3
+
+  keepers = {
+    cluster_id = google_container_cluster.main.label_fingerprint
+  }
+}
+
 resource "google_container_cluster" "main" {
-  name = local.env_full_name
+  name = "${local.env_full_name}-${random_id.gke_cluster_suffix}"
 
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
