@@ -74,6 +74,8 @@ environments:
   production:
     values:
       - values-production.yml
+      - nats:
+          chartVersion: 0.7.3
   testing:
     values:
       - values-testing.yml
