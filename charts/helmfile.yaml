@@ -73,7 +73,7 @@ releases:
 environments:
   production:
     values:
-      - values-production.yml.gotmpl
+      - values-production.yml
   testing:
     values:
-      - values-testing.yml.gotmpl
+      - values-testing.yml
