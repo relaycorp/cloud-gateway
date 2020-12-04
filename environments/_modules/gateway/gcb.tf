@@ -2,6 +2,33 @@ locals {
   gcb_service_account_email = "${data.google_project.main.number}@cloudbuild.gserviceaccount.com"
 
   gcb_gcloud_image = "gcr.io/google.com/cloudsdktool/cloud-sdk:319.0.0-slim"
+
+  gcb = {
+    helmfile_env = [
+      "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
+
+      "VAULT_KMS_KEY_RING=${google_kms_key_ring.main.name}",
+      "VAULT_KMS_AUTOUNSEAL_KEY=${google_kms_crypto_key.vault_auto_unseal.name}",
+      "VAULT_GCS_BUCKET=${google_storage_bucket.vault.name}",
+      "VAULT_KEYBASE_USERNAME=${local.vault.keybase_username}",
+      "VAULT_KV_PREFIX=${local.vault.kv_prefix}",
+      "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
+
+      "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
+      "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
+      "STAN_DB_USER=${google_sql_user.postgresql_stan.name}",
+
+      "GW_MONGODB_CONNECTION_URI=${lookup(mongodbatlas_cluster.main.connection_strings[0], "private_srv")}",
+      "GW_MONGODB_DB_NAME=${local.mongodb_db_name}",
+      "GW_MONGODB_USER_NAME=${mongodbatlas_database_user.main.username}",
+      "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
+      "GW_POWEB_DOMAIN=${trimsuffix(google_dns_record_set.poweb.name, ".")}",
+      "GW_POHTTP_DOMAIN=${trimsuffix(google_dns_record_set.pohttp.name, ".")}",
+      "GW_COGRPC_DOMAIN=${trimsuffix(google_dns_record_set.cogrpc.name, ".")}",
+      "GW_GLOBAL_IP_NAME=${google_compute_global_address.managed_tls_cert.name}",
+      "GW_MANAGED_CERT_NAME=${local.env_full_name}",
+    ]
+  }
 }
 
 resource "google_cloudbuild_trigger" "gke_deployment" {
@@ -17,6 +44,7 @@ resource "google_cloudbuild_trigger" "gke_deployment" {
   }
 
   included_files = ["charts/**"]
+  ignored_files  = var.type == "production" ? ["charts/values-testing.yml"] : []
 
   build {
     step {
@@ -56,49 +84,25 @@ resource "google_cloudbuild_trigger" "gke_deployment" {
     }
 
     step {
-      id       = "helmfile-vault-apply"
+      id       = "helmfile-backing-services-apply"
       wait_for = ["secrets-retrieval"]
 
       name       = "gcr.io/$PROJECT_ID/helmfile"
       dir        = "charts"
       entrypoint = "scripts/helmfile.sh"
-      args       = ["-f", "helmfile-vault.yaml", "apply"]
-      env = [
-        "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
-        "VAULT_KMS_KEY_RING=${google_kms_key_ring.main.name}",
-        "VAULT_KMS_AUTOUNSEAL_KEY=${google_kms_crypto_key.vault_auto_unseal.name}",
-        "VAULT_GCS_BUCKET=${google_storage_bucket.vault.name}",
-        "VAULT_KEYBASE_USERNAME=${local.vault.keybase_username}",
-        "VAULT_KV_PREFIX=${local.vault.kv_prefix}",
-        "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
-      ]
+      args       = ["--selector", "tier=backingService", "--environment", var.type, "apply"]
+      env        = local.gcb.helmfile_env
     }
 
     step {
       id       = "helmfile-apply"
-      wait_for = ["helmfile-vault-apply"]
+      wait_for = ["helmfile-backing-services-apply"]
 
       name       = "gcr.io/$PROJECT_ID/helmfile"
       dir        = "charts"
       entrypoint = "scripts/helmfile.sh"
-      args       = ["apply"]
-      env = [
-        "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
-
-        "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
-        "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
-        "STAN_DB_USER=${google_sql_user.postgresql_stan.name}",
-
-        "GW_MONGODB_CONNECTION_URI=${lookup(mongodbatlas_cluster.main.connection_strings[0], "private_srv")}",
-        "GW_MONGODB_DB_NAME=${local.mongodb_db_name}",
-        "GW_MONGODB_USER_NAME=${mongodbatlas_database_user.main.username}",
-        "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
-        "GW_POWEB_DOMAIN=${trimsuffix(google_dns_record_set.poweb.name, ".")}",
-        "GW_POHTTP_DOMAIN=${trimsuffix(google_dns_record_set.pohttp.name, ".")}",
-        "GW_COGRPC_DOMAIN=${trimsuffix(google_dns_record_set.cogrpc.name, ".")}",
-        "GW_GLOBAL_IP_NAME=${google_compute_global_address.managed_tls_cert.name}",
-        "GW_MANAGED_CERT_NAME=${local.env_full_name}",
-      ]
+      args       = ["--selector", "tier!=backingService", "--environment", var.type, "apply"]
+      env        = local.gcb.helmfile_env
     }
 
     logs_bucket = "gs://${google_storage_bucket.gcb_build_logs.name}/main"
@@ -129,6 +133,7 @@ resource "google_cloudbuild_trigger" "gke_deployment_preview" {
   }
 
   included_files = ["charts/**"]
+  ignored_files  = var.type == "production" ? ["charts/values-testing.yml"] : []
 
   build {
     step {
@@ -168,49 +173,14 @@ resource "google_cloudbuild_trigger" "gke_deployment_preview" {
     }
 
     step {
-      id       = "helmfile-vault"
+      id       = "helmfile-diff"
       wait_for = ["secrets-retrieval"]
 
       name       = "gcr.io/$PROJECT_ID/helmfile"
       dir        = "charts"
       entrypoint = "scripts/helmfile.sh"
-      args       = ["-f", "helmfile-vault.yaml", "diff"]
-      env = [
-        "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
-        "VAULT_KMS_KEY_RING=${google_kms_key_ring.main.name}",
-        "VAULT_KMS_AUTOUNSEAL_KEY=${google_kms_crypto_key.vault_auto_unseal.name}",
-        "VAULT_GCS_BUCKET=${google_storage_bucket.vault.name}",
-        "VAULT_KEYBASE_USERNAME=${local.vault.keybase_username}",
-        "VAULT_KV_PREFIX=${local.vault.kv_prefix}",
-        "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
-      ]
-    }
-
-    step {
-      id       = "helmfile"
-      wait_for = ["helmfile-vault"]
-
-      name       = "gcr.io/$PROJECT_ID/helmfile"
-      dir        = "charts"
-      entrypoint = "scripts/helmfile.sh"
-      args       = ["diff"]
-      env = [
-        "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
-
-        "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
-        "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
-        "STAN_DB_USER=${google_sql_user.postgresql_stan.name}",
-
-        "GW_MONGODB_CONNECTION_URI=${lookup(mongodbatlas_cluster.main.connection_strings[0], "private_srv")}",
-        "GW_MONGODB_DB_NAME=${local.mongodb_db_name}",
-        "GW_MONGODB_USER_NAME=${mongodbatlas_database_user.main.username}",
-        "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
-        "GW_POWEB_DOMAIN=${trimsuffix(google_dns_record_set.poweb.name, ".")}",
-        "GW_POHTTP_DOMAIN=${trimsuffix(google_dns_record_set.pohttp.name, ".")}",
-        "GW_COGRPC_DOMAIN=${trimsuffix(google_dns_record_set.cogrpc.name, ".")}",
-        "GW_GLOBAL_IP_NAME=${google_compute_global_address.managed_tls_cert.name}",
-        "GW_MANAGED_CERT_NAME=${local.env_full_name}",
-      ]
+      args       = ["--environment", var.type, "diff"]
+      env        = local.gcb.helmfile_env
     }
 
     logs_bucket = "gs://${google_storage_bucket.gcb_build_logs.name}/preview"
