@@ -1,3 +1,5 @@
 stanReplicas: 3
-ft:
-  group: gateway
+stan:
+  store:
+    ft:
+      group: gateway
