@@ -51,7 +51,7 @@ resource "google_container_node_pool" "main" {
   name       = local.env_full_name
   location   = google_container_cluster.main.location
   cluster    = google_container_cluster.main.name
-  node_count = 2
+  node_count = 1 # Per availability zone
 
   version = google_container_cluster.main.master_version
 
