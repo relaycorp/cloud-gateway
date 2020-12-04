@@ -21,7 +21,7 @@ releases:
       tier: backingService
   - name: nats
     chart: nats/nats
-    version: "{{ .Values.natsChartVersion }}"
+    version: 0.7.2
     values:
       - nats/values.yml
     labels:
@@ -73,8 +73,8 @@ releases:
 environments:
   production:
     values:
-      - values-production.yml
-      - natsChartVersion: 0.7.3
+      - values.yml
   testing:
     values:
+      - values.yml
       - values-testing.yml
