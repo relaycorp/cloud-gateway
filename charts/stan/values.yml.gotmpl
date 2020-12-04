@@ -1,5 +1,6 @@
 nameOverride: stan
 stan:
+  replicas: 3
   nats:
     url: nats://nats:4222
 securityContext:
@@ -9,7 +10,7 @@ securityContext:
 store:
   type: sql
   ft:
-    group: {{ .Values.stanFtGroup }}
+    group: gateway
   sql:
     driver: postgres
     initdb:
