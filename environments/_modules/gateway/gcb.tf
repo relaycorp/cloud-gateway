@@ -44,6 +44,7 @@ resource "google_cloudbuild_trigger" "gke_deployment" {
   }
 
   included_files = ["charts/**"]
+  ignored_files  = var.type == "production" ? ["charts/values-testing.yml"] : []
 
   build {
     step {
@@ -132,6 +133,7 @@ resource "google_cloudbuild_trigger" "gke_deployment_preview" {
   }
 
   included_files = ["charts/**"]
+  ignored_files  = var.type == "production" ? ["charts/values-testing.yml"] : []
 
   build {
     step {
