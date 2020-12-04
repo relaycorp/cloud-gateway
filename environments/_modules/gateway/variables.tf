@@ -1,5 +1,13 @@
 variable "name" {}
 
+variable "type" {
+  default = "production"
+  validation {
+    condition     = contains(["production", "testing"], var.type)
+    error_message = "Environment type must be either 'production' or 'testing'"
+  }
+}
+
 variable "dns_managed_zone" {
   default = "relaycorp-cloud"
 }
