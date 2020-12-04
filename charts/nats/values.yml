@@ -10,9 +10,14 @@ nats:
       memory: 100Mi
 cluster:
   enabled: true
+natsbox:
+  enabled: false
+
 securityContext:
   fsGroup: 1000
   runAsUser: 1000
   runAsNonRoot: true
-natsbox:
-  enabled: false
+topologyKeys:
+  - "kubernetes.io/hostname"
+  - "topology.kubernetes.io/zone"
+  - "topology.kubernetes.io/region"
