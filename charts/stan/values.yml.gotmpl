@@ -3,10 +3,6 @@ stan:
   replicas: 3
   nats:
     url: nats://nats:4222
-securityContext:
-  fsGroup: 1000
-  runAsUser: 1000
-  runAsNonRoot: true
 store:
   type: sql
   ft:
@@ -32,3 +28,15 @@ store:
         max_age: 1h
       crc-cargo:
         max_bytes: 10MB
+
+securityContext:
+  fsGroup: 1000
+  runAsUser: 1000
+  runAsNonRoot: true
+resources:
+  requests:
+    cpu: 200m
+    memory: 64Mi
+  limits:
+    cpu: 300m
+    memory: 100Mi
