@@ -21,3 +21,14 @@ store:
     dbUser: {{ requiredEnv "STAN_DB_USER" | quote }}
     dbPassword: {{ readFile "/workspace/secrets/stan-db-password" | quote }}
     source: host={{ requiredEnv "STAN_DB_HOST" }} dbname={{ requiredEnv "STAN_DB_NAME" }} user={{ requiredEnv "STAN_DB_USER" }} password={{ readFile "/workspace/secrets/stan-db-password" }} sslmode=require
+  limits:
+    max_bytes: 2KB
+    channels:
+      # See: https://docs.relaycorp.tech/relaynet-internet-gateway/architecture#nats-streaming
+      pdc-parcel.>:
+        max_inactivity: 10s
+        max_subs: 3 # There shouldn't be more than 1 parcel collection but let's be generous
+      internet-parcels:
+        max_age: 1h
+      crc-cargo:
+        max_bytes: 10MB
