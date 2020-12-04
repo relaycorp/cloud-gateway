@@ -8,6 +8,8 @@ securityContext:
   runAsNonRoot: true
 store:
   type: sql
+  ft:
+    group: {{ .Values.stanFtGroup }}
   sql:
     driver: postgres
     initdb:
