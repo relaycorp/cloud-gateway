@@ -24,9 +24,6 @@ releases:
     version: 0.7.2
     values:
       - nats/values.yml
-    set:
-      - name: cluster.enabled
-        value: {{ .Values.natsEnableCluster }}
     labels:
       tier: backingService
 

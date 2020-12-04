@@ -1,4 +1,6 @@
 nameOverride: nats
+cluster:
+  enabled: true
 securityContext:
   fsGroup: 1000
   runAsUser: 1000
