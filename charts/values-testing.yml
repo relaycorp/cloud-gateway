@@ -1,2 +1,1 @@
-nats:
-  chartVersion: 0.7.4
+natsChartVersion: 0.7.4
