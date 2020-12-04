@@ -69,3 +69,11 @@ releases:
     version: 1.16.0
     values:
       - gateway/values.yml.gotmpl
+
+environments:
+  production:
+    values:
+      - values-production.yml.gotmpl
+  testing:
+    values:
+      - values-testing.yml.gotmpl
