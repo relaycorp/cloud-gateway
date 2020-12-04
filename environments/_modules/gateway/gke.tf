@@ -1,9 +1,5 @@
 resource "random_id" "gke_cluster_suffix" {
   byte_length = 3
-
-  keepers = {
-    gke_version = var.gke_version
-  }
 }
 
 resource "google_container_cluster" "main" {
