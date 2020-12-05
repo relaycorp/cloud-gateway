@@ -24,6 +24,31 @@ service:
 
 powebHost: {{ requiredEnv "GW_POWEB_DOMAIN" | quote }}
 poweb:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: [ relaynet-internet-gateway ]
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values: [ poweb ]
+            topologyKey: "kubernetes.io/hostname"
+          weight: 80
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: [ relaynet-internet-gateway ]
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values: [ poweb ]
+            topologyKey: "topology.kubernetes.io/zone"
+          weight: 100
   replicas: 6
   resources:
     requests:
@@ -35,6 +60,31 @@ poweb:
 
 pohttpHost: {{ requiredEnv "GW_POHTTP_DOMAIN" | quote }}
 pohttp:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: [ relaynet-internet-gateway ]
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values: [ pohttp ]
+            topologyKey: "kubernetes.io/hostname"
+          weight: 80
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: [ relaynet-internet-gateway ]
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values: [ pohttp ]
+            topologyKey: "topology.kubernetes.io/zone"
+          weight: 100
   replicas: 6
   resources:
     requests:
@@ -86,6 +136,31 @@ cogrpc:
       memory: 512Mi
 
 pdcQueue:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: [ relaynet-internet-gateway ]
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values: [ pdcout ]
+            topologyKey: "kubernetes.io/hostname"
+          weight: 80
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: [ relaynet-internet-gateway ]
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values: [ pdcout ]
+            topologyKey: "topology.kubernetes.io/zone"
+          weight: 100
   replicas: 12
   resources:
     requests:
@@ -96,6 +171,31 @@ pdcQueue:
       memory: 64Mi
 
 crcQueue:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: [ relaynet-internet-gateway ]
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values: [ crcin ]
+            topologyKey: "kubernetes.io/hostname"
+          weight: 80
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: [ relaynet-internet-gateway ]
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values: [ crcin ]
+            topologyKey: "topology.kubernetes.io/zone"
+          weight: 100
   replicas: 12
   resources:
     requests:
