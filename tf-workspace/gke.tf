@@ -8,9 +8,3 @@ resource "google_project_iam_binding" "gke_admins" {
   role    = "roles/container.admin"
   members = ["serviceAccount:${local.gcb_service_account_email}"]
 }
-
-# TODO: REMOVE
-resource "google_project_iam_binding" "cloudsql_admin" {
-  role    = "roles/cloudsql.admin"
-  members = [var.sre_iam_uri]
-}
