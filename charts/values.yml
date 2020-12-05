@@ -1,4 +1,2 @@
 gatewayVersion: 1.17.1
-gateway:
-  cogrpc:
-    affinity: {}
+gatewayCogrpcAffinity: {}

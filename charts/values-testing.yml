@@ -1,27 +1,25 @@
-gateway:
-  cogrpc:
-    affinity:
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/name
-                    operator: In
-                    values: [relaynet-internet-gateway]
-                  - key: app.kubernetes.io/component
-                    operator: In
-                    values: [cogrpc]
-            weight: 80
-            topologyKey: "kubernetes.io/hostname"
-          - podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/name
-                    operator: In
-                    values: [relaynet-internet-gateway]
-                  - key: app.kubernetes.io/component
-                    operator: In
-                    values: [cogrpc]
-            weight: 100
-            topologyKey: "topology.kubernetes.io/zone"
+gatewayCogrpcAffinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values: [relaynet-internet-gateway]
+              - key: app.kubernetes.io/component
+                operator: In
+                values: [cogrpc]
+        weight: 80
+        topologyKey: "kubernetes.io/hostname"
+      - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values: [relaynet-internet-gateway]
+              - key: app.kubernetes.io/component
+                operator: In
+                values: [cogrpc]
+        weight: 100
+        topologyKey: "topology.kubernetes.io/zone"
