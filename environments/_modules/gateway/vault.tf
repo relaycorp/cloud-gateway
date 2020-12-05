@@ -70,6 +70,8 @@ resource "google_storage_bucket" "vault" {
   }
 
   labels = local.gcp_resource_labels
+
+  force_destroy = true
 }
 
 resource "google_storage_bucket_iam_member" "vault_storage" {
