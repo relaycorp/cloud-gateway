@@ -10,9 +10,29 @@ nats:
       memory: 100Mi
 cluster:
   enabled: true
+natsbox:
+  enabled: false
+
 securityContext:
   fsGroup: 1000
   runAsUser: 1000
   runAsNonRoot: true
-natsbox:
-  enabled: false
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values: [ nats ]
+          topologyKey: "kubernetes.io/hostname"
+        weight: 80
+      - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values: [ nats ]
+          topologyKey: "topology.kubernetes.io/zone"
+        weight: 100
