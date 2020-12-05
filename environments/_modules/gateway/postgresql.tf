@@ -55,6 +55,4 @@ resource "google_sql_database_instance" "postgresql" {
   depends_on = [google_service_networking_connection.postgresql]
 
   provider = google-beta
-
-  deletion_protection = false
 }

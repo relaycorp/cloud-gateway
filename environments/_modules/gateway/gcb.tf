@@ -203,8 +203,6 @@ resource "google_storage_bucket" "gcb_build_logs" {
   }
 
   labels = local.gcp_resource_labels
-
-  force_destroy = true
 }
 
 resource "google_storage_bucket_iam_member" "gcb_build_logs" {
