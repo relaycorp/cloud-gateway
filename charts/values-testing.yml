@@ -10,8 +10,8 @@ gatewayCogrpcAffinity:
               - key: app.kubernetes.io/component
                 operator: In
                 values: [cogrpc]
+          topologyKey: "kubernetes.io/hostname"
         weight: 80
-        topologyKey: "kubernetes.io/hostname"
       - podAffinityTerm:
           labelSelector:
             matchExpressions:
@@ -21,5 +21,5 @@ gatewayCogrpcAffinity:
               - key: app.kubernetes.io/component
                 operator: In
                 values: [cogrpc]
+          topologyKey: "topology.kubernetes.io/zone"
         weight: 100
-        topologyKey: "topology.kubernetes.io/zone"
