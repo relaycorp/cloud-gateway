@@ -46,6 +46,7 @@ pohttp:
 
 cogrpcHost: {{ requiredEnv "GW_COGRPC_DOMAIN" | quote }}
 cogrpc:
+  affinity: {{ .Values.gateway.cogrpc.affinity }}
   serviceAnnotations:
     cloud.google.com/app-protocols: '{"cogrpc":"HTTP2"}'
     service.alpha.kubernetes.io/app-protocols: '{"cogrpc":"HTTP2"}'
