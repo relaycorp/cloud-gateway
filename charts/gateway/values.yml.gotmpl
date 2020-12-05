@@ -4,6 +4,8 @@ image:
 
 fullnameOverride: public-gateway
 
+gatewayKeyId: {{ requiredEnv "GW_KEY_ID_B64" | quote }}
+
 logLevel: debug
 
 proxyRequestIdHeader: X-Cloud-Trace-Context
