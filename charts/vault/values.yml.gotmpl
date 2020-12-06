@@ -7,7 +7,7 @@ server:
   extraArgs: -config=/vault/userconfig/vault-config/partial-vault.hcl
 
   extraEnvironmentVars:
-    GOOGLE_REGION: global
+    GOOGLE_REGION: {{ requiredEnv "CLOUDSDK_COMPUTE_REGION" | quote }}
     GOOGLE_PROJECT: {{ requiredEnv "CLOUDSDK_CORE_PROJECT" | quote }}
     GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/vault-cd/service_account_key.json
 
