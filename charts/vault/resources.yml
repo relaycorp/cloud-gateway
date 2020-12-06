@@ -11,7 +11,7 @@ data:
   partial-vault.hcl: |2
     seal "gcpckms" {
       project    = "${CLOUDSDK_CORE_PROJECT}"
-      region     = "global"
+      region     = "${CLOUDSDK_COMPUTE_REGION}"
       key_ring   = "${VAULT_KMS_KEY_RING}"
       crypto_key = "${VAULT_KMS_AUTOUNSEAL_KEY}"
     }

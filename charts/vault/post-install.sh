@@ -81,10 +81,6 @@ POD_NAME="$(
     --output=jsonpath='{.items[0].metadata.name}'
 )"
 
-# When Vault has just been installed, but a few seconds for the pod to be scheduled (but not yet
-# ready) before trying to `exec` in it.
-kubectl wait --for=condition=ready "pod/${POD_NAME}" --timeout 5s || true
-
 if is_vault_initialised; then
   echo "Vault is already initialised"
 else
