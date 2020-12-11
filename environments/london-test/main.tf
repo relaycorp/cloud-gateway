@@ -16,7 +16,6 @@ module "gateway" {
 
   gcp_project_id = var.gcp_project_id
   gcp_region     = "europe-west2"
-  gke_instance_type = "n1-standard-1"
 
   gke_version = "1.17.13"
 
