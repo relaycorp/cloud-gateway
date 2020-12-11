@@ -8,7 +8,7 @@ We currently manage one environment: [Frankfurt](./frankfurt).
 1. Once the change above is pushed to `main`, go to Terraform Cloud and apply it.
 1. Create a new Terraform workspace in this directory and push it to `main`. This workspace MUST initialise the [`gateway` module](./_modules/gateway). You could start by copying an existing workspace.
 1. Apply the change in Terraform Cloud.
-1. [Go to GCB](https://console.cloud.google.com/cloud-build/triggers?project=relaycorp-cloud-gateway) and run a build for the trigger a build for the new environment.
+1. [Go to GCB](https://console.cloud.google.com/cloud-build/triggers?project=relaycorp-cloud-gateway) and build the trigger for the new environment.
 
 ## Deprovision an environment
 
