@@ -48,7 +48,7 @@ resource "google_container_cluster" "main" {
 }
 
 resource "random_id" "gke_node_pool_suffix" {
-  byte_length = 5
+  byte_length = 3
 }
 
 resource "google_container_node_pool" "main" {
