@@ -15,7 +15,7 @@ We currently manage one environment: [Frankfurt](./frankfurt).
 
 [Deprovisioning isn't currently as automated as it can be](https://github.com/relaycorp/cloud-gateway/issues/56), so the following manual steps are needed:
 
-1. Uninstall the gateway and its CRDs via Helm:
+1. Uninstall all the Helm charts manually; e.g.:
    ```
    helm uninstall gateway
    helm uninstall gateway-crds
@@ -24,7 +24,7 @@ We currently manage one environment: [Frankfurt](./frankfurt).
    This ensures that cloud resources created by Kubernetes (e.g., the load balancer) are removed.
 
    This step is not automated to avoid breaking an environment by simply clicking a button on GCB.
-1. Delete the Terraform workspace directory for the environment and push it to `main`.
-1. Apply the change in Terraform Cloud.
+1. Empty the GCS buckets in the environment.
+1. Go to Terraform Cloud and destroy the workspace from the settings.
 1. Delete the Terraform Cloud workspace from the main workspace. See [`tf-workspace/environments.tf`](https://github.com/relaycorp/cloud-gateway/blob/main/tf-workspace/environments.tf).
 1. Once the change above is pushed to `main`, go to Terraform Cloud and apply it.
