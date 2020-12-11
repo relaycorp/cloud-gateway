@@ -103,6 +103,7 @@ resource "google_project_iam_custom_role" "gke_limited_admin" {
     "container.clusterRoles.bind",
     "container.clusterRoles.update",
     "container.clusterRoles.delete",
+    "container.clusterRoles.escalate",
     "container.clusterRoleBindings.create",
     "container.clusterRoleBindings.get",
     "container.clusterRoleBindings.list",
@@ -118,6 +119,8 @@ resource "google_project_iam_custom_role" "gke_limited_admin" {
     "container.roles.list",
     "container.roles.update",
     "container.roles.delete",
+    "container.roles.bind",
+    "container.roles.escalate",
   ]
 }
 
