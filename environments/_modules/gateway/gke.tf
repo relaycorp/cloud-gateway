@@ -84,6 +84,10 @@ resource "google_container_node_pool" "main" {
     max_surge       = 3
     max_unavailable = 3
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "google_project_iam_custom_role" "gke_limited_admin" {
