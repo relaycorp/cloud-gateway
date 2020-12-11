@@ -138,9 +138,3 @@ resource "google_project_iam_binding" "gke_limited_admin" {
 
   # TODO: Limit to a single GKE cluster
 }
-
-# TODO: REMOVE
-resource "google_project_iam_binding" "managed_tls_cert_admin" {
-  role    = "roles/compute.securityAdmin"
-  members = [var.sre_iam_uri]
-}
