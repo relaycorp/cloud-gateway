@@ -13,6 +13,8 @@ We currently manage one environment: [Frankfurt](./frankfurt).
 
 ## Deprovision an environment
 
+[Deprovisioning isn't currently as automated as it can be](https://github.com/relaycorp/cloud-gateway/issues/56), so the following manual steps are needed:
+
 1. Uninstall the gateway and its CRDs via Helm:
    ```
    helm uninstall gateway
