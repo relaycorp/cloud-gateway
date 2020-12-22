@@ -34,7 +34,7 @@ resource "google_dns_record_set" "pdc_srv" {
   managed_zone = data.google_dns_managed_zone.main.name
   type         = "SRV"
   ttl          = 300
-  rrdatas      = ["300 IN SRV 0 1 443 ${google_dns_record_set.poweb.name}"]
+  rrdatas      = ["0 1 443 ${google_dns_record_set.poweb.name}"]
 }
 
 resource "google_dns_record_set" "crc_srv" {
@@ -42,5 +42,5 @@ resource "google_dns_record_set" "crc_srv" {
   managed_zone = data.google_dns_managed_zone.main.name
   type         = "SRV"
   ttl          = 300
-  rrdatas      = ["300 IN SRV 0 1 443 ${google_dns_record_set.cogrpc.name}"]
+  rrdatas      = ["0 1 443 ${google_dns_record_set.cogrpc.name}"]
 }
