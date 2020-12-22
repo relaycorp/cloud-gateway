@@ -47,8 +47,12 @@ resource "google_container_cluster" "main" {
   provider = google-beta
 }
 
+resource "random_id" "gke_node_pool_suffix" {
+  byte_length = 3
+}
+
 resource "google_container_node_pool" "main" {
-  name       = local.env_full_name
+  name       = "${local.env_full_name}-${random_id.gke_node_pool_suffix.hex}"
   location   = google_container_cluster.main.location
   cluster    = google_container_cluster.main.name
   node_count = 1 # Per availability zone
@@ -103,6 +107,7 @@ resource "google_project_iam_custom_role" "gke_limited_admin" {
     "container.clusterRoles.bind",
     "container.clusterRoles.update",
     "container.clusterRoles.delete",
+    "container.clusterRoles.escalate",
     "container.clusterRoleBindings.create",
     "container.clusterRoleBindings.get",
     "container.clusterRoleBindings.list",
@@ -118,16 +123,15 @@ resource "google_project_iam_custom_role" "gke_limited_admin" {
     "container.roles.list",
     "container.roles.update",
     "container.roles.delete",
+    "container.roles.bind",
+    "container.roles.escalate",
   ]
 }
 
 resource "google_project_iam_binding" "gke_limited_admin" {
   role = google_project_iam_custom_role.gke_limited_admin.id
 
-  members = [
-    var.sre_iam_uri, # TODO: REMOVE
-    "serviceAccount:${local.gcb_service_account_email}"
-  ]
+  members = ["serviceAccount:${local.gcb_service_account_email}"]
 
   # TODO: Limit to a single GKE cluster
 }

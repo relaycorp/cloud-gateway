@@ -6,6 +6,7 @@ locals {
   gcb = {
     helmfile_env = [
       "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
+      "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
 
       "VAULT_KMS_KEY_RING=${google_kms_key_ring.main.name}",
       "VAULT_KMS_AUTOUNSEAL_KEY=${google_kms_crypto_key.vault_auto_unseal.name}",

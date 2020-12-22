@@ -8,3 +8,4 @@ We currently manage the following services in Kubernetes:
 - [Minio](./minio).
 - [NATS](./nats).
 - [NATS Streaming (aka Stan)](./stan).
+- [Relaynet-Internet Gateway](./gateway) and [its CRDs](./gateway-crds).
