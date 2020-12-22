@@ -59,8 +59,3 @@ resource "google_project_service" "dns" {
   service                    = "dns.googleapis.com"
   disable_dependent_services = true
 }
-
-resource "google_project_iam_binding" "sql_admin" {
-  role    = "roles/cloudsql.admin"
-  members = [var.sre_iam_uri,]
-}
