@@ -29,12 +29,20 @@ resource "google_dns_record_set" "cogrpc" {
   rrdatas = [google_compute_global_address.managed_tls_cert.address]
 }
 
-resource "google_dns_record_set" "pdc_srv" {
+resource "google_dns_record_set" "gsc_srv" {
   name         = "_rpdc._tcp.${var.name}.${data.google_dns_managed_zone.main.dns_name}"
   managed_zone = data.google_dns_managed_zone.main.name
   type         = "SRV"
   ttl          = 300
   rrdatas      = ["0 1 443 ${google_dns_record_set.poweb.name}"]
+}
+
+resource "google_dns_record_set" "pdc_srv" {
+  name         = "_rgsc._tcp.${var.name}.${data.google_dns_managed_zone.main.dns_name}"
+  managed_zone = data.google_dns_managed_zone.main.name
+  type         = "SRV"
+  ttl          = 300
+  rrdatas      = ["0 1 443 ${google_dns_record_set.pohttp.name}"]
 }
 
 resource "google_dns_record_set" "crc_srv" {
