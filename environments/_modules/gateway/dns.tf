@@ -30,7 +30,7 @@ resource "google_dns_record_set" "cogrpc" {
 }
 
 resource "google_dns_record_set" "gsc_srv" {
-  name         = "_rpdc._tcp.${var.name}.${data.google_dns_managed_zone.main.dns_name}"
+  name         = "_rgsc._tcp.${var.name}.${data.google_dns_managed_zone.main.dns_name}"
   managed_zone = data.google_dns_managed_zone.main.name
   type         = "SRV"
   ttl          = 300
@@ -38,7 +38,7 @@ resource "google_dns_record_set" "gsc_srv" {
 }
 
 resource "google_dns_record_set" "pdc_srv" {
-  name         = "_rgsc._tcp.${var.name}.${data.google_dns_managed_zone.main.dns_name}"
+  name         = "_rpdc._tcp.${var.name}.${data.google_dns_managed_zone.main.dns_name}"
   managed_zone = data.google_dns_managed_zone.main.name
   type         = "SRV"
   ttl          = 300
