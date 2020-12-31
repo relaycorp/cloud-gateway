@@ -18,13 +18,16 @@ ingress:
     kubernetes.io/ingress.allow-http: "false"
     kubernetes.io/ingress.global-static-ip-name: {{ requiredEnv "GW_GLOBAL_IP_NAME" | quote }}
     networking.gke.io/managed-certificates: {{ requiredEnv "GW_MANAGED_CERT_NAME" | quote }}
+  serviceDomains:
+    poweb: {{ requiredEnv "GW_POWEB_DOMAIN" | quote }}
+    pohttp: {{ requiredEnv "GW_POHTTP_DOMAIN" | quote }}
+    cogrpc: {{ requiredEnv "GW_COGRPC_DOMAIN" | quote }}
 
 service:
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
   type: NodePort
 
-powebHost: {{ requiredEnv "GW_POWEB_DOMAIN" | quote }}
 poweb:
   affinity:
     podAntiAffinity:
@@ -60,7 +63,6 @@ poweb:
       cpu: 500m
       memory: 512Mi
 
-pohttpHost: {{ requiredEnv "GW_POHTTP_DOMAIN" | quote }}
 pohttp:
   affinity:
     podAntiAffinity:
@@ -96,7 +98,6 @@ pohttp:
       cpu: 500m
       memory: 512Mi
 
-cogrpcHost: {{ requiredEnv "GW_COGRPC_DOMAIN" | quote }}
 cogrpc:
   affinity:
     podAntiAffinity:
