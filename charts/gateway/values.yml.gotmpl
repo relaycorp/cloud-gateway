@@ -4,6 +4,7 @@ image:
 
 fullnameOverride: public-gateway
 
+publicAddress: {{  requiredEnv "GW_PUBLIC_ADDRESS" | quote }}
 gatewayKeyId: {{ requiredEnv "GW_KEY_ID_B64" | quote }}
 
 logLevel: debug
