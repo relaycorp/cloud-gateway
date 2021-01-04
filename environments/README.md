@@ -10,6 +10,7 @@ We currently manage one environment: [Frankfurt](./frankfurt).
 1. Create a new Terraform workspace in this directory and push it to `main`. This workspace MUST initialise the [`gateway` module](./_modules/gateway). You could start by copying an existing workspace.
 1. Apply the change in Terraform Cloud.
 1. [Go to GCB](https://console.cloud.google.com/cloud-build/triggers?project=relaycorp-cloud-gateway) and run the trigger for the new environment.
+   - If the build fails because the MongoDB Atlas connection URL is unset, that's most likely due to the VPC peering connection not being ready. This is usually done quickly, but it may take a while sometimes. Go to MongoDB Atlas and wait until the peering connection is available. Then go to Terraform Cloud and trigger another run. Finally, run the GCB trigger again.
 
 ## Deprovision an environment
 
