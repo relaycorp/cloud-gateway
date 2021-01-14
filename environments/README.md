@@ -25,7 +25,8 @@ We currently manage one environment: [Frankfurt](./frankfurt).
    This ensures that cloud resources created by Kubernetes (e.g., the load balancer) are removed.
 
    This step is not automated to avoid breaking an environment by simply clicking a button on GCB.
-1. Empty the GCS buckets in the environment.
+1. Empty the GCS buckets in the environment. For example, by creating a lifecycle rule that deletes all objects after 0 days.
+1. Alter Terraform resources to allow destruction. For example: `google_sql_database_instance` should use `deletion_protection=false` and GCS buckets should use `force_destroy=true`. These changes should be applied on Terraform Cloud before proceeding.
 1. Go to Terraform Cloud and destroy the workspace from the settings.
 1. Delete the Terraform Cloud workspace from the main workspace. See [`tf-workspace/environments.tf`](https://github.com/relaycorp/cloud-gateway/blob/main/tf-workspace/environments.tf).
 1. Once the change above is pushed to `main`, go to Terraform Cloud and apply it.
