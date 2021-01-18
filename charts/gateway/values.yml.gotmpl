@@ -51,7 +51,7 @@ poweb:
                   values: [ poweb ]
             topologyKey: "topology.kubernetes.io/zone"
           weight: 100
-  replicas: 3
+  replicas: 6
   resources:
     requests:
       cpu: 250m
@@ -86,7 +86,7 @@ pohttp:
                   values: [ pohttp ]
             topologyKey: "topology.kubernetes.io/zone"
           weight: 100
-  replicas: 3
+  replicas: 6
   resources:
     requests:
       cpu: 250m
@@ -126,7 +126,7 @@ cogrpc:
     service.alpha.kubernetes.io/app-protocols: '{"cogrpc":"HTTP2"}'
     cloud.google.com/neg: '{"ingress": true}'
     beta.cloud.google.com/backend-config: '{"ports":{"cogrpc":"cogrpc"}, "default": "cogrpc"}'
-  replicas: 3
+  replicas: 6
   resources:
     requests:
       cpu: 250m
@@ -161,7 +161,7 @@ pdcQueue:
                   values: [ pdcout ]
             topologyKey: "topology.kubernetes.io/zone"
           weight: 100
-  replicas: 6
+  replicas: 12
   resources:
     requests:
       cpu: 15m
@@ -196,7 +196,7 @@ crcQueue:
                   values: [ crcin ]
             topologyKey: "topology.kubernetes.io/zone"
           weight: 100
-  replicas: 6
+  replicas: 12
   resources:
     requests:
       cpu: 20m
