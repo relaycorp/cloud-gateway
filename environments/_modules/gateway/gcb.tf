@@ -4,6 +4,17 @@ locals {
   gcb_gcloud_image = "gcr.io/google.com/cloudsdktool/cloud-sdk:319.0.0-slim"
 
   gcb = {
+    secret_retrieval_env = [
+      "VAULT_SA_CREDENTIALS_SECRET_VERSION=${module.vault_sa_private_key.secret_version}",
+      "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
+
+      "STAN_DB_PASSWORD_SECRET_VERSION=${module.stan_db_password.secret_version}",
+
+      "MINIO_SECRET_KEY_SECRET_VERSION=${module.minio_secret_key.secret_version}",
+
+      "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
+    ]
+
     helmfile_env = [
       "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
       "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
@@ -74,16 +85,7 @@ resource "google_cloudbuild_trigger" "gke_deployment" {
       name       = local.gcb_gcloud_image
       entrypoint = "bash"
       args       = ["charts/scripts/retrieve-secrets.sh"]
-      env = [
-        "VAULT_SA_CREDENTIALS_SECRET_VERSION=${module.vault_sa_private_key.secret_version}",
-        "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
-
-        "STAN_DB_PASSWORD_SECRET_VERSION=${module.stan_db_password.secret_version}",
-
-        "MINIO_SECRET_KEY_SECRET_VERSION=${module.minio_secret_key.secret_version}",
-
-        "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
-      ]
+      env        = local.gcb.secret_retrieval_env
     }
 
     step {
@@ -163,16 +165,7 @@ resource "google_cloudbuild_trigger" "gke_deployment_preview" {
       name       = local.gcb_gcloud_image
       entrypoint = "bash"
       args       = ["charts/scripts/retrieve-secrets.sh"]
-      env = [
-        "VAULT_SA_CREDENTIALS_SECRET_VERSION=${module.vault_sa_private_key.secret_version}",
-        "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
-
-        "STAN_DB_PASSWORD_SECRET_VERSION=${module.stan_db_password.secret_version}",
-
-        "MINIO_SECRET_KEY_SECRET_VERSION=${module.minio_secret_key.secret_version}",
-
-        "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
-      ]
+      env        = local.gcb.secret_retrieval_env
     }
 
     step {
