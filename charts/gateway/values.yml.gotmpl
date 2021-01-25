@@ -209,6 +209,9 @@ crcQueue:
       cpu: 30m
       memory: 80Mi
 
+serviceAccountAnnotations:
+  iam.gke.io/gcp-service-account: {{ requiredEnv "GW_GCP_SERVICE_ACCOUNT" | quote }}
+
 # Backing services
 
 objectStore:
