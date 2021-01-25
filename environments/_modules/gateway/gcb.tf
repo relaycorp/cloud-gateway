@@ -10,8 +10,6 @@ locals {
 
       "STAN_DB_PASSWORD_SECRET_VERSION=${module.stan_db_password.secret_version}",
 
-      "MINIO_SECRET_KEY_SECRET_VERSION=${module.minio_secret_key.secret_version}",
-
       "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
     ]
 
