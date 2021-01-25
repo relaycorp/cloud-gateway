@@ -12,8 +12,6 @@ Gateways are entirely hosted on Google Cloud Platform (GCP). Each instance is de
 
 ![](./diagrams/cloud.svg)
 
-(Note: The gateway doesn't use GCS just yet, but [it will soon](https://github.com/relaycorp/relaynet-internet-gateway/issues/200))
-
 To learn more about the architecture of the Relaynet-Internet Gateway, please [refer to its documentation](https://docs.relaycorp.tech/relaynet-internet-gateway/architecture).
 
 # Why the infrastructure code is public

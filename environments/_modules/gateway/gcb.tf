@@ -42,6 +42,7 @@ locals {
       "GW_GLOBAL_IP_NAME=${google_compute_global_address.managed_tls_cert.name}",
       "GW_MANAGED_CERT_NAME=${local.env_full_name}",
       "GW_GCP_SERVICE_ACCOUNT=${google_service_account.gateway.email}",
+      "GW_MESSAGES_BUCKET=${google_storage_bucket.gateway_messages.name}",
     ]
   }
 }
