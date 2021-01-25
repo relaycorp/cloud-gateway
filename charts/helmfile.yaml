@@ -1,8 +1,6 @@
 repositories:
   - name: nats
     url: https://nats-io.github.io/k8s/helm/charts
-  - name: minio
-    url: https://helm.min.io
   - name: hashicorp
     url: https://helm.releases.hashicorp.com
   - name: relaycorp
@@ -24,14 +22,6 @@ releases:
     version: 0.7.5
     values:
       - nats/values.yml
-    labels:
-      tier: backingService
-
-  - name: minio
-    chart: minio/minio
-    version: 8.0.3
-    values:
-      - minio/values.yml.gotmpl
     labels:
       tier: backingService
 
