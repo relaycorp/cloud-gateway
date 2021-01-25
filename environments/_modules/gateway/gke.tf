@@ -38,6 +38,10 @@ resource "google_container_cluster" "main" {
   # Make cluster VPC-native (alias IP) so we can connect to GCP services
   ip_allocation_policy {}
 
+  workload_identity_config {
+    identity_namespace = local.workload_identity_pool
+  }
+
   network = google_compute_network.main.self_link
 
   location = var.gcp_region
@@ -65,6 +69,10 @@ resource "google_container_node_pool" "main" {
 
     metadata = {
       disable-legacy-endpoints = "true"
+    }
+
+    workload_metadata_config {
+      node_metadata = "GKE_METADATA_SERVER"
     }
 
     oauth_scopes = [
