@@ -14,7 +14,6 @@ proxyRequestIdHeader: X-Cloud-Trace-Context
 ingress:
   enabled: true
   apiVersion: networking.k8s.io/v1beta1
-  enableTls: true
   annotations:
     kubernetes.io/ingress.allow-http: "false"
     kubernetes.io/ingress.global-static-ip-name: {{ requiredEnv "GW_GLOBAL_IP_NAME" | quote }}
