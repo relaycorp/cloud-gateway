@@ -4,3 +4,8 @@ resource "google_project_iam_binding" "stackdriver_dashboard_editor" {
   role = "roles/monitoring.admin"
   members = [var.sre_iam_uri]
 }
+
+resource "google_project_iam_binding" "error_reporting_sre_access" {
+  role = "roles/errorreporting.user"
+  members = [var.sre_iam_uri]
+}
