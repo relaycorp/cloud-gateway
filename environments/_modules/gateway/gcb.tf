@@ -17,6 +17,8 @@ locals {
       "CLOUDSDK_CORE_PROJECT=${var.gcp_project_id}",
       "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
 
+      "ENVIRONMENT_NAME=${var.name}",
+
       "VAULT_KMS_KEY_RING=${google_kms_key_ring.main.name}",
       "VAULT_KMS_AUTOUNSEAL_KEY=${google_kms_crypto_key.vault_auto_unseal.name}",
       "VAULT_GCS_BUCKET=${google_storage_bucket.vault.name}",
