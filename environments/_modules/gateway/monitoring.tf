@@ -34,11 +34,6 @@ resource "google_monitoring_uptime_check_config" "poweb" {
       host       = trimsuffix(google_dns_record_set.poweb.name, ".")
     }
   }
-
-  resource_group {
-    resource_type = "INSTANCE"
-    group_id      = google_monitoring_group.main.name
-  }
 }
 
 resource "google_monitoring_uptime_check_config" "cogrpc" {
@@ -59,11 +54,6 @@ resource "google_monitoring_uptime_check_config" "cogrpc" {
       host       = trimsuffix(google_dns_record_set.cogrpc.name, ".")
     }
   }
-
-  resource_group {
-    resource_type = "INSTANCE"
-    group_id      = google_monitoring_group.main.name
-  }
 }
 
 resource "google_monitoring_uptime_check_config" "pohttp" {
@@ -83,10 +73,5 @@ resource "google_monitoring_uptime_check_config" "pohttp" {
       project_id = var.gcp_project_id
       host       = trimsuffix(google_dns_record_set.pohttp.name, ".")
     }
-  }
-
-  resource_group {
-    resource_type = "INSTANCE"
-    group_id      = google_monitoring_group.main.name
   }
 }
