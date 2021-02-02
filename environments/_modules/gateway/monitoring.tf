@@ -41,18 +41,13 @@ resource "google_monitoring_uptime_check_config" "cogrpc" {
   timeout      = "5s"
   period       = "300s"
 
-  http_check {
-    port         = "443"
-    use_ssl      = true
-    validate_ssl = true
+  tcp_check {
+    port = 888
   }
 
-  monitored_resource {
-    type = "uptime_url"
-    labels = {
-      project_id = var.gcp_project_id
-      host       = trimsuffix(google_dns_record_set.cogrpc.name, ".")
-    }
+  resource_group {
+    resource_type = "INSTANCE"
+    group_id      = google_monitoring_group.main.name
   }
 }
 
