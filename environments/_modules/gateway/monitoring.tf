@@ -19,7 +19,7 @@ resource "google_monitoring_group" "main" {
 resource "google_monitoring_uptime_check_config" "poweb" {
   display_name = "${local.env_full_name}-poweb"
   timeout      = "5s"
-  period       = "300"
+  period       = "300s"
 
   http_check {
     port         = "443"
@@ -39,7 +39,7 @@ resource "google_monitoring_uptime_check_config" "poweb" {
 resource "google_monitoring_uptime_check_config" "cogrpc" {
   display_name = "${local.env_full_name}-cogrpc"
   timeout      = "5s"
-  period       = "300"
+  period       = "300s"
 
   http_check {
     port         = "443"
@@ -59,7 +59,7 @@ resource "google_monitoring_uptime_check_config" "cogrpc" {
 resource "google_monitoring_uptime_check_config" "pohttp" {
   display_name = "${local.env_full_name}-pohttp"
   timeout      = "5s"
-  period       = "300"
+  period       = "300s"
 
   http_check {
     port         = "443"
