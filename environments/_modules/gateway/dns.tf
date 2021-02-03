@@ -8,7 +8,7 @@ resource "google_dns_record_set" "status_page" {
   type         = "CNAME"
   ttl          = 300
 
-  rrdatas = ["stats.uptimerobot.com"]
+  rrdatas = ["stats.uptimerobot.com."]
 }
 
 resource "google_dns_record_set" "poweb" {
