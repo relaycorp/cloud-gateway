@@ -45,9 +45,12 @@ resource "google_monitoring_uptime_check_config" "cogrpc" {
     port = 443
   }
 
-  resource_group {
-    resource_type = "INSTANCE"
-    group_id      = google_monitoring_group.main.name
+  monitored_resource {
+    type = "uptime_url"
+    labels = {
+      project_id = var.gcp_project_id
+      host       = trimsuffix(google_dns_record_set.cogrpc.name, ".")
+    }
   }
 }
 
