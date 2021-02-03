@@ -10,3 +10,6 @@ variable "env_mongodb_atlas_private_key" {}
 variable "sre_iam_uri" {
   description = "GCP IAM URI for an SRE or the SRE group (e.g., 'group:sre-team@acme.com')"
 }
+variable "sre_monitoring_notification_channel" {
+  description = "Cloud Monitoring notification channel for the SRE team"
+}
