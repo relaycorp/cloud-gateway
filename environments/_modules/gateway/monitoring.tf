@@ -16,6 +16,10 @@ resource "google_monitoring_group" "main" {
   filter = "resource.metadata.region=\"${var.gcp_region}\""
 }
 
+data "google_monitoring_notification_channel" "sre" {
+  display_name = data.terraform_remote_state.root.outputs.sre_monitoring_notification_channel
+}
+
 resource "google_monitoring_uptime_check_config" "poweb" {
   display_name = "${local.env_full_name}-poweb"
   timeout      = "5s"
@@ -58,9 +62,7 @@ resource "google_monitoring_alert_policy" "poweb_lb_uptime" {
     }
   }
 
-  notification_channels = [
-    data.terraform_remote_state.root.outputs.sre_monitoring_notification_channel
-  ]
+  notification_channels = [data.google_monitoring_notification_channel.sre.name]
 
   user_labels = local.gcp_resource_labels
 }
