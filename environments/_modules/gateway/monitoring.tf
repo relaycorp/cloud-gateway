@@ -42,7 +42,7 @@ resource "google_monitoring_uptime_check_config" "cogrpc" {
   period       = "300s"
 
   tcp_check {
-    port = 888
+    port = 443
   }
 
   resource_group {
