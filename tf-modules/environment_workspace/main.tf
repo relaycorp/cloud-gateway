@@ -9,7 +9,7 @@ resource "tfe_workspace" "main" {
   working_directory = "environments/${var.name}"
   trigger_prefixes  = ["environments/_modules"]
 
-  terraform_version = "0.13.5"
+  terraform_version = "0.14.5"
 
   lifecycle {
     ignore_changes = [vcs_repo]
