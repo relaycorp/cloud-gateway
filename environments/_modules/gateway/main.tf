@@ -1,3 +1,14 @@
+data "terraform_remote_state" "root" {
+  backend = "remote"
+
+  config = {
+    organization = var.root_workspace.organization
+    workspaces = {
+      name = var.root_workspace.name
+    }
+  }
+}
+
 locals {
   env_full_name = "gateway-${var.name}"
 

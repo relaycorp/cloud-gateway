@@ -1,5 +1,16 @@
 variable "name" {}
 
+variable "root_workspace" {
+  type = object({
+    name         = string,
+    organization = string,
+  })
+  default = {
+    name         = "cloud-gateway",
+    organization = "Relaycorp",
+  }
+}
+
 variable "type" {
   default = "production"
   validation {
