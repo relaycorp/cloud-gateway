@@ -2,6 +2,15 @@ data "google_dns_managed_zone" "main" {
   name = var.dns_managed_zone
 }
 
+resource "google_dns_record_set" "status_page" {
+  name         = "${var.name}.${data.google_dns_managed_zone.main.dns_name}"
+  managed_zone = data.google_dns_managed_zone.main.name
+  type         = "CNAME"
+  ttl          = 300
+
+  rrdatas = ["stats.uptimerobot.com"]
+}
+
 resource "google_dns_record_set" "poweb" {
   name         = "poweb-${var.name}.${data.google_dns_managed_zone.main.dns_name}"
   managed_zone = data.google_dns_managed_zone.main.name
