@@ -36,6 +36,34 @@ resource "google_monitoring_uptime_check_config" "poweb" {
   }
 }
 
+resource "google_monitoring_alert_policy" "poweb_lb_uptime" {
+  display_name = "${local.env_full_name}-poweb-uptime"
+  combiner     = "OR"
+  conditions {
+    display_name = "Uptime health check"
+    condition_threshold {
+      filter          = "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" resource.type=\"uptime_url\" metric.label.\"check_id\"=\"${basename(google_monitoring_uptime_check_config.poweb.id)}\""
+      duration        = "60s"
+      comparison      = "COMPARISON_GT"
+      threshold_value = 1.0
+      trigger {
+        count = 1
+      }
+      aggregations {
+        alignment_period     = "300s"
+        cross_series_reducer = "REDUCE_COUNT_FALSE"
+        group_by_fields      = ["resource.*"]
+        per_series_aligner   = "ALIGN_NEXT_OLDER"
+      }
+    }
+
+  }
+
+  user_labels = {
+    foo = "bar"
+  }
+}
+
 resource "google_monitoring_uptime_check_config" "cogrpc" {
   display_name = "${local.env_full_name}-cogrpc"
   timeout      = "5s"
