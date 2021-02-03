@@ -1,2 +1,2 @@
-data google_project "main" {
+data "google_project" "main" {
 }

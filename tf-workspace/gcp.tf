@@ -1,4 +1,4 @@
-data google_project "main" {
+data "google_project" "main" {
 }
 
 resource "google_project_iam_member" "project_viewer" {

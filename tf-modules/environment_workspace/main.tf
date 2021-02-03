@@ -1,4 +1,4 @@
-data google_service_account "main" {
+data "google_service_account" "main" {
   account_id = var.gcp_service_account_id
 }
 

@@ -23,8 +23,8 @@ variable "dns_managed_zone" {
   default = "relaycorp-cloud"
 }
 
-variable gcp_project_id {}
-variable gcp_region {}
+variable "gcp_project_id" {}
+variable "gcp_region" {}
 
 variable "gke_version" {
   default = "1.17.12"
