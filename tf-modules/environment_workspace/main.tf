@@ -9,6 +9,8 @@ resource "tfe_workspace" "main" {
   working_directory = "environments/${var.name}"
   trigger_prefixes  = ["environments/_modules"]
 
+  auto_apply = true
+
   terraform_version = "0.14.5"
 
   lifecycle {
