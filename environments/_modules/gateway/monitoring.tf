@@ -44,7 +44,7 @@ resource "google_monitoring_custom_service" "poweb_deployment" {
 
 resource "google_monitoring_slo" "poweb_service_uptime" {
   service      = google_monitoring_custom_service.poweb_deployment.service_id
-  display_name = "${local.env_full_name}-poweb-service: 99% uptime (calendar month)"
+  display_name = "${local.env_full_name}-poweb-deployment: 99% uptime (calendar month)"
 
   goal            = 0.99
   calendar_period = "MONTH"
