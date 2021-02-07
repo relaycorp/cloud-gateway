@@ -59,6 +59,7 @@ resource "google_monitoring_slo" "poweb_service_uptime" {
 
       range {
         min = 300
+        max = 300
       }
     }
   }
