@@ -42,28 +42,28 @@ resource "google_monitoring_custom_service" "poweb_service" {
   }
 }
 
-resource "google_monitoring_slo" "poweb_service_uptime" {
-  service      = google_monitoring_custom_service.poweb_service.service_id
-  display_name = "${local.env_full_name}-poweb-service: 99% uptime (calendar month)"
-
-  goal            = 0.99
-  calendar_period = "MONTH"
-
-  windows_based_sli {
-    window_period = "300s"
-    metric_mean_in_range {
-      time_series = join(" AND ", [
-        "metric.type=\"kubernetes.io/container/uptime\"",
-        "resource.type=\"k8s_container\"",
-      ])
-
-      range {
-        min = 299
-        max = 300
-      }
-    }
-  }
-}
+//resource "google_monitoring_slo" "poweb_service_uptime" {
+//  service      = google_monitoring_custom_service.poweb_service.service_id
+//  display_name = "${local.env_full_name}-poweb-service: 99% uptime (calendar month)"
+//
+//  goal            = 0.99
+//  calendar_period = "MONTH"
+//
+//  windows_based_sli {
+//    window_period = "300s"
+//    metric_mean_in_range {
+//      time_series = join(" AND ", [
+//        "metric.type=\"kubernetes.io/container/uptime\"",
+//        "resource.type=\"k8s_container\"",
+//      ])
+//
+//      range {
+//        min = 299
+//        max = 300
+//      }
+//    }
+//  }
+//}
 
 module "pohttp_lb_uptime" {
   source = "../host_uptime_monitor"
