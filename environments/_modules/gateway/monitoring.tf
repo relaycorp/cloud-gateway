@@ -34,6 +34,14 @@ module "poweb_lb_uptime" {
   gcp_project_id       = var.gcp_project_id
 }
 
+resource "google_monitoring_custom_service" "poweb_service" {
+  display_name = "${local.env_full_name}-poweb-service"
+
+  telemetry {
+    resource_name = "//container.googleapis.com/projects/${var.gcp_project_id}/locations/${var.gcp_region}/clusters/${google_container_cluster.main.name}/k8s/namespaces/default/services/public-gateway-poweb"
+  }
+}
+
 module "pohttp_lb_uptime" {
   source = "../host_uptime_monitor"
 
