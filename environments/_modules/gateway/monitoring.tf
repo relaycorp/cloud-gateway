@@ -1,3 +1,9 @@
+resource "google_project_iam_binding" "monitoring_admin_sre" {
+  // TODO: Remove
+  role    = "roles/monitoring.admin"
+  members = [var.sre_iam_uri]
+}
+
 resource "google_project_iam_binding" "monitoring_viewer_sre" {
   role    = "roles/monitoring.viewer"
   members = [var.sre_iam_uri]
