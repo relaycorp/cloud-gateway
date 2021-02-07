@@ -38,32 +38,32 @@ resource "google_monitoring_custom_service" "poweb_service" {
   display_name = "${local.env_full_name}-poweb-service"
 
   telemetry {
-    resource_name = "//container.googleapis.com/projects/${var.gcp_project_id}/locations/${var.gcp_region}/clusters/${google_container_cluster.main.name}/k8s/namespaces/default/services/public-gateway-poweb"
+    resource_name = "//container.googleapis.com/projects/${var.gcp_project_id}/locations/${var.gcp_region}/clusters/${google_container_cluster.main.name}/k8s/namespaces/default/deployments/public-gateway-poweb"
   }
 }
 
-//resource "google_monitoring_slo" "poweb_service_uptime" {
-//  service      = google_monitoring_custom_service.poweb_service.service_id
-//  display_name = "${local.env_full_name}-poweb-service: 99% uptime (calendar month)"
-//
-//  goal            = 0.99
-//  calendar_period = "MONTH"
-//
-//  windows_based_sli {
-//    window_period = "300s"
-//    metric_mean_in_range {
-//      time_series = join(" AND ", [
-//        "metric.type=\"kubernetes.io/container/uptime\"",
-//        "resource.type=\"k8s_container\"",
-//      ])
-//
-//      range {
-//        min = 299
-//        max = 300
-//      }
-//    }
-//  }
-//}
+resource "google_monitoring_slo" "poweb_service_uptime" {
+  service      = google_monitoring_custom_service.poweb_service.service_id
+  display_name = "${local.env_full_name}-poweb-service: 99% uptime (calendar month)"
+
+  goal            = 0.99
+  calendar_period = "MONTH"
+
+  windows_based_sli {
+    window_period = "300s"
+    metric_mean_in_range {
+      time_series = join(" AND ", [
+        "metric.type=\"kubernetes.io/container/uptime\"",
+        "resource.type=\"k8s_container\"",
+      ])
+
+      range {
+        min = 299
+        max = 300
+      }
+    }
+  }
+}
 
 module "pohttp_lb_uptime" {
   source = "../host_uptime_monitor"
