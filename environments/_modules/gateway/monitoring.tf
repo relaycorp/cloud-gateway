@@ -38,7 +38,7 @@ resource "google_monitoring_custom_service" "poweb_deployment" {
   display_name = "${local.env_full_name}-poweb-deployment"
 
   telemetry {
-    resource_name = "//container.googleapis.com/projects/${var.gcp_project_id}/locations/${var.gcp_region}/clusters/${google_container_cluster.main.name}/k8s/namespaces/default/deployments/public-gateway-poweb"
+    resource_name = "//container.googleapis.com/projects/${var.gcp_project_id}/locations/${var.gcp_region}/clusters/${google_container_cluster.main.name}/k8s/namespaces/default/apps/deployments/public-gateway-poweb"
   }
 }
 
