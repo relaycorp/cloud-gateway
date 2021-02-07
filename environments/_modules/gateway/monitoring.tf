@@ -22,7 +22,7 @@ resource "google_project_iam_binding" "error_reporting_sre_access" {
 resource "google_monitoring_group" "main" {
   display_name = local.env_full_name
 
-  filter = "resource.metadata.region=\"${var.gcp_region}\""
+  filter = "resource.metadata.tag.environment=\"${var.name}\""
 }
 
 module "poweb_lb_uptime" {
