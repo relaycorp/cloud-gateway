@@ -2,9 +2,9 @@ data "terraform_remote_state" "root" {
   backend = "remote"
 
   config = {
-    organization = var.root_workspace.organization
+    organization = var.tfe_organization
     workspaces = {
-      name = var.root_workspace.name
+      name = var.tfe_root_workspace
     }
   }
 }
@@ -35,11 +35,18 @@ resource "tfe_workspace" "main" {
   }
 }
 
+data "tfe_organization_membership" "sres" {
+  for_each = toset(data.terraform_remote_state.root.outputs.sre_email_addresses)
+
+  organization = var.tfe_organization
+  email        = each.value
+}
+
 resource "tfe_notification_configuration" "sres" {
   name             = "Notify SREs to anything that needs their attention"
   enabled          = true
   destination_type = "email"
-  email_addresses  = data.terraform_remote_state.root.outputs.sre_email_addresses
+  email_user_ids   = [for sre in data.tfe_organization_membership.sres: sre.user_id]
   triggers         = ["run:needs_attention", "run:errored"]
   workspace_id     = tfe_workspace.main.id
 }
