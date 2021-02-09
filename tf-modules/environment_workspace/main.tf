@@ -46,7 +46,7 @@ resource "tfe_notification_configuration" "sres" {
   name             = "Notify SREs to anything that needs their attention"
   enabled          = true
   destination_type = "email"
-  email_user_ids   = [for sre in data.tfe_organization_membership.sres: sre.user_id]
+  email_user_ids   = [for sre in data.tfe_organization_membership.sres : sre.user_id]
   triggers         = ["run:needs_attention", "run:errored"]
   workspace_id     = tfe_workspace.main.id
 }
