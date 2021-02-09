@@ -2,6 +2,17 @@ variable "name" {
   description = "Environment name"
 }
 
+variable "root_workspace" {
+  type = object({
+    name         = string,
+    organization = string,
+  })
+  default = {
+    name         = "cloud-gateway",
+    organization = "Relaycorp",
+  }
+}
+
 variable "gcp_service_account_id" {}
 variable "sre_iam_uri" {}
 

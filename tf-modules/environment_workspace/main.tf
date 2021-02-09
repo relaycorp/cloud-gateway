@@ -1,3 +1,14 @@
+data "terraform_remote_state" "root" {
+  backend = "remote"
+
+  config = {
+    organization = var.root_workspace.organization
+    workspaces = {
+      name = var.root_workspace.name
+    }
+  }
+}
+
 data "google_service_account" "main" {
   account_id = var.gcp_service_account_id
 }
@@ -22,6 +33,15 @@ resource "tfe_workspace" "main" {
     oauth_token_id = data.tfe_oauth_client.main.oauth_token_id
     branch         = var.github_branch
   }
+}
+
+resource "tfe_notification_configuration" "sres" {
+  name             = "Notify SREs to anything that needs their attention"
+  enabled          = true
+  destination_type = "email"
+  email_addresses  = data.terraform_remote_state.root.outputs.sre_email_addresses
+  triggers         = ["run:needs_attention", "run:errored"]
+  workspace_id     = tfe_workspace.main.id
 }
 
 resource "google_service_account_key" "main" {
