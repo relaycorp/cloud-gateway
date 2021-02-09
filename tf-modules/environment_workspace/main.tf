@@ -2,6 +2,10 @@ data "google_service_account" "main" {
   account_id = var.gcp_service_account_id
 }
 
+data "tfe_oauth_client" "main" {
+  oauth_client_id = var.tfe_oauth_client_id
+}
+
 resource "tfe_workspace" "main" {
   name         = "gateway-${var.name}"
   organization = var.tfe_organization
@@ -13,10 +17,11 @@ resource "tfe_workspace" "main" {
 
   terraform_version = "0.14.5"
 
-// TODO: Remove if this fixes https://support.hashicorp.com/hc/requests/41205
-//  lifecycle {
-//    ignore_changes = [vcs_repo]
-//  }
+  vcs_repo {
+    identifier     = var.github_repo
+    oauth_token_id = data.tfe_oauth_client.main.oauth_token_id
+    branch         = var.github_branch
+  }
 }
 
 resource "google_service_account_key" "main" {
