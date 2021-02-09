@@ -34,7 +34,8 @@ module "poweb_lb_uptime" {
   gcp_project_id       = var.gcp_project_id
 }
 
-// TODO: Restore
+// TODO: Restore when the following has been fixed:
+// https://console.cloud.google.com/support/cases/detail/26799183?project=relaycorp-cloud-gateway
 //resource "google_monitoring_custom_service" "poweb_deployment" {
 //  display_name = "${local.env_full_name}-poweb-deployment"
 //
