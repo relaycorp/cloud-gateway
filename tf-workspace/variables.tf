@@ -13,3 +13,7 @@ variable "sre_iam_uri" {
 variable "sre_monitoring_notification_channel" {
   description = "Cloud Monitoring notification channel for the SRE team"
 }
+variable "sre_email_addresses" {
+  description = "Email address for each SRE at Relaycorp"
+  type = list(string)
+}
