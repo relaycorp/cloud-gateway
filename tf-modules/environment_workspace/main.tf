@@ -13,9 +13,10 @@ resource "tfe_workspace" "main" {
 
   terraform_version = "0.14.5"
 
-  lifecycle {
-    ignore_changes = [vcs_repo]
-  }
+// TODO: Remove if this fixes https://support.hashicorp.com/hc/requests/41205
+//  lifecycle {
+//    ignore_changes = [vcs_repo]
+//  }
 }
 
 resource "google_service_account_key" "main" {
