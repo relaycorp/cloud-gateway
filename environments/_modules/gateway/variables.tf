@@ -27,8 +27,7 @@ variable "gcp_project_id" {}
 variable "gcp_region" {}
 
 variable "gke_min_version" {
-  // No default value provided to avoid accidental upgrades
-  description = "Minimum version of GKE master (and nodes)"
+  default = "1.17.15"
 }
 variable "gke_instance_type" {
   default = "c2-standard-4"
