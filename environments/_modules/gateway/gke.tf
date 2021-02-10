@@ -9,7 +9,7 @@ resource "google_container_cluster" "main" {
 
   min_master_version = var.gke_min_version
   release_channel {
-    channel = "REGULAR"
+    channel = "STABLE"
   }
 
   maintenance_policy {
