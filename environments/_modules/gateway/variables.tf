@@ -26,8 +26,9 @@ variable "dns_managed_zone" {
 variable "gcp_project_id" {}
 variable "gcp_region" {}
 
-variable "gke_version" {
-  default = "1.17.12"
+variable "gke_min_version" {
+  // No default value provided to avoid accidental upgrades
+  description = "Minimum version of GKE master (and nodes)"
 }
 variable "gke_instance_type" {
   default = "c2-standard-4"

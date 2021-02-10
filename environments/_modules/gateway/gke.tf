@@ -7,7 +7,7 @@ resource "google_container_cluster" "main" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  min_master_version = var.gke_version
+  min_master_version = var.gke_min_version
   release_channel {
     channel = "REGULAR"
   }
