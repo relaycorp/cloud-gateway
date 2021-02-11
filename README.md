@@ -26,6 +26,10 @@ Things aren't quite bullet-proof yet. [Read issue #8](https://github.com/relayco
 
 Since Relaynet employs end-to-end encryption, the confidentiality of the communication won't be affected by a successful attack to this infrastructure. Please refer to [RS-019](https://specs.relaynet.network/RS-019) to learn more about the general security threats of Relaynet.
 
+# System status
+
+Issues will be reported to [UptimeRobot.com](https://stats.uptimerobot.com/6GD9MhoLpZ).
+
 # Contributions are welcomed
 
 We're particularly keen to get feedback and PRs to improve the security of the infrastructure. If you've never contributed to a Relaycorp project before, please take a minute to [read our guidelines](https://github.com/relaycorp/.github/blob/master/CONTRIBUTING.md) first.
