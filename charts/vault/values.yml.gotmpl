@@ -4,6 +4,9 @@ global:
   enabled: true
 
 server:
+  image:
+    tag: 1.5.4
+
   extraArgs: -config=/vault/userconfig/vault-config/partial-vault.hcl
 
   extraEnvironmentVars:
