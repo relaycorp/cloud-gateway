@@ -40,3 +40,22 @@ resources:
   limits:
     cpu: 300m
     memory: 100Mi
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values: [ stan ]
+          topologyKey: "kubernetes.io/hostname"
+        weight: 80
+      - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values: [ stan ]
+          topologyKey: "topology.kubernetes.io/zone"
+        weight: 100
