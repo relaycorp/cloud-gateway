@@ -20,8 +20,8 @@ resource "google_container_cluster" "main" {
       recurrence = "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR"
     }
     maintenance_exclusion {
-      start_time     = "2020-12-24T00:00:00Z"
-      end_time       = "2021-01-04T00:00:00Z"
+      start_time     = "2021-12-24T00:00:00Z"
+      end_time       = "2022-01-04T00:00:00Z"
       exclusion_name = "No-drama Christmas and New Year"
     }
   }
