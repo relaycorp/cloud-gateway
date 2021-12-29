@@ -9,6 +9,7 @@ We currently manage one environment: [Frankfurt](./frankfurt).
 1. Create a new Terraform workspace in this directory and push it to `main`. This workspace MUST initialise the [`gateway` module](./_modules/gateway). You could start by copying an existing workspace.
 1. [Go to GCB](https://console.cloud.google.com/cloud-build/triggers?project=relaycorp-cloud-gateway) and run the trigger for the new environment.
    - If the build fails because the MongoDB Atlas connection URL is unset, that's most likely due to the VPC peering connection not being ready. This is usually done quickly, but it may take a while sometimes. Go to MongoDB Atlas and wait until the peering connection is available. Then go to Terraform Cloud and trigger another run. Finally, run the GCB trigger again.
+1. Configure CI by registering the new environment in [`cloud-oss`](https://github.com/relaycorp/cloud-oss/blob/main/cloud.tf).
 
 ## Deprovision an environment
 
@@ -28,3 +29,4 @@ We currently manage one environment: [Frankfurt](./frankfurt).
 1. Go to Terraform Cloud and destroy the workspace from the settings.
 1. Delete the Terraform Cloud workspace from the main workspace. See [`tf-workspace/environments.tf`](https://github.com/relaycorp/cloud-gateway/blob/main/tf-workspace/environments.tf).
 1. Once the change above is pushed to `main`, go to Terraform Cloud and apply it.
+1. Deactivate CI by removing the environment from [`cloud-oss`](https://github.com/relaycorp/cloud-oss/blob/main/cloud.tf).
