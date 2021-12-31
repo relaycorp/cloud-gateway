@@ -27,7 +27,7 @@ releases:
 
   - name: vault
     chart: hashicorp/vault
-    version: 0.9.1
+    version: "{{ .Values.vaultVersion }}"
     values:
       - vault/values.yml.gotmpl
     hooks:
