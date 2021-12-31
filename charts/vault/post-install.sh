@@ -81,7 +81,7 @@ POD_NAME="$(
     --output=jsonpath='{.items[0].metadata.name}'
 )"
 
-if ! kubectl wait --for=condition=Ready "pod/${POD_NAME}"; then
+if ! kubectl wait --for=condition=Initialized "pod/${POD_NAME}"; then
   echo "Vault pod was not ready on time" >&2
   kubectl describe pod "${POD_NAME}"
   exit 1
