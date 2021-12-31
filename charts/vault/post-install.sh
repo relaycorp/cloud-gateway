@@ -33,7 +33,7 @@ initialise_vault() {
 }
 
 wait_for_vault_unseal() {
-  timeout 15 kubectl exec "${POD_NAME}" -- sh -c "while ! vault status >>dev/null; do sleep 1; done"
+  timeout 15 kubectl exec "${POD_NAME}" -- sh -c "while ! vault status >>/dev/null; do sleep 1; done"
 }
 
 enable_kv_engine() {
