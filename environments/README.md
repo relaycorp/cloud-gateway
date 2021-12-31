@@ -11,7 +11,7 @@ We currently manage one environment: [Frankfurt](./frankfurt).
 
    The first build might fail if [the MongoDB Atlas VPC peering connection isn't ready](https://feedback.mongodb.com/forums/924145-atlas/suggestions/44625444-mongodbatlas-cluster-should-wait-until-cluster-is) (the connection string won't be available). If this happens:
    1. Go to MongoDB Atlas and wait until the peering connection is available.
-   1. Run `terraform refresh`, or go to [Terraform Cloud](https://app.terraform.io/app/Relaycorp/workspaces/cloud-gateway) and trigger another run.
+   1. Go to [Terraform Cloud](https://app.terraform.io/app/Relaycorp/workspaces/cloud-gateway) and trigger another run.
    1. Run the GCB trigger again.
 1. Configure CI by registering the new environment in [`cloud-oss`](https://github.com/relaycorp/cloud-oss/blob/main/cloud.tf).
 
