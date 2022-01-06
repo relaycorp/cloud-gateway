@@ -24,5 +24,5 @@ module "gateway" {
 
   gke_instance_type = "e2-standard-4"
 
-  gke_min_version = "1.19.15"
+  gke_min_version = "1.20.12"
 }
