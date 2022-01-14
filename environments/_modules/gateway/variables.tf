@@ -26,11 +26,16 @@ variable "dns_managed_zone" {
 variable "gcp_project_id" {}
 variable "gcp_region" {}
 
-variable "gke_min_version" {
-  default = "1.17.15"
-}
 variable "gke_instance_type" {
   default = "c2-standard-4"
+}
+
+variable "kubernetes_version" {
+  default = "1.19"
+  validation {
+    condition     = can(regex("^\\d+\\.\\d+$", var.kubernetes_version))
+    error_message = "Kubernetes version must specify major and minor version (e.g., '1.21')."
+  }
 }
 
 variable "mongodb_atlas_org_id" {}
