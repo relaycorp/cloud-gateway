@@ -30,11 +30,11 @@ variable "gke_instance_type" {
   default = "c2-standard-4"
 }
 
-variable "kubernetes_version" {
+variable "kubernetes_min_version" {
   default = "1.19"
   validation {
-    condition     = can(regex("^\\d+\\.\\d+$", var.kubernetes_version))
-    error_message = "Kubernetes version must specify major and minor version (e.g., '1.21')."
+    condition     = can(regex("^\\d+\\.\\d+$", var.kubernetes_min_version))
+    error_message = "Minimum Kubernetes version, excluding patch version (e.g., '1.21')."
   }
 }
 
