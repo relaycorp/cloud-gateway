@@ -24,5 +24,5 @@ module "gateway" {
 
   gke_instance_type = "e2-standard-4"
 
-  kubernetes_version = "1.20"
+  kubernetes_min_version = "1.20"
 }

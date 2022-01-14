@@ -1,8 +1,3 @@
-data "google_container_engine_versions" "main" {
-  location       = var.gcp_region
-  version_prefix = "${var.kubernetes_version}."
-}
-
 resource "google_container_cluster" "main" {
   name = local.env_full_name
 
@@ -12,7 +7,7 @@ resource "google_container_cluster" "main" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  min_master_version = data.google_container_engine_versions.main.latest_master_version
+  min_master_version = var.kubernetes_min_version
   release_channel {
     channel = "STABLE"
   }
@@ -65,8 +60,6 @@ resource "google_container_node_pool" "main" {
   location   = google_container_cluster.main.location
   cluster    = google_container_cluster.main.name
   node_count = 1 # Per availability zone
-
-  version = data.google_container_engine_versions.main.latest_node_version
 
   node_config {
     machine_type = var.gke_instance_type
