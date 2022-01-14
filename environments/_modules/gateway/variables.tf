@@ -33,7 +33,7 @@ variable "gke_instance_type" {
 variable "kubernetes_version" {
   default = "1.19"
   validation {
-    condition     = can(regex("^\\d+\\.\\d+$"))
+    condition     = can(regex("^\\d+\\.\\d+$", var.kubernetes_version))
     error_message = "Kubernetes version must specify major and minor version (e.g., '1.21')"
   }
 }
