@@ -200,6 +200,8 @@ resource "google_storage_bucket" "gcb_build_logs" {
     enabled = false
   }
 
+  force_destroy = !var.prevent_destruction
+
   labels = local.gcp_resource_labels
 }
 

@@ -69,6 +69,8 @@ resource "google_storage_bucket" "vault" {
     enabled = true
   }
 
+  force_destroy = !var.prevent_destruction
+
   labels = local.gcp_resource_labels
 }
 
