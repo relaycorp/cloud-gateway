@@ -52,6 +52,8 @@ resource "google_sql_database_instance" "postgresql" {
     user_labels = local.gcp_resource_labels
   }
 
+  deletion_protection = var.prevent_destruction
+
   depends_on = [google_service_networking_connection.postgresql]
 
   provider = google-beta

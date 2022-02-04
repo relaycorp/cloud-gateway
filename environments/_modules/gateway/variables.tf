@@ -19,6 +19,12 @@ variable "type" {
   }
 }
 
+variable "prevent_destruction" {
+  default     = true
+  type        = bool
+  description = "Turn off when preparing to destroy environment"
+}
+
 variable "dns_managed_zone" {
   default = "relaycorp-cloud"
 }

@@ -24,6 +24,8 @@ resource "google_storage_bucket" "gateway_messages" {
     }
   }
 
+  force_destroy = !var.prevent_destruction
+
   labels = local.gcp_resource_labels
 }
 
