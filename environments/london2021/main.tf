@@ -23,4 +23,6 @@ module "gateway" {
   sre_iam_uri = var.sre_iam_uri
 
   gke_instance_type = "e2-standard-4"
+
+  prevent_destruction = false
 }
