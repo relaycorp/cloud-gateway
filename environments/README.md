@@ -31,6 +31,7 @@ We currently manage one environment: [Frankfurt](./frankfurt).
 1. Alter Terraform resources to allow destruction by setting the `prevent_destruction` in the module to `false`.
 1. Empty the GCS buckets in the environment. For example, by creating a lifecycle rule that deletes all objects after 0 days.
 1. Go to Terraform Cloud and destroy the workspace from the settings.
-1. Delete the Terraform Cloud workspace from the main workspace. See [`tf-workspace/environments.tf`](https://github.com/relaycorp/cloud-gateway/blob/main/tf-workspace/environments.tf).
-1. Once the change above is pushed to `main`, go to Terraform Cloud and apply it.
+1. Delete the Terraform Cloud workspace from the main workspace, by removing the respective module from [`tf-workspace/environments.tf`](https://github.com/relaycorp/cloud-gateway/blob/main/tf-workspace/environments.tf) in the `main` branch.
+1. Go to [Terraform Cloud](https://app.terraform.io/app/Relaycorp/workspaces/cloud-gateway) and apply it.
 1. Deactivate CI by removing the environment from [`cloud-oss`](https://github.com/relaycorp/cloud-oss/blob/main/cloud.tf).
+1. Delete the module from [the current directory](./).
