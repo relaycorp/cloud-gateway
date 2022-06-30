@@ -14,6 +14,8 @@ module "gateway" {
   name = "frankfurt-test"
   type = "testing"
 
+  gke_instance_type = "e2-standard-2"
+
   github_repo = {
     organisation = "relaycorp"
     name         = "cloud-gateway"
