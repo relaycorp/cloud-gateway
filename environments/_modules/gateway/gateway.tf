@@ -16,3 +16,11 @@ resource "google_service_account_iam_member" "gateway_workload_identity" {
 
   depends_on = [google_container_cluster.main]
 }
+
+resource "google_service_account_iam_member" "gateway_workload_identity_keygen" {
+  service_account_id = google_service_account.gateway.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${local.workload_identity_pool}[${local.gateway.k8s.namespace}/${local.gateway.k8s.serviceAccount}-keygen]"
+
+  depends_on = [google_container_cluster.main]
+}
