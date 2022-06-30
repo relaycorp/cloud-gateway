@@ -4,6 +4,8 @@ locals {
   kms_protection_level = var.type == "production" ? "HSM" : "SOFTWARE"
 }
 
+// KMS
+
 resource "random_id" "kms_key_ring_suffix" {
   byte_length = 3
 }
@@ -49,4 +51,47 @@ resource "google_kms_crypto_key" "awala_session_keys" {
   lifecycle {
     prevent_destroy = false
   }
+}
+
+// IAM
+// https://docs.relaycorp.tech/awala-keystore-cloud-js/gcp#iam-permissions
+
+resource "google_project_iam_custom_role" "keystore_kms_admin" {
+  project = var.gcp_project_id
+
+  role_id = "${local.iam_role_prefix}.keystore_kms_manager"
+  title   = "Permissions to manage KMS resources related to the Awala keystore"
+  permissions = [
+    "cloudkms.cryptoKeys.get",
+    "cloudkms.cryptoKeyVersions.create",
+  ]
+}
+
+resource "google_project_iam_binding" "keystore_kms_admin" {
+  role = google_project_iam_custom_role.keystore_kms_admin.id
+
+  members = ["serviceAccount:${google_service_account.gateway.email}"]
+
+  condition {
+    title      = "Limit app access to KMS key ring"
+    expression = "resource.name.startsWith(\"${google_kms_key_ring.keystores.id}\")"
+  }
+}
+
+resource "google_project_iam_member" "keystore_kms_user" {
+  role   = "roles/cloudkms.cryptoOperator"
+  member = "serviceAccount:${google_service_account.gateway.email}"
+
+  condition {
+    title      = "Limit app access to KMS key ring"
+    expression = "resource.name.startsWith(\"${google_kms_key_ring.keystores.id}\")"
+  }
+}
+
+resource "google_project_iam_member" "keystore_datastore_user" {
+  role   = "roles/datastore.user"
+  member = "serviceAccount:${google_service_account.gateway.email}"
+
+  // Unfortunately, we can't limit access to a specific namespace or kind:
+  // https://cloud.google.com/iam/docs/conditions-resource-attributes#resource-name
 }
