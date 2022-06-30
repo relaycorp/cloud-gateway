@@ -60,6 +60,12 @@ resource "google_project_service" "dns" {
   disable_dependent_services = true
 }
 
+resource "google_project_service" "appengine" {
+  project                    = var.gcp_project_id
+  service                    = "appengine.googleapis.com"
+  disable_dependent_services = true
+}
+
 resource "google_project_service" "datastore" {
   project                    = var.gcp_project_id
   service                    = "datastore.googleapis.com"
