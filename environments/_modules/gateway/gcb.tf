@@ -5,9 +5,6 @@ locals {
 
   gcb = {
     secret_retrieval_env = [
-      "VAULT_SA_CREDENTIALS_SECRET_VERSION=${module.vault_sa_private_key.secret_version}",
-      "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
-
       "STAN_DB_PASSWORD_SECRET_VERSION=${module.stan_db_password.secret_version}",
 
       "GW_MONGODB_PASSWORD_SECRET_VERSION=${module.mongodb_password.secret_version}",
@@ -18,13 +15,6 @@ locals {
       "CLOUDSDK_COMPUTE_REGION=${var.gcp_region}",
 
       "ENVIRONMENT_NAME=${var.name}",
-
-      "VAULT_KMS_KEY_RING=${google_kms_key_ring.main.name}",
-      "VAULT_KMS_AUTOUNSEAL_KEY=${google_kms_crypto_key.vault_auto_unseal.name}",
-      "VAULT_GCS_BUCKET=${google_storage_bucket.vault.name}",
-      "VAULT_KEYBASE_USERNAME=${local.vault.keybase_username}",
-      "VAULT_KV_PREFIX=${local.vault.kv_prefix}",
-      "VAULT_ROOT_TOKEN_SECRET_ID=${google_secret_manager_secret.vault_root_token.secret_id}",
 
       "STAN_DB_HOST=${google_sql_database_instance.postgresql.private_ip_address}",
       "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
@@ -43,6 +33,9 @@ locals {
       "GW_MANAGED_CERT_NAME=${local.env_full_name}",
       "GW_GCP_SERVICE_ACCOUNT=${google_service_account.gateway.email}",
       "GW_MESSAGES_BUCKET=${google_storage_bucket.gateway_messages.name}",
+      "GW_KS_KEYRING=${google_kms_key_ring.keystores.name}",
+      "GW_KS_ID_KEY=${google_kms_crypto_key.awala_identity_keys.name}",
+      "GW_KS_SESSION_ENC_KEY=${google_kms_crypto_key.awala_session_keys.name}",
     ]
   }
 }
