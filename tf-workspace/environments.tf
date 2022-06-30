@@ -16,6 +16,8 @@ module "env_frankfurt_test" {
 
   name = "frankfurt-test"
 
+  github_branch = "gcp-kms-test"
+
   gcp_service_account_id = var.gcp_service_account_id
   sre_iam_uri            = var.sre_iam_uri
 
