@@ -226,7 +226,7 @@ keystore:
   kmsKeyring: {{ requiredEnv "GW_KS_KEYRING" | quote }}
   kmsIdKey: {{ requiredEnv "GW_KS_ID_KEY" | quote }}
   kmsSessionEncryptionKey: {{ requiredEnv "GW_KS_SESSION_ENC_KEY" | quote }}
-  datastoreNamespace: '{{ requiredEnv "ENVIRONMENT_NAME" }}-{{ requiredEnv "GW_KS_SESSION_ENC_KEY" }}'
+  datastoreNamespace: '{{ requiredEnv "ENVIRONMENT_NAME" }}-keystore'
 
 mongo:
   uri: '{{ requiredEnv "GW_MONGODB_CONNECTION_URI" }}/?retryWrites=true&w=majority'
