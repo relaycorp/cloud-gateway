@@ -51,11 +51,13 @@ variable "github_repo" {
   type = object({
     organisation = string
     name         = string
+    branch       = string
   })
 
   default = {
     organisation = "relaycorp"
     name         = "cloud-gateway"
+    branch       = "main"
   }
 }
 

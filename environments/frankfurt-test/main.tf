@@ -14,6 +14,12 @@ module "gateway" {
   name = "frankfurt-test"
   type = "testing"
 
+  github_repo = {
+    organisation = "relaycorp"
+    name         = "cloud-gateway"
+    branch       = "gcp-kms-test"
+  }
+
   gcp_project_id = var.gcp_project_id
   gcp_region     = "europe-west3"
 

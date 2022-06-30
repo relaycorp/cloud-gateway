@@ -55,7 +55,7 @@ resource "google_cloudbuild_trigger" "gke_deployment" {
     owner = var.github_repo.organisation
     name  = var.github_repo.name
     push {
-      branch = "^main$"
+      branch = "^${var.github_repo.branch}$"
     }
   }
 
@@ -131,7 +131,7 @@ resource "google_cloudbuild_trigger" "gke_deployment_preview" {
     owner = var.github_repo.organisation
     name  = var.github_repo.name
     pull_request {
-      branch = "^main$"
+      branch = "^${var.github_repo.branch}$"
 
       # NEVER, EVER change this. It prevents PRs from external contributors from being triggered
       # automatically.
