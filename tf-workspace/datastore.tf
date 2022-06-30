@@ -3,4 +3,6 @@ resource "google_app_engine_application" "app" {
   project       = var.gcp_project_id
   location_id   = "europe-west3" // TODO: This should be environment-specific
   database_type = "CLOUD_DATASTORE_COMPATIBILITY"
+
+  depends_on = [google_project_service.appengine]
 }
