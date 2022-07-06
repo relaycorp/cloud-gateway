@@ -25,3 +25,10 @@ module "env_frankfurt_test" {
   mongodb_atlas_public_key  = var.env_mongodb_atlas_public_key
   mongodb_atlas_private_key = var.env_mongodb_atlas_private_key
 }
+
+locals {
+  env_workspace_ids = [
+    module.env_frankfurt.tfe_workspace_id,
+    module.env_frankfurt_test.tfe_workspace_id,
+  ]
+}
