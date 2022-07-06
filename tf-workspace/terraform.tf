@@ -16,10 +16,6 @@ terraform {
       source  = "hashicorp/google-beta"
       version = "~> 4.27"
     }
-    mongodbatlas = {
-      source  = "mongodb/mongodbatlas"
-      version = "~> 0.6"
-    }
     random = {
       source  = "hashicorp/random"
       version = "~> 3.0.0"
