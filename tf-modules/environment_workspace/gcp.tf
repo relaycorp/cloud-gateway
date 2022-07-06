@@ -9,9 +9,17 @@ resource "google_project" "main" {
   billing_account = var.gcp_billing_account
 }
 
+resource "google_project_service" "cloudbilling" {
+  project                    = google_project.main.project_id
+  service                    = "cloudbilling.googleapis.com"
+  disable_dependent_services = true
+}
+
 resource "google_service_account" "tfe" {
   account_id = "tf-cloud"
   project    = google_project.main.project_id
+
+  depends_on = [google_project_service.cloudbilling]
 }
 
 resource "google_project_iam_binding" "tfe_owner" {
