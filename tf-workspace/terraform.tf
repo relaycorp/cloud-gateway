@@ -18,7 +18,7 @@ terraform {
     }
     tfe = {
       source  = "hashicorp/tfe"
-      version = "~> 0.24.0"
+      version = "~> 0.32.1"
     }
   }
   required_version = ">= 1.1.2"
