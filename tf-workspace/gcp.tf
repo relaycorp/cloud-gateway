@@ -7,11 +7,6 @@ resource "google_project_iam_member" "project_viewer" {
   member  = var.sre_iam_uri
 }
 
-resource "google_folder" "environments" {
-  display_name = "Public gateways, open to the public"
-  parent       = var.gcp_parent_folder
-}
-
 resource "google_project_service" "logging" {
   project                    = var.gcp_project_id
   service                    = "logging.googleapis.com"
