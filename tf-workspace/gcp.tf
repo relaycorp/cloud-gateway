@@ -2,8 +2,9 @@ data "google_project" "main" {
 }
 
 resource "google_project_iam_member" "project_viewer" {
-  role   = "roles/viewer"
-  member = var.sre_iam_uri
+  project = var.gcp_project_id
+  role    = "roles/viewer"
+  member  = var.sre_iam_uri
 }
 
 resource "google_project_service" "logging" {

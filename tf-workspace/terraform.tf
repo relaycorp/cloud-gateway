@@ -1,12 +1,20 @@
 terraform {
+  backend "remote" {
+    organization = "Relaycorp"
+
+    workspaces {
+      name = "cloud-gateway"
+    }
+  }
+
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "~> 3.27"
+      version = "~> 4.27"
     }
     google-beta = {
       source  = "hashicorp/google-beta"
-      version = "~> 3.27"
+      version = "~> 4.27"
     }
     mongodbatlas = {
       source  = "mongodb/mongodbatlas"
