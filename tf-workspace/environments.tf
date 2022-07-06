@@ -4,6 +4,8 @@ module "env_frankfurt" {
   name = "frankfurt"
 
   gcp_service_account_id = var.gcp_service_account_id
+  gcp_parent_folder      = google_folder.environments.name
+  gcp_billing_account    = var.gcp_billing_account
   sre_iam_uri            = var.sre_iam_uri
 
   mongodb_atlas_org_id      = var.mongodb_atlas_org_id
@@ -19,6 +21,8 @@ module "env_frankfurt_test" {
   github_branch = "gcp-kms-test"
 
   gcp_service_account_id = var.gcp_service_account_id
+  gcp_parent_folder      = google_folder.environments.name
+  gcp_billing_account    = var.gcp_billing_account
   sre_iam_uri            = var.sre_iam_uri
 
   mongodb_atlas_org_id      = var.mongodb_atlas_org_id

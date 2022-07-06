@@ -3,6 +3,9 @@ variable "name" {
 }
 
 variable "gcp_service_account_id" {}
+variable "gcp_parent_folder" {}
+variable "gcp_billing_account" {}
+
 variable "sre_iam_uri" {}
 
 variable "mongodb_atlas_org_id" {}
