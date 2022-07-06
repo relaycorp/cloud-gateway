@@ -9,10 +9,6 @@ data "terraform_remote_state" "root" {
   }
 }
 
-data "google_service_account" "main" {
-  account_id = var.gcp_service_account_id
-}
-
 data "tfe_oauth_client" "main" {
   oauth_client_id = var.tfe_oauth_client_id
 }
