@@ -1,3 +1,4 @@
+variable "gcp_parent_folder" {}
 variable "gcp_project_id" {
   default = "relaycorp-cloud-gateway"
 }
