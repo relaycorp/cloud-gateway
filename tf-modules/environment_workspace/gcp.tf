@@ -1,10 +1,10 @@
 resource "random_id" "gcp_project_id_suffix" {
-  byte_length = 3
+  byte_length = 2
 }
 
 resource "google_project" "main" {
   name            = var.name
-  project_id      = "public-gateway-${var.name}-${random_id.gcp_project_id_suffix.hex}"
+  project_id      = "gw-${var.name}-${random_id.gcp_project_id_suffix.hex}" // <= 30 chars long
   folder_id       = var.gcp_parent_folder
   billing_account = var.gcp_billing_account
 }
