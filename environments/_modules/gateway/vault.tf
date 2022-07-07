@@ -1,4 +1,4 @@
-// TODO: DELETE
+// TODO: Delete after the `force_destroy=true` has been applied
 resource "google_storage_bucket" "vault" {
   name          = "relaycorp-${local.env_full_name}-vault"
   storage_class = "REGIONAL"
@@ -10,7 +10,7 @@ resource "google_storage_bucket" "vault" {
     enabled = true
   }
 
-  force_destroy = false
+  force_destroy = true
 
   labels = local.gcp_resource_labels
 }
