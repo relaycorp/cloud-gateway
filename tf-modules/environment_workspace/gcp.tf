@@ -32,6 +32,18 @@ resource "google_service_account_key" "tfe" {
   service_account_id = google_service_account.tfe.name
 }
 
+resource "google_project_service" "serviceusage" {
+  project                    = google_project.main.project_id
+  service                    = "serviceusage.googleapis.com"
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "cloudresourcemanager" {
+  project                    = google_project.main.project_id
+  service                    = "cloudresourcemanager.googleapis.com"
+  disable_dependent_services = true
+}
+
 // TODO: DELETE
 data "google_service_account" "main" {
   account_id = var.gcp_service_account_id
