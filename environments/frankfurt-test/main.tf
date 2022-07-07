@@ -29,4 +29,6 @@ module "gateway" {
   mongodb_atlas_region = "EUROPE_WEST_3"
 
   sre_iam_uri = var.sre_iam_uri
+
+  prevent_destruction = false
 }
