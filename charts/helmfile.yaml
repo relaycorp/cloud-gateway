@@ -1,8 +1,6 @@
 repositories:
   - name: nats
     url: https://nats-io.github.io/k8s/helm/charts
-  - name: hashicorp
-    url: https://helm.releases.hashicorp.com
   - name: relaycorp
     url: https://h.cfcr.io/relaycorp/public
 
