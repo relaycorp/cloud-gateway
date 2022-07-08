@@ -144,6 +144,4 @@ resource "google_project_iam_binding" "gke_limited_admin" {
   role = google_project_iam_custom_role.gke_limited_admin.id
 
   members = ["serviceAccount:${local.gcb_service_account_email}"]
-
-  # TODO: Limit to a single GKE cluster
 }
