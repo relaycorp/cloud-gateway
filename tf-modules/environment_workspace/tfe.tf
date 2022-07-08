@@ -69,34 +69,3 @@ resource "tfe_variable" "gcp_project_id" {
   key      = "gcp_project_id"
   value    = google_project.main.id
 }
-
-resource "tfe_variable" "mongodb_atlas_org_id" {
-  workspace_id = tfe_workspace.main.id
-
-  category = "terraform"
-  key      = "mongodb_atlas_org_id"
-  value    = var.mongodb_atlas_org_id
-}
-resource "tfe_variable" "mongodb_atlas_public_key" {
-  workspace_id = tfe_workspace.main.id
-
-  category = "env"
-  key      = "MONGODB_ATLAS_PUBLIC_KEY"
-  value    = var.mongodb_atlas_public_key
-}
-resource "tfe_variable" "mongodb_atlas_private_key" {
-  workspace_id = tfe_workspace.main.id
-
-  category  = "env"
-  sensitive = true
-  key       = "MONGODB_ATLAS_PRIVATE_KEY"
-  value     = var.mongodb_atlas_private_key
-}
-
-resource "tfe_variable" "sre_email" {
-  workspace_id = tfe_workspace.main.id
-
-  category = "terraform"
-  key      = "sre_iam_uri"
-  value    = var.sre_iam_uri
-}
