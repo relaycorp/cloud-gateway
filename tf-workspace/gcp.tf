@@ -1,10 +1,9 @@
-data "google_project" "main" {
-}
+data "google_project" "main" {}
 
-resource "google_project_iam_member" "project_viewer" {
-  project = var.gcp_project_id
-  role    = "roles/viewer"
-  member  = var.sre_iam_uri
+resource "google_folder_iam_member" "project_viewer" {
+  folder = var.gcp_parent_folder
+  role   = "roles/viewer"
+  member = var.sre_iam_uri
 }
 
 resource "google_project_service" "dns" {
