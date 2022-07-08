@@ -15,6 +15,12 @@ resource "google_project_service" "cloudbilling" {
   disable_dependent_services = true
 }
 
+resource "google_project_service" "cloudresourcemanager" {
+  project                    = google_project.main.project_id
+  service                    = "cloudresourcemanager.googleapis.com"
+  disable_dependent_services = true
+}
+
 resource "google_service_account" "tfe" {
   account_id = "tf-cloud"
   project    = google_project.main.project_id

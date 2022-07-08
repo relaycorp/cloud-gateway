@@ -4,12 +4,6 @@ resource "google_project_service" "serviceusage" {
   disable_dependent_services = true
 }
 
-resource "google_project_service" "cloudresourcemanager" {
-  project                    = data.google_project.main.id
-  service                    = "cloudresourcemanager.googleapis.com"
-  disable_dependent_services = true
-}
-
 resource "google_project_service" "logging" {
   project                    = data.google_project.main.id
   service                    = "logging.googleapis.com"
