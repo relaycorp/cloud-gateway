@@ -5,7 +5,7 @@ resource "random_id" "gateway_key_id" {
 resource "google_service_account" "gateway" {
   project = var.gcp_project_id
 
-  account_id   = "${local.env_full_name}-app"
+  account_id   = "gateway-app"
   display_name = "GCP SA bound to K8S SA ${local.gateway.k8s.serviceAccount}"
 }
 

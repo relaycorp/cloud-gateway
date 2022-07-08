@@ -3,7 +3,7 @@ resource "random_id" "gateway_messages_bucket_suffix" {
 }
 
 resource "google_storage_bucket" "gateway_messages" {
-  name          = "${local.env_full_name}-messages-${random_id.gateway_messages_bucket_suffix.hex}"
+  name          = "gateway-${var.name}-messages-${random_id.gateway_messages_bucket_suffix.hex}"
   storage_class = "REGIONAL"
   location      = upper(var.gcp_region)
 

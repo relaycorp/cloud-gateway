@@ -4,7 +4,7 @@ resource "google_compute_global_address" "postgresql" {
   provider = google-beta
   project  = var.gcp_project_id
 
-  name         = "${local.env_full_name}-postgresql"
+  name         = "gateway-postgresql"
   purpose      = "VPC_PEERING"
   address_type = "INTERNAL"
   network      = google_compute_network.main.id
@@ -27,7 +27,7 @@ resource "random_id" "postgresql_instance_suffix" {
 }
 
 resource "google_sql_database_instance" "postgresql" {
-  name             = "${local.env_full_name}-${random_id.postgresql_instance_suffix.hex}"
+  name             = "gateway-${random_id.postgresql_instance_suffix.hex}"
   database_version = "POSTGRES_12"
   region           = var.gcp_region
 

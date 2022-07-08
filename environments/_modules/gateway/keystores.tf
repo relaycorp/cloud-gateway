@@ -15,7 +15,7 @@ resource "google_kms_key_ring" "keystores" {
 
   # Key rings can be deleted from the Terraform state but not GCP, so let's add a suffix in case
   # we need to recreate it.
-  name = "${local.env_full_name}-keystores-${random_id.kms_key_ring_suffix.hex}"
+  name = "gateway-keystores-${random_id.kms_key_ring_suffix.hex}"
 
   location = var.gcp_region
 }
@@ -59,7 +59,7 @@ resource "google_kms_crypto_key" "awala_session_keys" {
 resource "google_project_iam_custom_role" "keystore_kms_admin" {
   project = var.gcp_project_id
 
-  role_id = "${local.iam_role_prefix}.keystore_kms_manager"
+  role_id = "gateway.keystore_kms_manager"
   title   = "Permissions to manage KMS resources related to the Awala keystore"
   permissions = [
     "cloudkms.cryptoKeys.get",

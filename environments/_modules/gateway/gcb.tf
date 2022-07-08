@@ -30,7 +30,7 @@ locals {
       "GW_POHTTP_DOMAIN=${trimsuffix(google_dns_record_set.pohttp.name, ".")}",
       "GW_COGRPC_DOMAIN=${trimsuffix(google_dns_record_set.cogrpc.name, ".")}",
       "GW_GLOBAL_IP_NAME=${google_compute_global_address.managed_tls_cert.name}",
-      "GW_MANAGED_CERT_NAME=${local.env_full_name}",
+      "GW_MANAGED_CERT_NAME=gateway",
       "GW_GCP_SERVICE_ACCOUNT=${google_service_account.gateway.email}",
       "GW_MESSAGES_BUCKET=${google_storage_bucket.gateway_messages.name}",
       "GW_KS_KEYRING=${google_kms_key_ring.keystores.name}",
@@ -41,7 +41,7 @@ locals {
 }
 
 resource "google_cloudbuild_trigger" "gke_deployment" {
-  name        = "${local.env_full_name}-gke-deployment"
+  name        = "gateway-gke-deployment"
   description = "Deploy and configure Kubernetes resources in environment ${var.name}"
 
   github {
@@ -117,7 +117,7 @@ resource "google_cloudbuild_trigger" "gke_deployment_preview" {
   // This trigger should ideally be run with a limited service account. See:
   // https://github.com/relaycorp/cloud-gateway/issues/16
 
-  name        = "${local.env_full_name}-gke-deployment-preview"
+  name        = "gateway-gke-deployment-preview"
   description = "Preview a potential deployment to ${var.name}"
 
   github {
@@ -182,8 +182,12 @@ resource "google_cloudbuild_trigger" "gke_deployment_preview" {
   provider = google-beta
 }
 
+resource "random_id" "gcb_build_logs_bucket_suffix" {
+  byte_length = 3
+}
+
 resource "google_storage_bucket" "gcb_build_logs" {
-  name          = "relaycorp-${local.env_full_name}-gcb-logs"
+  name          = "gateway-${var.name}-gcb-logs-${random_id.gcb_build_logs_bucket_suffix.hex}"
   storage_class = "REGIONAL"
   location      = upper(var.gcp_region)
 

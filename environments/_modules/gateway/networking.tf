@@ -1,9 +1,9 @@
 resource "google_compute_network" "main" {
-  name = local.env_full_name
+  name = "gateway"
 }
 
 resource "google_compute_global_address" "managed_tls_cert" {
-  name = local.env_full_name
+  name = "gateway"
 
   labels = local.gcp_resource_labels
 
@@ -12,7 +12,7 @@ resource "google_compute_global_address" "managed_tls_cert" {
 
 resource "google_compute_firewall" "neg_backend_workaround" {
   // Workaround for https://github.com/kubernetes/ingress-gce/issues/18#issuecomment-658765449
-  name    = "${local.env_full_name}-neg-backend-workaround"
+  name    = "gateway-neg-backend-workaround"
   network = google_compute_network.main.name
 
   allow {

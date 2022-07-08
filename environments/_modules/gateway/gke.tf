@@ -1,5 +1,9 @@
+resource "random_id" "gke_suffix" {
+  byte_length = 3
+}
+
 resource "google_container_cluster" "main" {
-  name = local.env_full_name
+  name = "gateway-${random_id.gke_suffix.hex}"
 
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
@@ -51,12 +55,8 @@ resource "google_container_cluster" "main" {
   provider = google-beta
 }
 
-resource "random_id" "gke_node_pool_suffix" {
-  byte_length = 3
-}
-
 resource "google_container_node_pool" "main" {
-  name       = "${local.env_full_name}-${random_id.gke_node_pool_suffix.hex}"
+  name       = "gateway-${random_id.gke_suffix.hex}"
   location   = google_container_cluster.main.location
   cluster    = google_container_cluster.main.name
   node_count = 1 # Per availability zone
@@ -99,7 +99,7 @@ resource "google_container_node_pool" "main" {
 resource "google_project_iam_custom_role" "gke_limited_admin" {
   project = var.gcp_project_id
 
-  role_id = "${local.iam_role_prefix}.gke_limited_admin"
+  role_id = "gateway.gke_limited_admin"
   title   = "Limited permissions to manage the GKE cluster"
   permissions = [
     "container.mutatingWebhookConfigurations.create",

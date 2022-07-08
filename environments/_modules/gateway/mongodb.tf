@@ -7,7 +7,7 @@ locals {
 # clusters in the same Atlas project share the same GCP VPC, so trying to connect a second
 # GCP VPC will fail because routes will clash).
 resource "mongodbatlas_project" "main" {
-  name   = local.env_full_name
+  name   = "gateway-${var.name}"
   org_id = var.mongodb_atlas_org_id
 }
 
@@ -23,7 +23,7 @@ resource "mongodbatlas_network_peering" "main" {
 }
 
 resource "google_compute_network_peering" "mongodb_atlas" {
-  name         = "${local.env_full_name}-mongodb-atlas"
+  name         = "gateway-mongodb-atlas"
   network      = google_compute_network.main.self_link
   peer_network = "https://www.googleapis.com/compute/v1/projects/${mongodbatlas_network_peering.main.atlas_gcp_project_id}/global/networks/${mongodbatlas_network_peering.main.atlas_vpc_name}"
 }
@@ -37,7 +37,7 @@ resource "mongodbatlas_project_ip_whitelist" "gcp_vpc" {
 resource "mongodbatlas_cluster" "main" {
   project_id = mongodbatlas_project.main.id
 
-  name       = local.env_full_name
+  name       = "gateway"
   num_shards = 1
 
   replication_factor           = 3
@@ -54,7 +54,7 @@ resource "mongodbatlas_cluster" "main" {
 resource "mongodbatlas_database_user" "main" {
   project_id = mongodbatlas_project.main.id
 
-  username           = local.env_full_name
+  username           = "gateway"
   password           = random_password.mongodb_user_password.result
   auth_database_name = "admin"
 
@@ -71,7 +71,7 @@ resource "random_password" "mongodb_user_password" {
 module "mongodb_password" {
   source = "../cd_secret"
 
-  secret_id                      = "${local.env_full_name}-mongodb-connection-uri"
+  secret_id                      = "gateway-mongodb-connection-uri"
   secret_value                   = random_password.mongodb_user_password.result
   accessor_service_account_email = local.gcb_service_account_email
   gcp_labels                     = local.gcp_resource_labels

@@ -17,7 +17,7 @@ resource "random_password" "postgresql_stan" {
 module "stan_db_password" {
   source = "../cd_secret"
 
-  secret_id                      = "${local.env_full_name}-stan-db-password"
+  secret_id                      = "gateway-stan-db-password"
   secret_value                   = google_sql_user.postgresql_stan.password
   accessor_service_account_email = local.gcb_service_account_email
   gcp_labels                     = local.gcp_resource_labels

@@ -10,8 +10,6 @@ data "terraform_remote_state" "root" {
 }
 
 locals {
-  env_full_name = "gateway-${var.name}"
-
   gateway = {
     k8s = {
       namespace      = "default"
