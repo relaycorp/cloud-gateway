@@ -77,8 +77,12 @@ resource "google_cloudbuild_trigger" "gcb_builder_helmfile" {
   provider = google-beta
 }
 
+resource "random_id" "gcb_builder_logs_suffix" {
+  byte_length = 3
+}
+
 resource "google_storage_bucket" "gcb_builder_logs" {
-  name          = "relaycorp-gcb-builder-logs"
+  name          = "relaycorp-gcb-builder-logs-${random_id.gcb_builder_logs_suffix.hex}"
   storage_class = "REGIONAL"
   location      = "europe-west2"
 
