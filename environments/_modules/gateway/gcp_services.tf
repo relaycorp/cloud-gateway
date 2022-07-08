@@ -45,9 +45,3 @@ resource "google_project_service" "cloudbuild" {
   service                    = "cloudbuild.googleapis.com"
   disable_dependent_services = true
 }
-
-resource "google_project_service" "dns" {
-  project                    = data.google_project.main.id
-  service                    = "dns.googleapis.com"
-  disable_dependent_services = true
-}
