@@ -47,17 +47,13 @@ resource "tfe_notification_configuration" "sres" {
   workspace_id     = tfe_workspace.main.id
 }
 
-resource "google_service_account_key" "main" {
-  service_account_id = data.google_service_account.main.name
-}
-
 resource "tfe_variable" "gcp_credentials" {
   workspace_id = tfe_workspace.main.id
 
   category    = "env"
   sensitive   = true
   key         = "GOOGLE_CREDENTIALS"
-  description = data.google_service_account.main.email
+  description = google_service_account.tfe.email
 
   // Remove new line characters as a workaround for
   // https://github.com/hashicorp/terraform/issues/22796

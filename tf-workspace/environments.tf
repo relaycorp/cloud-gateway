@@ -3,10 +3,9 @@ module "env_frankfurt" {
 
   name = "frankfurt"
 
-  gcp_service_account_id = var.gcp_service_account_id
-  gcp_parent_folder      = var.gcp_parent_folder
-  gcp_billing_account    = var.gcp_billing_account
-  sre_iam_uri            = var.sre_iam_uri
+  gcp_parent_folder   = var.gcp_parent_folder
+  gcp_billing_account = var.gcp_billing_account
+  sre_iam_uri         = var.sre_iam_uri
 
   mongodb_atlas_org_id      = var.mongodb_atlas_org_id
   mongodb_atlas_public_key  = var.env_mongodb_atlas_public_key

@@ -32,7 +32,6 @@ resource "google_service_account_key" "tfe" {
   service_account_id = google_service_account.tfe.name
 }
 
-// TODO: DELETE
-data "google_service_account" "main" {
-  account_id = var.gcp_service_account_id
+resource "google_service_account_key" "main" {
+  service_account_id = google_service_account.tfe.name
 }
