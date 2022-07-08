@@ -40,6 +40,12 @@ resource "google_project_iam_binding" "tfe_owner" {
   members = ["serviceAccount:${google_service_account.tfe.email}"]
 }
 
+resource "google_project_iam_binding" "tfe_shared_dns" {
+  project = var.shared_infra_gcp_project_id
+  role    = "roles/dns.admin"
+  members = ["serviceAccount:${google_service_account.tfe.email}"]
+}
+
 resource "google_service_account_key" "tfe" {
   service_account_id = google_service_account.tfe.name
 }
