@@ -8,7 +8,7 @@ The Kubernetes resources are defined in Helm charts ([`charts/`](./charts)), whi
 
 # Architecture
 
-Gateways are entirely hosted on Google Cloud Platform (GCP). Each instance is deployed to a highly-available, independent environment under a shared GCP project. The following diagram offers a simplified view of the key cloud and Kubernetes resources in each environment:
+Gateways are entirely hosted on Google Cloud Platform (GCP). Each instance is deployed to a highly-available, independent environment under its own GCP project. The following diagram offers a simplified view of the key cloud and Kubernetes resources in each environment:
 
 ![](./diagrams/cloud.svg)
 
