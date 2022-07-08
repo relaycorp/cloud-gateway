@@ -69,3 +69,11 @@ resource "tfe_variable" "gcp_project_id" {
   key      = "gcp_project_id"
   value    = google_project.main.id
 }
+
+resource "tfe_variable" "gcp_project_id" {
+  workspace_id = tfe_workspace.main.id
+
+  category = "terraform"
+  key      = "gcp_project_id"
+  value    = var.mongodb_atlas_org_id
+}

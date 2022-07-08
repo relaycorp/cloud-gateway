@@ -5,6 +5,8 @@ variable "name" {
 variable "gcp_parent_folder" {}
 variable "gcp_billing_account" {}
 
+variable "mongodb_atlas_org_id" {}
+
 variable "tfe_organization" {
   default = "Relaycorp"
 }

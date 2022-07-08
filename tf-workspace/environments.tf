@@ -5,6 +5,8 @@ module "env_frankfurt" {
 
   gcp_parent_folder   = var.gcp_parent_folder
   gcp_billing_account = var.gcp_billing_account
+
+  mongodb_atlas_org_id = var.mongodb_atlas_org_id
 }
 
 locals {
