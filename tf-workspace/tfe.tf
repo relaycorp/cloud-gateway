@@ -44,3 +44,12 @@ resource "tfe_variable" "sre_email" {
   value     = var.sre_iam_uri
   sensitive = false
 }
+
+resource "tfe_variable" "shared_infra_gcp_project_id" {
+  variable_set_id = tfe_variable_set.environments.id
+
+  category  = "terraform"
+  key       = "shared_infra_gcp_project_id"
+  value     = data.google_project.main.project_id
+  sensitive = false
+}
