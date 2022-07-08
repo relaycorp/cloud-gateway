@@ -13,6 +13,8 @@ module "gateway" {
 
   name = "frankfurt"
 
+  shared_infra_gcp_project_id = var.shared_infra_gcp_project_id
+
   gcp_project_id = var.gcp_project_id
   gcp_region     = "europe-west3"
 
