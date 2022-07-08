@@ -28,6 +28,13 @@ resource "google_project_iam_binding" "tfe_owner" {
   members = ["serviceAccount:${google_service_account.tfe.email}"]
 }
 
+// TODO: Remove
+resource "google_project_iam_binding" "old_gcp_project" {
+  project = "relaycorp-cloud-gateway"
+  role    = "roles/owner"
+  members = ["serviceAccount:${google_service_account.tfe.email}"]
+}
+
 resource "google_service_account_key" "tfe" {
   service_account_id = google_service_account.tfe.name
 }
