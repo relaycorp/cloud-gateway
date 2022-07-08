@@ -2,6 +2,7 @@ variable "name" {
   description = "Environment name"
 }
 
+variable "shared_infra_gcp_project_id" {}
 variable "gcp_parent_folder" {}
 variable "gcp_billing_account" {}
 

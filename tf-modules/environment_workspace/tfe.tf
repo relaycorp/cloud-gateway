@@ -71,6 +71,15 @@ resource "tfe_variable" "gcp_project_id" {
 }
 
 // TODO: Remove when https://support.hashicorp.com/hc/en-us/requests/78185 is fixed
+resource "tfe_variable" "shared_infra_gcp_project_id" {
+  workspace_id = tfe_workspace.main.id
+
+  category = "terraform"
+  key      = "shared_infra_gcp_project_id"
+  value    = var.shared_infra_gcp_project_id
+}
+
+// TODO: Remove when https://support.hashicorp.com/hc/en-us/requests/78185 is fixed
 resource "tfe_variable" "mongodb_atlas_org_id" {
   workspace_id = tfe_workspace.main.id
 
