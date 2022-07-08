@@ -52,7 +52,5 @@ resource "google_monitoring_alert_policy" "poweb_lb_uptime" {
     }
   }
 
-  notification_channels = [
-    var.notification_channel
-  ]
+  notification_channels = var.notification_channels
 }

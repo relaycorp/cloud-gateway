@@ -25,13 +25,22 @@ resource "google_monitoring_group" "main" {
   filter = "resource.metadata.tag.environment=\"${var.name}\""
 }
 
+resource "google_monitoring_notification_channel" "sre_email" {
+  for_each = toset(data.terraform_remote_state.root.outputs.sre_email_addresses)
+
+  type = "email"
+  labels = {
+    email_address = each.value
+  }
+}
+
 module "poweb_lb_uptime" {
   source = "../host_uptime_monitor"
 
-  name                 = "gateway-poweb"
-  host_name            = google_dns_record_set.poweb.name
-  notification_channel = data.terraform_remote_state.root.outputs.sre_monitoring_notification_channel
-  gcp_project_id       = var.gcp_project_id
+  name                  = "gateway-poweb"
+  host_name             = google_dns_record_set.poweb.name
+  notification_channels = [for c in google_monitoring_notification_channel.sre_email: c.name]
+  gcp_project_id        = var.gcp_project_id
 }
 
 // TODO: Restore when the following has been fixed:
@@ -70,18 +79,18 @@ module "poweb_lb_uptime" {
 module "pohttp_lb_uptime" {
   source = "../host_uptime_monitor"
 
-  name                 = "gateway-pohttp"
-  host_name            = google_dns_record_set.pohttp.name
-  notification_channel = data.terraform_remote_state.root.outputs.sre_monitoring_notification_channel
-  gcp_project_id       = var.gcp_project_id
+  name                  = "gateway-pohttp"
+  host_name             = google_dns_record_set.pohttp.name
+  notification_channels = [for c in google_monitoring_notification_channel.sre_email: c.name]
+  gcp_project_id        = var.gcp_project_id
 }
 
 module "cogrpc_lb_uptime" {
   source = "../host_uptime_monitor"
 
-  name                 = "gateway-cogrpc"
-  probe_type           = "tcp"
-  host_name            = google_dns_record_set.cogrpc.name
-  notification_channel = data.terraform_remote_state.root.outputs.sre_monitoring_notification_channel
-  gcp_project_id       = var.gcp_project_id
+  name                  = "gateway-cogrpc"
+  probe_type            = "tcp"
+  host_name             = google_dns_record_set.cogrpc.name
+  notification_channels = [for c in google_monitoring_notification_channel.sre_email: c.name]
+  gcp_project_id        = var.gcp_project_id
 }

@@ -13,4 +13,6 @@ variable "probe_type" {
 
 variable "gcp_project_id" {}
 
-variable "notification_channel" {}
+variable "notification_channels" {
+  type = list(string)
+}

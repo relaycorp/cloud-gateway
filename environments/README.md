@@ -7,7 +7,7 @@ We currently manage one environment: [Frankfurt](./frankfurt).
 1. Add the Terraform Cloud workspace for the new environment in the main workspace. See [`tf-workspace/environments.tf`](https://github.com/relaycorp/cloud-gateway/blob/main/tf-workspace/environments.tf).
 1. Once the change above is pushed to `main`, go to [Terraform Cloud](https://app.terraform.io/app/Relaycorp/workspaces/cloud-gateway) and apply it.
 1. Create a new Terraform workspace in this directory and push it to `main`. This workspace MUST initialise the [`gateway` module](./_modules/gateway). You could start by copying an existing workspace.
-1. [Go to GCB](https://console.cloud.google.com/cloud-build/triggers?project=relaycorp-cloud-gateway) and run the trigger for the new environment.
+1. [Go to GCB](https://console.cloud.google.com/cloud-build/triggers) and run the trigger for the new environment.
 
    The first build might fail if [the MongoDB Atlas VPC peering connection isn't ready](https://feedback.mongodb.com/forums/924145-atlas/suggestions/44625444-mongodbatlas-cluster-should-wait-until-cluster-is) (the connection string won't be available). If this happens:
    1. Go to MongoDB Atlas and wait until the peering connection is available.
