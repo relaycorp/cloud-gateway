@@ -1,6 +1,4 @@
 locals {
-  gcb_service_account_email = "${data.google_project.main.number}@cloudbuild.gserviceaccount.com"
-
   gcb_community_builders_repo     = "https://github.com/GoogleCloudPlatform/cloud-builders-community.git"
   gcb_community_builders_revision = "82588e81d18a0f2bd6fd1177257875d0601a542e"
 }
