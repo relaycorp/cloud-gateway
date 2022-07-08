@@ -88,6 +88,8 @@ resource "google_storage_bucket" "gcb_builder_logs" {
 
   uniform_bucket_level_access = true
 
+  force_destroy = !var.prevent_destruction
+
   versioning {
     enabled = false
   }
