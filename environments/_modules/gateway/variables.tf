@@ -29,6 +29,8 @@ variable "dns_managed_zone" {
   default = "relaycorp-cloud"
 }
 
+variable "shared_infra_gcp_project_id" {}
+
 variable "gcp_project_id" {}
 variable "gcp_region" {}
 

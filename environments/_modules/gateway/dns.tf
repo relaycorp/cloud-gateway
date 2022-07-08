@@ -1,6 +1,6 @@
 data "google_dns_managed_zone" "main" {
   name    = var.dns_managed_zone
-  project = "relaycorp-cloud-gateway"
+  project = var.shared_infra_gcp_project_id
 }
 
 resource "google_dns_record_set" "status_page" {

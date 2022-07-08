@@ -1,8 +1,6 @@
 variable "gcp_parent_folder" {}
 variable "gcp_billing_account" {}
-variable "gcp_project_id" {
-  default = "relaycorp-cloud-gateway"
-}
+variable "gcp_project_id" {}
 variable "gcp_service_account_id" {}
 
 variable "mongodb_atlas_org_id" {}
