@@ -18,9 +18,3 @@ resource "google_project_service" "serviceusage" {
   service                    = "serviceusage.googleapis.com"
   disable_dependent_services = true
 }
-
-resource "google_project_service" "cloudresourcemanager" {
-  project                    = var.gcp_project_id
-  service                    = "cloudresourcemanager.googleapis.com"
-  disable_dependent_services = true
-}
