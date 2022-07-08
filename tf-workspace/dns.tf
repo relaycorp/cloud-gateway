@@ -7,4 +7,6 @@ resource "google_dns_managed_zone" "relaycorp_cloud" {
   dnssec_config {
     state = "on"
   }
+
+  depends_on = [google_project_service.dns]
 }
