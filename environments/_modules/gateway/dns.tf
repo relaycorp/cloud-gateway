@@ -1,5 +1,6 @@
 data "google_dns_managed_zone" "main" {
-  name = var.dns_managed_zone
+  name    = var.dns_managed_zone
+  project = "relaycorp-cloud-gateway"
 }
 
 resource "google_dns_record_set" "status_page" {
