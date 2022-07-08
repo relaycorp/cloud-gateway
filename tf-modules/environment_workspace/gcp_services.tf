@@ -1,3 +1,21 @@
+resource "google_project_service" "serviceusage" {
+  project                    = google_project.main.id
+  service                    = "serviceusage.googleapis.com"
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "cloudbilling" {
+  project                    = google_project.main.id
+  service                    = "cloudbilling.googleapis.com"
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "cloudresourcemanager" {
+  project                    = google_project.main.id
+  service                    = "cloudresourcemanager.googleapis.com"
+  disable_dependent_services = true
+}
+
 resource "google_project_service" "logging" {
   project                    = google_project.main.id
   service                    = "logging.googleapis.com"
