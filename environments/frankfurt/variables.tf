@@ -1,6 +1,4 @@
-variable "gcp_project_id" {
-  default = "relaycorp-cloud-gateway"
-}
+variable "gcp_project_id" {}
 
 variable "mongodb_atlas_org_id" {}
 
