@@ -22,7 +22,7 @@ resource "tfe_workspace" "main" {
 
   auto_apply = true
 
-  terraform_version = "1.2.4"
+  terraform_version = "1.1.9"
 
   vcs_repo {
     identifier     = var.github_repo
