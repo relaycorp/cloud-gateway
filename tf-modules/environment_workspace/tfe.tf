@@ -67,7 +67,7 @@ resource "tfe_variable" "gcp_project_id" {
 
   category = "terraform"
   key      = "gcp_project_id"
-  value    = google_project.main.name
+  value    = google_project.main.project_id
 }
 
 // TODO: Remove when https://support.hashicorp.com/hc/en-us/requests/78185 is fixed
