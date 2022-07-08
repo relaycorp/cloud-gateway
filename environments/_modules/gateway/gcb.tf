@@ -40,6 +40,13 @@ locals {
   }
 }
 
+resource "google_project_iam_member" "gcb_editor" {
+  // Grants SREs permission to start and cancel builds
+  project = var.gcp_project_id
+  role    = "roles/cloudbuild.builds.editor"
+  member  = var.sre_iam_uri
+}
+
 resource "google_cloudbuild_trigger" "gke_deployment" {
   name        = "gateway-gke-deployment"
   description = "Deploy and configure Kubernetes resources in environment ${var.name}"
