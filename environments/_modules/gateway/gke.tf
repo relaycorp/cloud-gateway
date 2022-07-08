@@ -1,3 +1,9 @@
+resource "google_project_iam_binding" "gke_developers" {
+  project = data.google_project.main.id
+  role    = "roles/container.developer"
+  members = [var.sre_iam_uri, "serviceAccount:${local.gcb_service_account_email}"]
+}
+
 resource "random_id" "gke_suffix" {
   byte_length = 3
 }
