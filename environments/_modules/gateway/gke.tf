@@ -99,7 +99,7 @@ resource "google_container_node_pool" "main" {
 resource "google_project_iam_custom_role" "gke_limited_admin" {
   project = var.gcp_project_id
 
-  role_id = "${replace(local.env_full_name, "-", "_")}.gke_limited_admin"
+  role_id = "${local.iam_role_prefix}.gke_limited_admin"
   title   = "Limited permissions to manage the GKE cluster"
   permissions = [
     "container.mutatingWebhookConfigurations.create",

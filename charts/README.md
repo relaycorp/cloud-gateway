@@ -4,7 +4,6 @@ This directory contains the Helm chart configuration for each Kubernetes-based s
 
 We currently manage the following services in Kubernetes:
 
-- [Hashicorp Vault](./vault).
 - [NATS](./nats).
 - [NATS Streaming (aka Stan)](./stan).
 - [Relaynet-Internet Gateway](./gateway) and [its CRDs](./gateway-crds).
