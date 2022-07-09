@@ -14,6 +14,7 @@ We currently manage one environment: [Frankfurt](./frankfurt).
    1. Go to [Terraform Cloud](https://app.terraform.io/app/Relaycorp/workspaces/cloud-gateway) and trigger another run.
    1. Run the GCB trigger again.
 1. Configure CI by registering the new environment in [`cloud-oss`](https://github.com/relaycorp/cloud-oss/blob/main/cloud.tf).
+1. Configure Error Reporting notifications by [going to the console](https://console.cloud.google.com/errors) and clicking "Configure Notifications". Unfortunately, [we're unable to automate this](https://github.com/hashicorp/terraform-provider-google/issues/12068).
 
 ## Deprovision an environment
 
