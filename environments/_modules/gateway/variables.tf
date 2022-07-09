@@ -35,7 +35,7 @@ variable "gcp_project_id" {}
 variable "gcp_region" {}
 
 variable "gke_instance_type" {
-  default = "n2-highcpu-2"
+  default = "n2-highcpu-4"
 }
 
 variable "kubernetes_min_version" {
