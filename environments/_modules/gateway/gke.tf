@@ -6,6 +6,10 @@ resource "google_project_iam_binding" "gke_developers" {
 
 resource "random_id" "gke_suffix" {
   byte_length = 3
+
+  keepers = {
+    pool_instance_type = google_container_node_pool.main.node_config.machine_type
+  }
 }
 
 resource "google_container_cluster" "main" {
