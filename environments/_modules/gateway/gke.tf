@@ -65,7 +65,7 @@ resource "random_id" "gke_pool_suffix" {
   byte_length = 3
 
   keepers = {
-    pool_instance_type = google_container_node_pool.main.node_config.machine_type
+    pool_instance_type = var.gke_instance_type
   }
 }
 
