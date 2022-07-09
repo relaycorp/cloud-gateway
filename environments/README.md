@@ -20,15 +20,6 @@ We currently manage one environment: [Frankfurt](./frankfurt).
 [Deprovisioning isn't currently as automated as it can be](https://github.com/relaycorp/cloud-gateway/issues/56), so the following manual steps are needed:
 
 1. Deactivate CI by removing the environment from [`cloud-oss`](https://github.com/relaycorp/cloud-oss/blob/main/cloud.tf).
-1. Uninstall all the Helm charts manually; e.g.:
-   ```
-   helm uninstall gateway
-   helm uninstall gateway-crds
-   ```
-   
-   This ensures that cloud resources created by Kubernetes (e.g., the load balancer) are removed.
-
-   This step is not automated to avoid breaking an environment by simply clicking a button on GCB.
 1. Alter Terraform resources to allow destruction by setting the `prevent_destruction` in the module to `false`.
 1. Go to [Terraform Cloud](https://app.terraform.io/app/Relaycorp/workspaces?search=gateway-) and destroy the workspace from the settings.
 1. Delete the Terraform Cloud workspace from the main workspace, by removing the respective module from [`tf-workspace/environments.tf`](https://github.com/relaycorp/cloud-gateway/blob/main/tf-workspace/environments.tf) in the `main` branch.
