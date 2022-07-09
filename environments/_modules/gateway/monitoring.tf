@@ -28,7 +28,8 @@ resource "google_monitoring_group" "main" {
 resource "google_monitoring_notification_channel" "sre_email" {
   for_each = toset(data.terraform_remote_state.root.outputs.sre_email_addresses)
 
-  type = "email"
+  type         = "email"
+  display_name = each.value
   labels = {
     email_address = each.value
   }
