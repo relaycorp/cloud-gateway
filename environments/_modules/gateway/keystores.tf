@@ -87,11 +87,3 @@ resource "google_project_iam_member" "keystore_kms_user" {
     expression = "resource.name.startsWith(\"${google_kms_key_ring.keystores.id}\")"
   }
 }
-
-resource "google_project_iam_member" "keystore_datastore_user" {
-  role   = "roles/datastore.user"
-  member = "serviceAccount:${google_service_account.gateway.email}"
-
-  // Unfortunately, we can't limit access to a specific namespace or kind:
-  // https://cloud.google.com/iam/docs/conditions-resource-attributes#resource-name
-}
