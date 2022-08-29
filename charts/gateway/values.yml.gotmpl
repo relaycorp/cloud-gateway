@@ -4,7 +4,7 @@
 
 fullnameOverride: public-gateway
 
-publicAddress: {{  requiredEnv "GW_PUBLIC_ADDRESS" | quote }}
+internetAddress: {{  requiredEnv "GW_INTERNET_ADDRESS" | quote }}
 gatewayKeyId: {{ requiredEnv "GW_KEY_ID_B64" | quote }}
 
 logging:

@@ -20,7 +20,7 @@ locals {
       "STAN_DB_NAME=${google_sql_database.postgresql_stan.name}",
       "STAN_DB_USER=${google_sql_user.postgresql_stan.name}",
 
-      "GW_PUBLIC_ADDRESS=${local.gateway.public_address}",
+      "GW_INTERNET_ADDRESS=${local.gateway.internet_address}",
       "GW_KEY_ID_B64=${random_id.gateway_key_id.b64_std}",
       "GW_MONGODB_CONNECTION_URI=${lookup(mongodbatlas_cluster.main.connection_strings[0], "private_srv")}",
       "GW_MONGODB_DB_NAME=${local.mongodb_db_name}",
