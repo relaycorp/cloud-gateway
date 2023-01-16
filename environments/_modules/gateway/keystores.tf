@@ -92,6 +92,6 @@ resource "google_project_iam_member" "keystore_kms_user" {
 // is fixed
 resource "google_project_iam_member" "keystore_kms_admin_user_tmp" {
   project = var.gcp_project_id
-  role   = "iam.serviceAccountKeys.create"
+  role   = "roles/iam.serviceAccountKeys.create"
   member  = var.sre_iam_uri
 }
