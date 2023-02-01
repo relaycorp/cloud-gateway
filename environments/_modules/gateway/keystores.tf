@@ -87,10 +87,3 @@ resource "google_project_iam_member" "keystore_kms_user" {
     expression = "resource.name.startsWith(\"${google_kms_key_ring.keystores.id}\")"
   }
 }
-
-// TODO: Remove when https://console.cloud.google.com/errors/detail/COW11ovZ2aG8NQ;time=PT6H?project=gw-frankfurt-4065
-// is fixed
-resource "google_project_iam_member" "keystore_kms_admin_user_tmp" {
-  role   = "roles/iam.serviceAccountKeyAdmin"
-  member  = var.sre_iam_uri
-}
