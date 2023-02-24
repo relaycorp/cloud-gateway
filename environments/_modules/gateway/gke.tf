@@ -17,6 +17,8 @@ resource "google_container_cluster" "main" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
+  image_type = "COS_CONTAINERD"
+
   min_master_version = var.kubernetes_min_version
   release_channel {
     channel = "STABLE"
