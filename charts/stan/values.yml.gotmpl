@@ -22,7 +22,7 @@ store:
     channels:
       # See: https://docs.relaycorp.tech/relaynet-internet-gateway/architecture#nats-streaming
       pdc-parcel.>:
-        max_inactivity: 10s
+        max_inactivity: 60s # For context, GCP LBs currently drop WS connections after 30s
         max_subs: 3 # There shouldn't be more than 1 parcel collection but let's be generous
       internet-parcels:
         max_age: 1h
