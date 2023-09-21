@@ -19,6 +19,7 @@ store:
     source: host={{ requiredEnv "STAN_DB_HOST" }} dbname={{ requiredEnv "STAN_DB_NAME" }} user={{ requiredEnv "STAN_DB_USER" }} password={{ readFile "/workspace/secrets/stan-db-password" }} sslmode=require
   limits:
     max_bytes: 2KB
+    max_channels: 10000
     channels:
       # See: https://docs.relaycorp.tech/relaynet-internet-gateway/architecture#nats-streaming
       pdc-parcel.>:
