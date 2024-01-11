@@ -2,8 +2,13 @@ variable "name" {
   description = "Environment name"
 }
 
+variable "shared_infra_gcp_project_id" {}
 variable "gcp_parent_folder" {}
 variable "gcp_billing_account" {}
+
+variable "mongodb_atlas_org_id" {}
+variable "env_mongodb_atlas_public_key" {}
+variable "env_mongodb_atlas_private_key" {}
 
 variable "tfe_organization" {
   default = "Relaycorp"
