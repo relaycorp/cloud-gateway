@@ -43,7 +43,7 @@ resource "mongodbatlas_cluster" "main" {
   replication_factor           = 3
   provider_backup_enabled      = true
   auto_scaling_disk_gb_enabled = true
-  mongo_db_major_version       = "4.2"
+  mongo_db_major_version       = "4.4"
 
   provider_name               = "GCP"
   disk_size_gb                = 10
