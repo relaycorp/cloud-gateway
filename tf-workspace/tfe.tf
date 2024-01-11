@@ -3,8 +3,8 @@ locals {
 }
 
 resource "tfe_variable_set" "environments" {
-  name          = "Public Gateway Environments"
-  description   = "Variables shared by all public gateway environments"
+  name          = "Internet Gateway Environments"
+  description   = "Variables shared by all Internet gateway environments"
   organization  = local.tfe_organization
   workspace_ids = local.env_workspace_ids
 }
