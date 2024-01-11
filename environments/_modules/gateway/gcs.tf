@@ -10,7 +10,7 @@ resource "google_storage_bucket" "gateway_messages" {
   uniform_bucket_level_access = true
 
   versioning {
-    // Whislt the app may never use an older version of the message, we may find it useful to get
+    // Whilst the app may never use an older version of the message, we may find it useful to get
     // those versions during troubleshooting.
     enabled = true
   }
