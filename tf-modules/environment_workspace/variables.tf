@@ -2,13 +2,21 @@ variable "name" {
   description = "Environment name"
 }
 
-variable "shared_infra_gcp_project_id" {}
+variable "shared_infra_gcp_project_id" {
+  default = null // Take from variable set
+}
 variable "gcp_parent_folder" {}
 variable "gcp_billing_account" {}
 
-variable "mongodb_atlas_org_id" {}
-variable "env_mongodb_atlas_public_key" {}
-variable "env_mongodb_atlas_private_key" {}
+variable "mongodb_atlas_org_id" {
+  default = null // Take from variable set
+}
+variable "env_mongodb_atlas_public_key" {
+  default = null // Take from variable set
+}
+variable "env_mongodb_atlas_private_key" {
+  default = null // Take from variable set
+}
 
 variable "tfe_organization" {
   default = "Relaycorp"
