@@ -70,6 +70,14 @@ resource "tfe_variable" "gcp_project_id" {
   value    = google_project.main.project_id
 }
 
+resource "tfe_variable" "mongodbatlas_project_id" {
+  workspace_id = tfe_workspace.main.id
+
+  category = "terraform"
+  key      = "mongodbatlas_project_id"
+  value    = mongodbatlas_project.main.id
+}
+
 resource "tfe_variable" "mongodbatlas_private_key" {
   workspace_id = tfe_workspace.main.id
 
