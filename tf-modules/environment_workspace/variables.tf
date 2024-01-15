@@ -25,6 +25,9 @@ variable "tfe_root_workspace" {
 variable "tfe_oauth_client_id" {
   default = "oc-7jBF4Z5YhNc4QRSc"
 }
+variable "tfe_terraform_version" {
+  default = "1.2.4"
+}
 
 variable "github_repo" {
   default = "relaycorp/cloud-gateway"

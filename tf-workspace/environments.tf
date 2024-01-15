@@ -14,6 +14,8 @@ module "env_belgium" {
 
   name = "belgium"
 
+  tfe_terraform_version = "1.6.6"
+
   gcp_parent_folder   = var.gcp_parent_folder
   gcp_billing_account = var.gcp_billing_account
 
