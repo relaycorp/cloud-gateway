@@ -10,14 +10,15 @@ module "env_frankfurt" {
 }
 
 module "env_belgium" {
-  source = "../tf-modules/environment_workspace"
+  source = "../tf-modules/serverless_environment_workspace"
 
   name = "belgium"
 
   tfe_terraform_version = "1.6.6"
 
-  gcp_parent_folder   = var.gcp_parent_folder
-  gcp_billing_account = var.gcp_billing_account
+  gcp_parent_folder    = var.gcp_parent_folder
+  gcp_billing_account  = var.gcp_billing_account
+  mongodb_atlas_org_id = var.mongodb_atlas_org_id
 
   shared_infra_gcp_project_id = data.google_project.main.project_id
 }
