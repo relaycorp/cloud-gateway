@@ -53,21 +53,3 @@ resource "tfe_variable" "gcp_shared_infra_project_id" {
   value     = data.google_project.main.project_id
   sensitive = false
 }
-
-resource "tfe_variable" "gcp_parent_folder" {
-  variable_set_id = tfe_variable_set.environments.id
-
-  category  = "terraform"
-  key       = "gcp_parent_folder"
-  value     = var.gcp_parent_folder
-  sensitive = false
-}
-
-resource "tfe_variable" "gcp_billing_account" {
-  variable_set_id = tfe_variable_set.environments.id
-
-  category  = "terraform"
-  key       = "gcp_billing_account"
-  value     = var.gcp_billing_account
-  sensitive = false
-}
