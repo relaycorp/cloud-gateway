@@ -71,8 +71,3 @@ resource "tfe_variable" "gcp_billing_account" {
   value     = var.gcp_billing_account
   sensitive = false
 }
-
-moved {
-  from = tfe_variable.shared_infra_gcp_project_id
-  to   = tfe_variable.gcp_shared_infra_project_id
-}
