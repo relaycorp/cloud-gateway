@@ -14,6 +14,8 @@ resource "google_monitoring_group" "main" {
   display_name = "gateway"
 
   filter = "resource.metadata.tag.environment=\"${var.instance_name}\""
+
+  depends_on = [google_project_service.services]
 }
 
 resource "google_monitoring_notification_channel" "sres_email" {
@@ -25,6 +27,8 @@ resource "google_monitoring_notification_channel" "sres_email" {
   labels = {
     email_address = each.value
   }
+
+  depends_on = [google_project_service.services]
 }
 
 module "poweb_lb_uptime" {
