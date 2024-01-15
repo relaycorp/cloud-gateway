@@ -1,3 +1,4 @@
 .idea
 tf-workspace/.terraform
 environments/*/.terraform
+environments/_modules/*/.terraform
