@@ -34,7 +34,7 @@ resource "google_monitoring_notification_channel" "sres_email" {
 module "poweb_lb_uptime" {
   source = "../host_uptime_monitor"
 
-  name                  = "gateway-poweb"
+  name                  = "gateway-${var.instance_name}-poweb"
   host_name             = google_dns_record_set.poweb.name
   notification_channels = [for c in google_monitoring_notification_channel.sres_email : c.name]
   gcp_project_id        = var.gcp_project_id
@@ -43,7 +43,7 @@ module "poweb_lb_uptime" {
 module "pohttp_lb_uptime" {
   source = "../host_uptime_monitor"
 
-  name                  = "gateway-pohttp"
+  name                  = "gateway-${var.instance_name}-pohttp"
   host_name             = google_dns_record_set.pohttp.name
   notification_channels = [for c in google_monitoring_notification_channel.sres_email : c.name]
   gcp_project_id        = var.gcp_project_id
@@ -52,7 +52,7 @@ module "pohttp_lb_uptime" {
 module "cogrpc_lb_uptime" {
   source = "../host_uptime_monitor"
 
-  name                  = "gateway-cogrpc"
+  name                  = "gateway-${var.instance_name}-cogrpc"
   probe_type            = "tcp"
   host_name             = google_dns_record_set.cogrpc.name
   notification_channels = [for c in google_monitoring_notification_channel.sres_email : c.name]

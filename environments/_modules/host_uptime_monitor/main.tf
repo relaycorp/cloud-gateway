@@ -30,7 +30,7 @@ resource "google_monitoring_uptime_check_config" "main" {
   }
 }
 
-resource "google_monitoring_alert_policy" "poweb_lb_uptime" {
+resource "google_monitoring_alert_policy" "uptime" {
   display_name = "${var.name}-uptime"
   combiner     = "OR"
   conditions {
