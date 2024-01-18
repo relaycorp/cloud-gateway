@@ -1,7 +1,7 @@
 module "gateway" {
   source = "../_modules/gateway-serverless"
 
-  docker_image_tag = "5.0.13"
+  docker_image_tag = "5.1.0"
 
   instance_name = "belgium"
 
