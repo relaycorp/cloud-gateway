@@ -18,7 +18,7 @@ terraform {
     }
     tfe = {
       source  = "hashicorp/tfe"
-      version = "~> 0.32.1"
+      version = "~> 0.51.1"
     }
     mongodbatlas = {
       source  = "mongodb/mongodbatlas"
