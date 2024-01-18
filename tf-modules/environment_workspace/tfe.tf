@@ -69,3 +69,28 @@ resource "tfe_variable" "gcp_project_id" {
   key      = "gcp_project_id"
   value    = google_project.main.project_id
 }
+
+resource "tfe_variable" "mongodbatlas_project_id" {
+  workspace_id = tfe_workspace.main.id
+
+  category = "terraform"
+  key      = "mongodbatlas_project_id"
+  value    = mongodbatlas_project.main.id
+}
+
+resource "tfe_variable" "mongodbatlas_private_key" {
+  workspace_id = tfe_workspace.main.id
+
+  category  = "env"
+  sensitive = true
+  key       = "MONGODB_ATLAS_PRIVATE_KEY"
+  value     = mongodbatlas_project_api_key.main.private_key
+}
+
+resource "tfe_variable" "mongodbatlas_public_key" {
+  workspace_id = tfe_workspace.main.id
+
+  category = "env"
+  key      = "MONGODB_ATLAS_PUBLIC_KEY"
+  value    = mongodbatlas_project_api_key.main.public_key
+}

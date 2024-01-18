@@ -1,5 +1,5 @@
 module "env_belgium" {
-  source = "../tf-modules/serverless_environment_workspace"
+  source = "../tf-modules/environment_workspace"
 
   name = "belgium"
 

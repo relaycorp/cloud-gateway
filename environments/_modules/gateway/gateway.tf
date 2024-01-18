@@ -1,26 +1,33 @@
-resource "random_id" "gateway_key_id" {
-  byte_length = 12
-}
+module "gateway" {
+  source  = "relaycorp/awala-gateway/google"
+  version = "1.5.6"
 
-resource "google_service_account" "gateway" {
-  project = var.gcp_project_id
+  project_id = var.gcp_project_id
+  region     = var.gcp_region
 
-  account_id   = "gateway-app"
-  display_name = "GCP SA bound to K8S SA ${local.gateway.k8s.serviceAccount}"
-}
+  docker_image_tag = var.docker_image_tag
 
-resource "google_service_account_iam_member" "gateway_workload_identity" {
-  service_account_id = google_service_account.gateway.name
-  role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${local.workload_identity_pool}[${local.gateway.k8s.namespace}/${local.gateway.k8s.serviceAccount}]"
+  sre_iam_uri = var.sre_iam_uri
 
-  depends_on = [google_container_cluster.main]
-}
+  instance_name    = var.instance_name
+  internet_address = "${var.instance_name}.${data.google_dns_managed_zone.main.dns_name}"
 
-resource "google_service_account_iam_member" "gateway_workload_identity_keygen" {
-  service_account_id = google_service_account.gateway.name
-  role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${local.workload_identity_pool}[${local.gateway.k8s.namespace}/${local.gateway.k8s.serviceAccount}-keygen]"
+  // See https://github.com/relaycorp/cloud-gateway/issues/64
+  parcel_retention_days = 2
 
-  depends_on = [google_container_cluster.main]
+  pohttp_server_domain = google_dns_record_set.pohttp.name
+
+  poweb_server_domain = google_dns_record_set.poweb.name
+
+  cogrpc_server_domain             = google_dns_record_set.cogrpc.name
+  cogrpc_server_min_instance_count = 0 # https://github.com/relaycorp/cloud-gateway/issues/96
+
+  mongodb_db       = local.gateway_db_name
+  mongodb_password = random_password.mongodb_gateway_user_password.result
+  mongodb_uri      = local.mongodb_uri
+  mongodb_user     = mongodbatlas_database_user.gateway.username
+
+  kms_protection_level = "HSM"
+
+  depends_on = [time_sleep.wait_for_services]
 }
