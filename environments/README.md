@@ -14,6 +14,8 @@ We currently manage one environment: [Belgium](./belgium).
    1. Run the GCB trigger again.
 1. Configure CI by registering the new environment in [`cloud-oss`](https://github.com/relaycorp/cloud-oss/blob/main/cloud.tf).
 1. Configure Error Reporting notifications by [going to the console](https://console.cloud.google.com/errors) and clicking "Configure Notifications". Unfortunately, [we're unable to automate this](https://github.com/hashicorp/terraform-provider-google/issues/12068).
+1. Add to [dependabot.yml](../.github/dependabot.yml).
+1. Add to [CI](../.github/workflows/ci.yml).
 
 ## Deprovision an environment
 

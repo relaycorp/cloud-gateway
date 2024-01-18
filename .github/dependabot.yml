@@ -1,0 +1,10 @@
+version: 2
+updates:
+- package-ecosystem: terraform
+  directory: "/tf-workspace"
+  schedule:
+    interval: weekly
+- package-ecosystem: terraform
+  directory: "/environments/belgium"
+  schedule:
+    interval: weekly
