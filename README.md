@@ -4,8 +4,6 @@ This repository contains the code and configuration for the cloud and Kubernetes
 
 The cloud resources are defined in Terraform modules managed on Terraform Cloud. Shared resources can be found in [`tf-workspace/`](./tf-workspace), whilst environment-specific resources can be found under [`environments/`](./environments).
 
-The Kubernetes resources are defined in Helm charts ([`charts/`](./charts)), which are automatically deployed by Google Cloud Build.
-
 # Architecture
 
 Gateways are entirely hosted on Google Cloud Platform (GCP). Each instance is deployed to a highly-available, independent environment under its own GCP project. The following diagram offers a simplified view of the key cloud and Kubernetes resources in each environment:

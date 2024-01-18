@@ -1,6 +1,6 @@
 # Gateway environments
 
-We currently manage one environment: [Frankfurt](./frankfurt).
+We currently manage one environment: [Belgium](./belgium).
 
 ## Provision a new environment
 

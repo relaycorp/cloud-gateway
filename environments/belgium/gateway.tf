@@ -1,5 +1,5 @@
 module "gateway" {
-  source = "../_modules/gateway-serverless"
+  source = "../_modules/gateway"
 
   docker_image_tag = "5.1.2"
 

@@ -1,66 +1,20 @@
-variable "name" {}
+variable "instance_name" {}
 
-variable "root_workspace" {
-  type = object({
-    name         = string,
-    organization = string,
-  })
-  default = {
-    name         = "cloud-gateway",
-    organization = "Relaycorp",
-  }
-}
-
-variable "type" {
-  default = "production"
-  validation {
-    condition     = contains(["production", "testing"], var.type)
-    error_message = "Environment type must be either 'production' or 'testing'."
-  }
-}
-
-variable "prevent_destruction" {
-  default     = true
-  type        = bool
-  description = "Turn off when preparing to destroy environment"
-}
-
-variable "dns_managed_zone" {
-  default = "relaycorp-cloud"
-}
-
-variable "shared_infra_gcp_project_id" {}
-
-variable "gcp_project_id" {}
-variable "gcp_region" {}
-
-variable "gke_instance_type" {
-  default = "n2-highcpu-4"
-}
-
-variable "kubernetes_min_version" {
-  default = "1.20"
-  validation {
-    condition     = can(regex("^\\d+\\.\\d+$", var.kubernetes_min_version))
-    error_message = "Minimum Kubernetes version, excluding patch version (e.g., '1.21')."
-  }
-}
-
-variable "mongodb_atlas_org_id" {}
-variable "mongodb_atlas_region" {}
-
-variable "github_repo" {
-  type = object({
-    organisation = string
-    name         = string
-    branch       = string
-  })
-
-  default = {
-    organisation = "relaycorp"
-    name         = "cloud-gateway"
-    branch       = "main"
-  }
-}
+variable "docker_image_tag" {}
 
 variable "sre_iam_uri" {}
+variable "alert_email_addresses" {
+  type = list(string)
+}
+
+variable "gcp_shared_infra_project_id" {}
+variable "gcp_project_id" {}
+variable "gcp_region" {
+  description = "Google region"
+}
+variable "gcp_dns_managed_zone" {
+  default = "relaycorp-services"
+}
+
+variable "mongodbatlas_project_id" {}
+variable "mongodbatlas_region" {}
