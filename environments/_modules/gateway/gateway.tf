@@ -1,6 +1,6 @@
 module "gateway" {
   source  = "relaycorp/awala-gateway/google"
-  version = "1.6.1"
+  version = "1.6.2"
 
   project_id = var.gcp_project_id
   region     = var.gcp_region
