@@ -10,6 +10,12 @@ resource "google_project_iam_binding" "dashboard_viewer_sre" {
   members = [var.sre_iam_uri]
 }
 
+resource "google_project_iam_binding" "container_analysis_occurrences_sre" {
+  project = var.gcp_project_id
+  role    = "roles/containeranalysis.occurrences.viewer"
+  members = [var.sre_iam_uri]
+}
+
 resource "google_monitoring_group" "main" {
   display_name = "gateway"
 
