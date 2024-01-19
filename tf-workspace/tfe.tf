@@ -9,15 +9,6 @@ resource "tfe_variable_set" "environments" {
   workspace_ids = local.env_workspace_ids
 }
 
-resource "tfe_variable" "mongodb_atlas_org_id" {
-  variable_set_id = tfe_variable_set.environments.id
-
-  key       = "mongodb_atlas_org_id"
-  value     = var.mongodb_atlas_org_id
-  category  = "terraform"
-  sensitive = false
-}
-
 resource "tfe_variable" "env_mongodb_atlas_public_key" {
   variable_set_id = tfe_variable_set.environments.id
 
