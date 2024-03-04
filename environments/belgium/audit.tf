@@ -67,3 +67,21 @@ resource "google_project_iam_member" "auditors_secret_manager" {
   role    = "roles/secretmanager.viewer"
   member  = each.value
 }
+
+resource "google_project_iam_custom_role" "auditor_additional_perms" {
+  project = var.gcp_project_id
+  role_id = "tmp_auditor"
+  title   = "Security auditor"
+  permissions = [
+    "iam.serviceAccounts.list",
+  ]
+}
+
+resource "google_project_iam_member" "auditor_additional_perms" {
+  // repeat for each auditor_uris
+  for_each = toset(var.temporary_auditor_iam_uris)
+
+  project = var.gcp_project_id
+  role    = google_project_iam_custom_role.auditor_additional_perms.name
+  member  = each.value
+}
