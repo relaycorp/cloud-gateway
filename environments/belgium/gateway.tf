@@ -16,3 +16,13 @@ module "gateway" {
 
   gcp_shared_infra_project_id = var.shared_infra_gcp_project_id
 }
+
+// TODO: Remove once the security audit is over
+resource "google_project_iam_member" "temporary_auditors" {
+  // repeat for each auditor_uris
+  for_each = toset(var.temporary_auditor_iam_uris)
+
+  project = var.gcp_project_id
+  role    = "roles/viewer"
+  member  = each.value
+}
