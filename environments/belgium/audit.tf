@@ -74,6 +74,8 @@ resource "google_project_iam_custom_role" "auditor_additional_perms" {
   title   = "Security auditor"
   permissions = [
     "iam.serviceAccounts.list",
+    "compute.globalNetworkEndpointGroups.list",
+    "compute.networkEndpointGroups.list",
   ]
 }
 
