@@ -7,6 +7,9 @@ variable "alert_email_addresses" {
   type = list(string)
 }
 
+variable "gcp_billing_account_id" {}
+variable "gcp_billing_monthly_budget_usd" {}
+
 variable "gcp_shared_infra_project_id" {}
 variable "gcp_project_id" {}
 variable "gcp_region" {

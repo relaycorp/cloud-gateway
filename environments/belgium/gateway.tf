@@ -11,8 +11,10 @@ module "gateway" {
   mongodbatlas_project_id = var.mongodbatlas_project_id
   mongodbatlas_region     = "WESTERN_EUROPE"
 
-  alert_email_addresses = var.alert_email_addresses
-  sre_iam_uri           = var.sre_iam_uri
-
+  alert_email_addresses       = var.alert_email_addresses
+  sre_iam_uri                 = var.sre_iam_uri
   gcp_shared_infra_project_id = var.shared_infra_gcp_project_id
+
+  gcp_billing_monthly_budget_usd = 200
+  gcp_billing_account_id         = var.gcp_billing_account_id
 }

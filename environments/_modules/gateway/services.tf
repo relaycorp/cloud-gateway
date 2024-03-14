@@ -10,6 +10,7 @@ locals {
     "servicenetworking.googleapis.com",
     "redis.googleapis.com",
     "monitoring.googleapis.com",
+    "billingbudgets.googleapis.com",
   ]
 }
 
