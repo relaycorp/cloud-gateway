@@ -2,22 +2,22 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/hashicorp/google" {
-  version     = "5.12.0"
+  version     = "5.20.0"
   constraints = "~> 5.12"
   hashes = [
-    "h1:yhJP34vbX7JeSJ18SdYPRn4SvZnRiQ0UBYj6nO5i3io=",
-    "zh:1b5ee0b443de62e300a1efb4002d8838fcd268de51aed62b0b1ab0c0b0015f81",
-    "zh:52db2fbcad001915a5f8bc5c3e81b9f9431c38b4e3f44ef5b0be844f0c9daca4",
-    "zh:5ea6dcfe87889a135a0b5557a377a40c1bef48ce82add355aba16c20de1f3009",
-    "zh:642c2946ecff3eabbe6fea7a1eff1ad184e9c26b2455413273af8fc23eee13ed",
-    "zh:6c539d2f13d76481ee8dff386182b87650b7f9fd19da13df8e26f370fe7237e3",
-    "zh:719f555345c51f87e73b72c1db315282e788a893e697c423231ebd104ab55d0d",
-    "zh:a2bdbc77cce6a785ef35e13163d3b14c1aa1cac88d2afebbf6124c49afdbca6f",
-    "zh:cf51754d9afa22141160af5da3d13d0eb286b82b10c93058fe5557871e62a534",
-    "zh:d7f54e3eddac6819849e77e3901ed0b968cb65ed0f0158fa7eaea9ca56a62cb4",
-    "zh:e8c8740674d141589c9dbf62f26fe67aecf4090ff1de5f12a4489e9b29a7253b",
+    "h1:1A6/7vxNHz+9Htdkr0NF3cFFStT+kR3aC5Hh8y4fyVA=",
+    "zh:10197fce4ddf2be32717fb3a5992b45ee1a134f8c66207ba7a2d89339bcad17e",
+    "zh:428c22bc9ae637adaa3c99e7ec2f5df3828c1625cebfc0ef680e520abdaff820",
+    "zh:4474139669a13997abd3d8282dc00905a08c695895b1b3d09e5a87753be54a24",
+    "zh:4bcd7a09577303d71146899f70413a7376531c940015eb6bfa047df55778d2ef",
+    "zh:5c5083c8deae3093a63d9a7ff18844985e35f2108fca49a812be85f3ec8e7409",
+    "zh:72ab7bf2a7a1ae98bf1ed790cc3babcd6399db58aa2c9bcef005f9b709b8ad98",
+    "zh:95cf50e8aa4fe5495b983aca1478cd7909fafc92c0e1942b764343076f367e3f",
+    "zh:9efd8613897beee98c11befc1f8ebfea14b5a0e88b0fdd2f737a1a2acd5e2a2f",
+    "zh:b91ddced2f7916338e1f7d0fa003a15bb5700d8d4f389d906f2944334d67bbc2",
+    "zh:db0270eb90eda9ce98668afc517365d5876c81bb12f0375d6837d204231f6df5",
     "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
-    "zh:f6d4c7e2fd0f8bd55c58e11024ab359e5b88c48ebf7ad40848470344a0242fa8",
+    "zh:f58e490c192698ff8655081d467e57ee13558aa47f950f1d249318bf5cc93e5e",
   ]
 }
 
