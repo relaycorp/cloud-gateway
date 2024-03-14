@@ -46,6 +46,15 @@ resource "tfe_variable" "alert_email_addresses" {
   sensitive = false
 }
 
+resource "tfe_variable" "gcp_billing_account_id" {
+  variable_set_id = tfe_variable_set.environments.id
+
+  category  = "terraform"
+  key       = "gcp_billing_account_id"
+  value     = var.gcp_billing_account
+  sensitive = false
+}
+
 resource "tfe_variable" "gcp_shared_infra_project_id" {
   variable_set_id = tfe_variable_set.environments.id
 
