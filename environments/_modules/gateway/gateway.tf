@@ -20,10 +20,7 @@ module "gateway" {
   poweb_server_domain = google_dns_record_set.poweb.name
 
   cogrpc_server_domain             = google_dns_record_set.cogrpc.name
-
-  // Revert after testing https://github.com/relaycorp/relaynet-gateway-android/pull/732
-  cogrpc_server_max_instance_count = 1
-#  cogrpc_server_min_instance_count = 0 # https://github.com/relaycorp/cloud-gateway/issues/96
+  cogrpc_server_min_instance_count = 0 # https://github.com/relaycorp/cloud-gateway/issues/96
 
   mongodb_db       = local.gateway_db_name
   mongodb_password = random_password.mongodb_gateway_user_password.result
