@@ -20,7 +20,7 @@ module "gateway" {
   poweb_server_domain = google_dns_record_set.poweb.name
 
   cogrpc_server_domain             = google_dns_record_set.cogrpc.name
-  cogrpc_server_min_instance_count = 0 # https://github.com/relaycorp/cloud-gateway/issues/96
+  cogrpc_server_min_instance_count = 1 # TODO: Set to 0 to save costs
   cogrpc_server_max_instance_count = 1
 
   mongodb_db       = local.gateway_db_name
