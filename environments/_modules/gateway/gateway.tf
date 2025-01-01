@@ -15,9 +15,11 @@ module "gateway" {
   // See https://github.com/relaycorp/cloud-gateway/issues/64
   parcel_retention_days = 2
 
-  pohttp_server_domain = google_dns_record_set.pohttp.name
+  pohttp_server_domain             = google_dns_record_set.pohttp.name
+  pohttp_server_min_instance_count = 0
 
-  poweb_server_domain = google_dns_record_set.poweb.name
+  poweb_server_domain             = google_dns_record_set.poweb.name
+  poweb_server_min_instance_count = 0
 
   cogrpc_server_domain             = google_dns_record_set.cogrpc.name
   cogrpc_server_min_instance_count = 0 # https://github.com/relaycorp/cloud-gateway/issues/96
